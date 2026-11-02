@@ -462,3 +462,5 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 .card--standard .card__content .quick-add { margin-top: auto; padding-top: 12px; }
 /* Sale/saving badge */
 .card__badge .badge, .price__badge-sale { font-family: var(--el-sans); font-weight: 700; letter-spacing: 0; }
+
+/* sync: phone review fixes */
