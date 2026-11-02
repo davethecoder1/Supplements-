@@ -11,9 +11,7 @@
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
 
-    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
-      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    {%- endunless -%}
+    {%- comment -%} Brand fonts are self-hosted (snippets/el-fonts), so no connection to the Shopify font CDN is needed. {%- endcomment -%}
 
     {%- liquid
       assign el_title = page_title

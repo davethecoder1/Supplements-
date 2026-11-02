@@ -13,7 +13,7 @@
         {%- if img_m != blank -%}
           <source media="(max-width: 989px)" srcset="{{ img_m | image_url: width: 750 }} 750w, {{ img_m | image_url: width: 1200 }} 1200w" sizes="100vw">
         {%- endif -%}
-        {{ img_d | image_url: width: 2880 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '1200, 1800, 2400, 2880', sizes: '100vw', alt: '', class: 'el-hb__img' }}
+        {{ img_d | image_url: width: 2880 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 1800, 2400, 2880', sizes: '100vw', alt: '', class: 'el-hb__img' }}
       </picture>
     {%- else -%}
       <div class="el-hb__placeholder"></div>

@@ -513,3 +513,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 .el-show-mobile { display: none; }
 @media (max-width: 749px) { .el-card-sub .el-hide-mobile { display: none; } .el-card-sub .el-show-mobile { display: inline; } }
 @media (max-width: 749px) { .product-grid .el-card-meta { flex-direction: column; align-items: flex-start; } .product-grid .el-card-meta .el-card-sub { order: -1; } }
+
+/* Speed: let the browser skip rendering long homepage sections until they're near the screen.
+   The 3D scroll section is left out because it uses sticky positioning. */
+#MainContent[data-template="index"] > .shopify-section:nth-child(n+5):not([id$="__el-scroll-3d"]) { content-visibility: auto; contain-intrinsic-size: auto 700px; }
