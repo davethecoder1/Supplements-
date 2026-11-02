@@ -1,5 +1,8 @@
 {%- assign reviews = section.blocks | where: 'type', 'review' -%}
 {%- assign press = section.blocks | where: 'type', 'press' -%}
+{%- assign app_blocks = section.blocks | where: 'type', '@app' -%}
+{%- comment -%} Hide the whole section until there is something real to show. {%- endcomment -%}
+{%- unless product == blank and reviews.size == 0 and app_blocks.size == 0 and press.size == 0 -%}
 <section class="el el-section" id="reviews">
   <div class="el-container">
     <div class="el-head">
@@ -10,6 +13,9 @@
       {%- if section.settings.summary != blank -%}<span style="font-family: var(--el-mono); font-size: 13px;" class="el-muted">{{ section.settings.summary }}</span>{%- endif -%}
     </div>
     {%- for block in section.blocks -%}{%- if block.type == '@app' -%}{% render block %}{%- endif -%}{%- endfor -%}
+    {%- if product != blank and app_blocks.size == 0 -%}
+      <div class="jdgm-widget jdgm-review-widget jdgm-outside-widget" data-id="{{ product.id }}" data-product-title="{{ product.title | escape }}">{{ product.metafields.judgeme.widget }}</div>
+    {%- endif -%}
     <div class="el-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
       {%- for block in reviews -%}
         <figure class="el-card el-review" {{ block.shopify_attributes }}>
@@ -28,6 +34,7 @@
     {%- endif -%}
   </div>
 </section>
+{%- endunless -%}
 {% schema %}
 {
   "name": "Electrolife reviews",

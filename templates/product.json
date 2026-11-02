@@ -61,10 +61,17 @@
             "text": "Free next-day UK delivery \u00b7 Secure checkout",
             "text_style": "subtitle"
           }
+        },
+        "rating": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"jdgm-widget jdgm-preview-badge\" data-id=\"{{ product.id }}\" data-template=\"product\">{{ product.metafields.judgeme.badge }}</div>"
+          }
         }
       },
       "block_order": [
         "title",
+        "rating",
         "subtitle",
         "price",
         "stats",
