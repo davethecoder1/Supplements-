@@ -1,0 +1,26 @@
+{%- comment -%}temporary sync test{%- endcomment -%}
+{%- capture return_policy -%}
+{
+  "@type": "MerchantReturnPolicy",
+  "applicableCountry": "GB",
+  "returnPolicyCountry": "GB",
+  "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+  "merchantReturnDays": 14,
+  "returnMethod": "https://schema.org/ReturnByMail",
+  "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility",
+  "itemCondition": "https://schema.org/NewCondition",
+  "merchantReturnLink": {{ root | append: '/pages/returns-and-refunds' | json }}
+}
+{%- endcapture -%}
+{%- capture shipping -%}
+{
+  "@type": "OfferShippingDetails",
+  "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": {{ currency | json }} },
+  "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "GB" },
+  "deliveryTime": {
+    "@type": "ShippingDeliveryTime",
+    "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY" },
+    "transitTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 2, "unitCode": "DAY" }
+  }
+}
+{%- endcapture -%}
