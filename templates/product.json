@@ -87,6 +87,12 @@
           "settings": {
             "custom_liquid": "{%- render 'el-product-info', product: product -%}"
           }
+        },
+        "sticky": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- render 'el-sticky-atc', product: product, section_id: section.id -%}"
+          }
         }
       },
       "block_order": [
@@ -101,7 +107,8 @@
         "buy_buttons",
         "trust",
         "description",
-        "info"
+        "info",
+        "sticky"
       ],
       "settings": {
         "enable_sticky_info": true,

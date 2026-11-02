@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "logo_width": 90,
+    "logo_width": 170,
     "type_header_font": "assistant_n4",
     "type_body_font": "assistant_n4",
     "page_width": 1400,
@@ -111,6 +111,8 @@
           "shadow": "#0d1b1e"
         }
       }
-    }
+    },
+    "logo": "shopify://shop_images/electrolife-logo.png",
+    "favicon": "shopify://shop_images/electrolife-favicon.png"
   }
 }

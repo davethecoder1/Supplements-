@@ -1,0 +1,59 @@
+{%- comment -%}
+  Mobile sticky "Add to basket" bar. Appears once the main Add to basket button scrolls out of view.
+  It clicks the real button, so the selected flavour, pack and subscription option are always respected.
+  Usage (inside main-product): {% render 'el-sticky-atc', product: product, section_id: section.id %}
+{%- endcomment -%}
+<div class="el-satc" id="el-satc-{{ section_id }}" aria-hidden="true" hidden>
+  <div class="el-satc__info">
+    <span class="el-satc__title">{{ product.title | remove: 'Electrolife ' | escape }}</span>
+    <span class="el-satc__price" data-satc-price>{{ product.selected_or_first_available_variant.price | money }}</span>
+  </div>
+  <button type="button" class="el-btn el-btn--charge el-satc__btn" data-satc-btn tabindex="-1">Add to basket</button>
+</div>
+<style>
+  .el-satc { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; align-items: center; gap: 12px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: #000; color: #fff; box-shadow: 0 -8px 24px rgba(0,0,0,.18); transform: translateY(110%); transition: transform .25s ease; }
+  .el-satc.is-visible { transform: none; }
+  .el-satc__info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+  .el-satc__title { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .el-satc__price { font-family: var(--el-mono); font-size: 13px; color: rgba(255,255,255,.75); }
+  .el-satc__btn { min-height: 48px; padding: 0 22px; flex: none; }
+  .el-satc__btn[disabled] { opacity: .5; }
+  @media (min-width: 750px) { .el-satc { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .el-satc { transition: none; } }
+</style>
+<script>
+  (function () {
+    var bar = document.getElementById('el-satc-{{ section_id }}');
+    var form = document.getElementById('product-form-{{ section_id }}');
+    var real = form && form.querySelector('[name="add"]');
+    if (!bar || !real || !('IntersectionObserver' in window)) return;
+    bar.hidden = false;
+    var btn = bar.querySelector('[data-satc-btn]');
+    var price = bar.querySelector('[data-satc-price]');
+    var priceSrc = document.getElementById('price-{{ section_id }}');
+
+    function sync() {
+      btn.disabled = real.disabled;
+      var label = real.querySelector('span');
+      btn.textContent = real.disabled && label ? label.textContent.trim() : 'Add to basket';
+      if (priceSrc) {
+        var p = priceSrc.querySelector('.price-item--sale, .price-item--regular');
+        if (p && p.textContent.trim()) price.textContent = p.textContent.trim();
+      }
+    }
+    function show(on) {
+      bar.classList.toggle('is-visible', on);
+      bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+      btn.tabIndex = on ? 0 : -1;
+    }
+    new IntersectionObserver(function (entries) {
+      var e = entries[0];
+      show(!e.isIntersecting && e.boundingClientRect.top < 0);
+    }).observe(real);
+
+    btn.addEventListener('click', function () { real.click(); });
+    new MutationObserver(sync).observe(real, { attributes: true, childList: true, subtree: true });
+    if (priceSrc) new MutationObserver(sync).observe(priceSrc, { childList: true, subtree: true, characterData: true });
+    sync();
+  })();
+</script>
