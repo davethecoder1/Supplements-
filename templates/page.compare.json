@@ -16,18 +16,10 @@
         "heading": "Electrolife\nvs the rest.",
         "intro": "<p>An honest look at how a stick of Electrolife compares with a typical sports drink and a typical electrolyte tablet, including where they come out on top.</p>",
         "button_label": ""
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "table": {
       "type": "el-comparison",
-      "settings": {
-        "heading": "Per 500 ml serving",
-        "col1": "Electrolife",
-        "col2": "Typical sports drink",
-        "col3": "Typical electrolyte tablet"
-      },
       "blocks": {
         "row-0": {
           "type": "row",
@@ -111,16 +103,16 @@
         "row-5",
         "row-6",
         "row-7"
-      ]
+      ],
+      "settings": {
+        "heading": "Per 500 ml serving",
+        "col1": "Electrolife",
+        "col2": "Typical sports drink",
+        "col3": "Typical electrolyte tablet"
+      }
     },
     "detail": {
       "type": "el-science",
-      "settings": {
-        "hide_hero": true,
-        "cta_heading": "Ready to try it?",
-        "button_label": "Shop Hydration",
-        "button_link": "/products/electrolife-hydration"
-      },
       "blocks": {
         "chapter-0": {
           "type": "chapter",
@@ -162,7 +154,13 @@
         "chapter-1",
         "chapter-2",
         "sources"
-      ]
+      ],
+      "settings": {
+        "hide_hero": true,
+        "cta_heading": "Ready to try it?",
+        "button_label": "Shop Hydration",
+        "button_link": "/products/electrolife-hydration"
+      }
     }
   },
   "order": [
