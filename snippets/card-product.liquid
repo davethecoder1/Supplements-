@@ -161,7 +161,8 @@
                 class="full-unstyled-link"
                 aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }}{% if card_product.available == false or card_product.compare_at_price > card_product.price %} Badge-{{ section_id }}-{{ card_product.id }}{% endif %}"
               >
-                {{ card_product.title | escape }}
+                {%- assign el_short = card_product.title | remove_first: 'Electrolife ' -%}
+                {%- if el_short != card_product.title -%}<span class="visually-hidden">Electrolife </span>{{ el_short | escape }}{%- else -%}{{ card_product.title | escape }}{%- endif -%}
               </a>
             </h3>
             <div class="card-information">

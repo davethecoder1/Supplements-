@@ -495,3 +495,21 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 .el-rm__btn { align-self: flex-start; background: none; border: 0; padding: 4px 0; margin: -4px 0 0; min-height: 32px; font: inherit; font-size: 15px; font-weight: 700; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .el-rm__btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 4px; }
 .product__description + .el-rm__btn { margin: -8px 0 8px; }
+
+/* Product cards: line everything up, not just the buttons.
+   Titles reserve two lines, the flavour/subscribe row sits at the bottom, labels don't wrap. */
+.product-grid .card__information { display: flex; flex-direction: column; }
+.product-grid .card__information > .card-information { flex: 1 1 auto; display: flex; flex-direction: column; }
+.product-grid .card-information > .el-card-meta { margin-top: auto; padding-top: 8px; }
+.product-grid .card__content .card__heading { line-height: 1.2; min-height: 2.4em; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.product-grid .quick-add__submit { white-space: nowrap; }
+.product-grid .el-card-sub { white-space: nowrap; }
+@media (max-width: 749px) {
+  .product-grid .card__content .card__heading { font-size: 16px; }
+  .product-grid .card__content .quick-add__submit { font-size: 14px; padding: 0 8px; }
+  .product-grid .el-card-sub { font-size: 11px; padding: 4px 8px; }
+  .product-grid .el-card-meta { gap: 6px; }
+}
+.el-show-mobile { display: none; }
+@media (max-width: 749px) { .el-card-sub .el-hide-mobile { display: none; } .el-card-sub .el-show-mobile { display: inline; } }
+@media (max-width: 749px) { .product-grid .el-card-meta { flex-direction: column; align-items: flex-start; } .product-grid .el-card-meta .el-card-sub { order: -1; } }

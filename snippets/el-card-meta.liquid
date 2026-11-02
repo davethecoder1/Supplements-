@@ -25,7 +25,8 @@
     {%- endif -%}
     {%- if card_product.selling_plan_groups.size > 0 -%}
       {%- assign el_adj = card_product.selling_plan_groups.first.selling_plans.first.price_adjustments.first -%}
-      <span class="el-card-sub">Subscribe{% if el_adj.value_type == 'percentage' %} &amp; save {{ el_adj.value }}%{% endif %}</span>
+      {%- capture el_save -%}{% if el_adj.value_type == 'percentage' %} &amp; save {{ el_adj.value }}%{% endif %}{%- endcapture -%}
+      <span class="el-card-sub"><span class="visually-hidden">Subscribe{{ el_save }}</span><span aria-hidden="true"><span class="el-hide-mobile">Subscribe</span><span class="el-show-mobile">Sub</span>{{ el_save }}</span></span>
     {%- endif -%}
   </div>
 {%- endif -%}
