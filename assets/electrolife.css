@@ -34,7 +34,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4 { font-family: var(--el-display); font-w
 .el-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 .el-section { padding: 96px 0; }
 .el-section--tight { padding: 48px 0; }
-.el-label { font-family: var(--el-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--el-saline); margin: 0; }
+.el-label { font-family: var(--el-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--el-saline); margin: 0; }
 .el-h1 { font-family: var(--el-display); font-weight: 600; font-size: clamp(44px, 6vw, 80px); line-height: 0.95; letter-spacing: -0.03em; margin: 0; }
 .el-h2 { font-family: var(--el-display); font-weight: 600; font-size: clamp(32px, 4vw, 48px); line-height: 1.05; letter-spacing: -0.02em; margin: 0; }
 .el-h3 { font-family: var(--el-display); font-weight: 600; font-size: 24px; line-height: 1.2; letter-spacing: -0.01em; margin: 0; }
@@ -45,7 +45,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4 { font-family: var(--el-display); font-w
 .el-split > * { flex: 1 1 440px; min-width: 0; }
 .el-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
 .el-card { background: var(--el-surface); border: 1px solid var(--el-line); border-radius: var(--el-radius-md); padding: 28px; }
-.el-tag { display: inline-flex; align-items: center; align-self: flex-start; background: var(--el-charge); color: var(--el-ink); border-radius: var(--el-radius-pill); padding: 6px 14px; font-family: var(--el-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.el-tag { display: inline-flex; align-items: center; align-self: flex-start; background: var(--el-charge); color: var(--el-ink); border-radius: var(--el-radius-pill); padding: 6px 14px; font-family: var(--el-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
 .el-tag--data { font-size: 13px; letter-spacing: 0; text-transform: none; padding: 8px 14px; }
 .el-btns { display: flex; flex-wrap: wrap; gap: 12px; }
 .el-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: var(--el-radius-md); background: var(--el-ink); color: #fff; border: 1px solid var(--el-ink); font: 600 16px/1 var(--el-sans); text-decoration: none; cursor: pointer; }
@@ -69,7 +69,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4 { font-family: var(--el-display); font-w
 .el-hero__price { position: absolute; top: 24px; right: 24px; z-index: 1; }
 .el-box { width: 230px; height: 330px; background: var(--el-ink); border-radius: var(--el-radius-md); padding: 24px; display: flex; flex-direction: column; justify-content: space-between; color: var(--el-ground); }
 .el-box__name { font-family: var(--el-display); font-weight: 600; font-size: 34px; line-height: 1; letter-spacing: -0.02em; }
-.el-box__bar { background: var(--el-charge); color: var(--el-ink); border-radius: var(--el-radius-sm); padding: 8px 10px; font-family: var(--el-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.el-box__bar { background: var(--el-charge); color: var(--el-ink); border-radius: var(--el-radius-sm); padding: 8px 10px; font-family: var(--el-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
 .el-rating { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--el-ink-muted); }
 .el-rating svg { width: 16px; height: 16px; fill: var(--el-saline); }
 
@@ -106,7 +106,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4 { font-family: var(--el-display); font-w
 .el-compare { overflow-x: auto; padding: 0; }
 .el-compare table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 15px; }
 .el-compare caption { text-align: left; padding: 28px 28px 8px; font-family: var(--el-display); font-weight: 600; font-size: 28px; letter-spacing: -0.01em; }
-.el-compare thead th { padding: 16px; font-family: var(--el-mono); font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--el-ink-muted); }
+.el-compare thead th { padding: 16px; font-family: var(--el-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--el-ink-muted); }
 .el-compare thead th.is-us { background: var(--el-charge); color: var(--el-ink); }
 .el-compare tbody tr { border-top: 1px solid var(--el-line); }
 .el-compare tbody th { text-align: left; padding: 16px 28px; font-weight: 500; }
@@ -166,7 +166,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4 { font-family: var(--el-display); font-w
 /* Quiz */
 .el-quiz { max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; display: flex; flex-direction: column; gap: 32px; }
 .el-progress { display: flex; flex-direction: column; gap: 10px; }
-.el-progress__meta { display: flex; justify-content: space-between; font-family: var(--el-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--el-ink-muted); }
+.el-progress__meta { display: flex; justify-content: space-between; font-family: var(--el-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--el-ink-muted); }
 .el-progress__track { height: 6px; background: var(--el-line); border-radius: var(--el-radius-pill); overflow: hidden; }
 .el-progress__bar { height: 6px; background: var(--el-saline); border-radius: var(--el-radius-pill); width: 0; transition: width .3s ease; }
 .el-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
@@ -235,3 +235,14 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 /* Quiz: keep hidden steps hidden (layout classes set display) */
 .el-quiz [hidden] { display: none !important; }
 .el-quiz .el-result { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
+
+/* ---- Accessibility pass ---- */
+/* Visible keyboard focus on dark backgrounds (black outline disappears on black) */
+.el-hb :focus-visible, .el-s3d :focus-visible, .el-sci__hero :focus-visible, .el-sci__calc :focus-visible,
+.el-goal--dark:focus-visible, .footer :focus-visible, .color-scheme-3 :focus-visible, .announcement-bar :focus-visible {
+  outline-color: var(--el-charge);
+}
+.el-goal:focus-visible { outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .el-goal, .el-goal:hover { transition: none; transform: none; }
+}

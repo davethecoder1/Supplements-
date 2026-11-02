@@ -93,7 +93,7 @@
 .f--top { transform: rotateX(90deg) translateZ(calc(var(--h) / 2)); }
 .f--bottom { transform: rotateX(-90deg) translateZ(calc(var(--h) / 2)); }
 .f__top { font-family: var(--el-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #aaa; }
-.f__word { font-family: var(--el-display); font-weight: 900; font-size: 60px; line-height: .86; letter-spacing: -0.035em; margin-top: 28px; color: #fff; }
+.f__word { font-family: var(--el-display); font-weight: 800; font-size: 60px; line-height: .86; letter-spacing: -0.035em; margin-top: 28px; color: #fff; }
 .f__word--sm { font-size: 34px; margin: 0; }
 .f__sub { font-family: var(--el-display); font-weight: 800; font-size: 24px; color: var(--el-charge); margin-top: 10px; letter-spacing: -0.02em; }
 .f__band { margin-top: auto; height: 46px; border-radius: 6px; background: var(--band); display: flex; align-items: center; padding: 0 14px; transition: background .5s; }
@@ -110,6 +110,7 @@
 }
 
 @media (max-width: 989px) {
+  .el-s3d { height: calc(var(--steps) * 70vh + 100vh); }
   .el-s3d__grid { grid-template-columns: 1fr; gap: 0; height: 100%; grid-template-rows: 1fr auto; padding-top: 72px; padding-bottom: 32px; }
   .el-s3d__stage { order: -1; height: auto; min-height: 0; --s3d-scale: .72; }
   .el-s3d__steps { min-height: 210px; }

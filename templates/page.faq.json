@@ -12,7 +12,8 @@
     "faq": {
       "type": "el-faq",
       "settings": {
-        "heading": "Questions, answered."
+        "heading": "Questions, answered.",
+        "heading_tag": "h1"
       },
       "blocks": {
         "q-0": {
