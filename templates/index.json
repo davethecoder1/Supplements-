@@ -256,7 +256,7 @@
         "sub_perk-1": {
           "type": "sub_perk",
           "settings": {
-            "text": "Choose your delivery schedule at checkout"
+            "text": "Delivery schedule shown before you subscribe"
           }
         },
         "sub_perk-2": {
