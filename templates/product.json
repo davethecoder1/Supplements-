@@ -97,7 +97,7 @@
           "type": "row",
           "settings": {
             "name": "Energy",
-            "amount": "[X] kJ / [X] kcal"
+            "amount": "20 kJ / 5 kcal"
           }
         },
         "row-1": {
