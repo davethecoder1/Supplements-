@@ -273,6 +273,13 @@
         "g2",
         "g3"
       ]
+    },
+    "reads": {
+      "type": "el-collection-reads",
+      "settings": {
+        "heading": "Read up.",
+        "blog": "learn"
+      }
     }
   },
   "order": [
@@ -283,6 +290,7 @@
     "subscribe",
     "quiz",
     "other-goals",
+    "reads",
     "faq"
   ]
 }
