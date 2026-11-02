@@ -1,20 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
         "title": {
-          "type": "title"
+          "type": "title",
+          "settings": {}
         },
         "price": {
-          "type": "price"
+          "type": "price",
+          "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -24,7 +28,8 @@
           }
         },
         "quantity_selector": {
-          "type": "quantity_selector"
+          "type": "quantity_selector",
+          "settings": {}
         },
         "buy_buttons": {
           "type": "buy_buttons",
@@ -34,70 +39,164 @@
           }
         },
         "description": {
-          "type": "description"
+          "type": "description",
+          "settings": {}
         },
-        "share": {
-          "type": "share",
+        "subtitle": {
+          "type": "text",
           "settings": {
-            "share_label": "Share"
+            "text": "High-sodium electrolyte drink mix. 30 single-serve sticks.",
+            "text_style": "body"
+          }
+        },
+        "stats": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"el-stats\"><div><strong>1,000</strong><span>mg sodium</span></div><div><strong>200</strong><span>mg potassium</span></div><div><strong>60</strong><span>mg magnesium</span></div><div><strong>0 g</strong><span>sugar</span></div></div>"
+          }
+        },
+        "trust": {
+          "type": "text",
+          "settings": {
+            "text": "Free next-day UK delivery · Secure checkout",
+            "text_style": "subtitle"
           }
         }
       },
       "block_order": [
-        "vendor",
         "title",
+        "subtitle",
         "price",
+        "stats",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "description",
-        "share"
+        "trust",
+        "description"
       ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "media_position": "left",
-        "gallery_layout": "stacked",
         "media_size": "large",
         "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "image_zoom": "lightbox",
+        "media_fit": "cover",
+        "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
       }
     },
-    "disclosures": {
-      "type": "disclosures",
-      "settings": {
-        "padding_top": 36,
-        "padding_bottom": 0
-      }
+    "el-product-details": {
+      "type": "el-product-details",
+      "blocks": {
+        "row-0": {
+          "type": "row",
+          "settings": {
+            "name": "Energy",
+            "amount": "[X] kJ / [X] kcal"
+          }
+        },
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "name": "Sugars",
+            "amount": "0 g"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "name": "Sodium",
+            "amount": "1,000 mg"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "name": "Potassium",
+            "amount": "200 mg",
+            "nrv": "10%"
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "name": "Magnesium",
+            "amount": "60 mg",
+            "nrv": "16%"
+          }
+        }
+      },
+      "block_order": [
+        "row-0",
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4"
+      ],
+      "settings": {}
     },
-    "related-products": {
-      "type": "related-products",
-      "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 28
-      }
+    "el-reviews": {
+      "type": "el-reviews",
+      "settings": {}
+    },
+    "el-faq": {
+      "type": "el-faq",
+      "blocks": {
+        "question-0": {
+          "type": "question",
+          "settings": {
+            "question": "How many sticks should I use?",
+            "answer": "<p>One stick in 500 ml of water per session where you sweat heavily. Take the quiz for a suggestion based on your training.</p>"
+          }
+        },
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "When should I drink it?",
+            "answer": "<p>Before, during or after training. Many people sip one during sessions over an hour or in hot conditions.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Is it suitable for vegans?",
+            "answer": "<p>Yes. Full ingredients and allergen information are on the product page.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I skip or cancel my subscription?",
+            "answer": "<p>Yes. Pause, skip, swap flavour or cancel any time from your account.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is delivery?",
+            "answer": "<p>Free next-day delivery across the UK on orders placed before the daily cut-off.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-0",
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "disclosures",
-    "related-products"
+    "el-product-details",
+    "el-reviews",
+    "el-faq"
   ]
 }

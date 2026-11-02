@@ -1,36 +1,223 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
-      "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false,
-        "color_scheme": "scheme-1"
-      }
+    "hero": {
+      "type": "el-collection-hero",
+      "blocks": {
+        "c0": {
+          "type": "chip",
+          "settings": {
+            "icon": "truck",
+            "text": "Free next-day UK delivery"
+          }
+        },
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "icon": "repeat",
+            "text": "Subscribe & save 25%"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "icon": "no-sugar",
+            "text": "Zero sugar"
+          }
+        }
+      },
+      "block_order": [
+        "c0",
+        "c1",
+        "c2"
+      ],
+      "settings": {}
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
-        "products_per_page": 16,
-        "columns_desktop": 4,
+        "products_per_page": 12,
+        "columns_desktop": 3,
         "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "image_shape": "default",
-        "show_secondary_image": false,
+        "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
-        "quick_add": "none",
-        "enable_filtering": true,
+        "quick_add": "standard",
+        "enable_filtering": false,
         "filter_type": "horizontal",
-        "enable_sorting": true,
-        "columns_mobile": "2",
+        "enable_sorting": false,
+        "columns_mobile": "1",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 48
       }
+    },
+    "trust": {
+      "type": "el-trust-strip",
+      "settings": {},
+      "blocks": {
+        "item-0": {
+          "type": "item",
+          "settings": {
+            "icon": "drop",
+            "title": "1,000 mg sodium",
+            "text": "Per stick, on the label"
+          }
+        },
+        "item-1": {
+          "type": "item",
+          "settings": {
+            "icon": "no-sugar",
+            "title": "Zero sugar",
+            "text": "No fillers, no colours"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Vegan",
+            "text": "Plant-based ingredients"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free next-day delivery",
+            "text": "Across the UK"
+          }
+        }
+      },
+      "block_order": [
+        "item-0",
+        "item-1",
+        "item-2",
+        "item-3"
+      ]
+    },
+    "subscribe": {
+      "type": "el-subscribe",
+      "settings": {
+        "product": "electrolife-hydration"
+      },
+      "blocks": {
+        "sub_perk-0": {
+          "type": "sub_perk",
+          "settings": {
+            "text": "Save 25% on every box"
+          }
+        },
+        "sub_perk-1": {
+          "type": "sub_perk",
+          "settings": {
+            "text": "Free next-day UK delivery"
+          }
+        },
+        "sub_perk-2": {
+          "type": "sub_perk",
+          "settings": {
+            "text": "Skip, swap flavour or cancel any time"
+          }
+        },
+        "once_perk-3": {
+          "type": "once_perk",
+          "settings": {
+            "text": "30 sticks, one flavour"
+          }
+        },
+        "once_perk-4": {
+          "type": "once_perk",
+          "settings": {
+            "text": "Free next-day UK delivery"
+          }
+        },
+        "once_perk-5": {
+          "type": "once_perk",
+          "settings": {
+            "text": "Switch to subscribe any time"
+          }
+        }
+      },
+      "block_order": [
+        "sub_perk-0",
+        "sub_perk-1",
+        "sub_perk-2",
+        "once_perk-3",
+        "once_perk-4",
+        "once_perk-5"
+      ]
+    },
+    "quiz": {
+      "type": "el-quiz-cta",
+      "settings": {
+        "link": "/pages/hydration-quiz"
+      }
+    },
+    "faq": {
+      "type": "el-faq",
+      "settings": {},
+      "blocks": {
+        "question-0": {
+          "type": "question",
+          "settings": {
+            "question": "How many sticks should I use?",
+            "answer": "<p>One stick in 500 ml of water per session where you sweat heavily. Take the quiz for a suggestion based on your training.</p>"
+          }
+        },
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "When should I drink it?",
+            "answer": "<p>Before, during or after training. Many people sip one during sessions over an hour or in hot conditions.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Is it suitable for vegans?",
+            "answer": "<p>Yes. Full ingredients and allergen information are on the product page.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I skip or cancel my subscription?",
+            "answer": "<p>Yes. Pause, skip, swap flavour or cancel any time from your account.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is delivery?",
+            "answer": "<p>Free next-day delivery across the UK on orders placed before the daily cut-off.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-0",
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4"
+      ]
     }
   },
   "order": [
-    "banner",
-    "product-grid"
+    "hero",
+    "product-grid",
+    "trust",
+    "subscribe",
+    "quiz",
+    "faq"
   ]
 }

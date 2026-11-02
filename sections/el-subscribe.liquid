@@ -1,0 +1,76 @@
+{%- liquid
+  assign p = section.settings.product
+  assign keep = 100 | minus: section.settings.discount
+  if p != blank
+    assign once_price = p.price
+    assign sub_price = p.price | times: keep | divided_by: 100.0 | round
+    assign once_stick = once_price | times: 1.0 | divided_by: section.settings.sticks | round
+    assign sub_stick = sub_price | times: 1.0 | divided_by: section.settings.sticks | round
+  endif
+-%}
+<section class="el el-section el-sub">
+  <div class="el-container el-split">
+    <div class="el-stack">
+      <span class="el-tag">Subscribe &amp; save {{ section.settings.discount }}%</span>
+      <h2 class="el-h2">{{ section.settings.heading }}</h2>
+      <div class="el-lead">{{ section.settings.text }}</div>
+    </div>
+    <div class="el-sub__card" data-el-sub data-el-mode="sub">
+      <div class="el-toggle" role="group" aria-label="Purchase type">
+        <button type="button" data-el-set="sub" aria-pressed="true">Subscribe · save {{ section.settings.discount }}%</button>
+        <button type="button" data-el-set="once" aria-pressed="false">One-off</button>
+      </div>
+      {%- if p != blank -%}
+        <div class="el-sub__price">
+          <span class="el-sub__amount" data-el-show="sub">{{ sub_price | money }} <span class="el-muted" style="font-size: 16px; letter-spacing: 0;">per box</span></span>
+          <span class="el-sub__amount" data-el-show="once">{{ once_price | money }}</span>
+          <span class="el-tag el-tag--data" data-el-show="sub">{{ sub_stick | money }} per stick</span>
+          <span class="el-tag el-tag--data" data-el-show="once">{{ once_stick | money }} per stick</span>
+        </div>
+      {%- endif -%}
+      <ul class="el-list" data-el-show="sub">
+        {%- for block in section.blocks -%}{%- if block.type == 'sub_perk' -%}<li class="el-check" {{ block.shopify_attributes }}>{% render 'el-check' %}<span>{{ block.settings.text }}</span></li>{%- endif -%}{%- endfor -%}
+      </ul>
+      <ul class="el-list" data-el-show="once">
+        {%- for block in section.blocks -%}{%- if block.type == 'once_perk' -%}<li class="el-check" {{ block.shopify_attributes }}>{% render 'el-check' %}<span>{{ block.settings.text }}</span></li>{%- endif -%}{%- endfor -%}
+      </ul>
+      <a class="el-btn el-btn--block" href="{{ p.url | default: '/collections/all' }}" data-el-show="sub">Start my subscription</a>
+      <a class="el-btn el-btn--block" href="{{ p.url | default: '/collections/all' }}" data-el-show="once">Shop one-off</a>
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelectorAll('[data-el-sub]').forEach(function (card) {
+    card.querySelectorAll('[data-el-set]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        card.dataset.elMode = btn.dataset.elSet;
+        card.querySelectorAll('[data-el-set]').forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      });
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "Electrolife subscribe",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Never run out mid-block." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>A box every 30 days, delivered before you need it. Change flavour, skip or cancel from your account.</p>" },
+    { "type": "product", "id": "product", "label": "Product" },
+    { "type": "range", "id": "discount", "label": "Subscription discount", "min": 5, "max": 50, "step": 5, "unit": "%", "default": 25, "info": "Must match your subscription app" },
+    { "type": "number", "id": "sticks", "label": "Sticks per box", "default": 30 }
+  ],
+  "blocks": [
+    { "type": "sub_perk", "name": "Subscription perk", "settings": [{ "type": "text", "id": "text", "label": "Text" }] },
+    { "type": "once_perk", "name": "One-off perk", "settings": [{ "type": "text", "id": "text", "label": "Text" }] }
+  ],
+  "presets": [{ "name": "Electrolife subscribe", "blocks": [
+    { "type": "sub_perk", "settings": { "text": "Save 25% on every box" } },
+    { "type": "sub_perk", "settings": { "text": "Free next-day UK delivery" } },
+    { "type": "sub_perk", "settings": { "text": "Skip, swap flavour or cancel any time" } },
+    { "type": "once_perk", "settings": { "text": "30 sticks, one flavour" } },
+    { "type": "once_perk", "settings": { "text": "Free next-day UK delivery" } },
+    { "type": "once_perk", "settings": { "text": "Switch to subscribe any time" } }
+  ] }]
+}
+{% endschema %}

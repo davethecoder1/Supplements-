@@ -1,0 +1,46 @@
+<section class="el el-section" id="faq">
+  <div class="el-container el-faq">
+    <h2 class="el-h2">{{ section.settings.heading }}</h2>
+    <div class="el-faq__list">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="el-faq__answer">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- if section.blocks.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in section.blocks -%}
+    { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Electrolife FAQ",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions" },
+    { "type": "checkbox", "id": "open_first", "label": "Open first question", "default": true }
+  ],
+  "blocks": [{ "type": "question", "name": "Question", "settings": [
+    { "type": "text", "id": "question", "label": "Question" },
+    { "type": "richtext", "id": "answer", "label": "Answer" } ] }],
+  "presets": [{ "name": "Electrolife FAQ", "blocks": [
+    { "type": "question", "settings": { "question": "How many sticks should I use?", "answer": "<p>One stick in 500 ml of water per session where you sweat heavily. Take the quiz for a suggestion based on your training.</p>" } },
+    { "type": "question", "settings": { "question": "When should I drink it?", "answer": "<p>Before, during or after training. Many people sip one during sessions over an hour or in hot conditions.</p>" } },
+    { "type": "question", "settings": { "question": "Is it suitable for vegans?", "answer": "<p>Yes. Full ingredients and allergen information are on the product page.</p>" } },
+    { "type": "question", "settings": { "question": "Can I skip or cancel my subscription?", "answer": "<p>Yes. Pause, skip, swap flavour or cancel any time from your account.</p>" } },
+    { "type": "question", "settings": { "question": "How fast is delivery?", "answer": "<p>Free next-day delivery across the UK on orders placed before the daily cut-off.</p>" } }
+  ] }]
+}
+{% endschema %}

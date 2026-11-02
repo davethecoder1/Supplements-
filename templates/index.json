@@ -1,75 +1,373 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "el-hero": {
+      "type": "el-hero",
+      "settings": {
+        "product": "electrolife-hydration",
+        "button2_link": "/pages/hydration-quiz"
+      }
+    },
+    "el-trust-strip": {
+      "type": "el-trust-strip",
+      "settings": {},
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "item-0": {
+          "type": "item",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "icon": "drop",
+            "title": "1,000 mg sodium",
+            "text": "Per stick, on the label"
           }
         },
-        "button": {
-          "type": "buttons",
+        "item-1": {
+          "type": "item",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon": "no-sugar",
+            "title": "Zero sugar",
+            "text": "No fillers, no colours"
+          }
+        },
+        "item-2": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Vegan",
+            "text": "Plant-based ingredients"
+          }
+        },
+        "item-3": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free next-day delivery",
+            "text": "Across the UK"
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
-      ],
+        "item-0",
+        "item-1",
+        "item-2",
+        "item-3"
+      ]
+    },
+    "el-nutrition": {
+      "type": "el-nutrition",
+      "settings": {},
+      "blocks": {
+        "nutrient-0": {
+          "type": "nutrient",
+          "settings": {
+            "name": "Sodium",
+            "value": "1,000 mg"
+          }
+        },
+        "nutrient-1": {
+          "type": "nutrient",
+          "settings": {
+            "name": "Potassium",
+            "value": "200 mg"
+          }
+        },
+        "nutrient-2": {
+          "type": "nutrient",
+          "settings": {
+            "name": "Magnesium",
+            "value": "60 mg"
+          }
+        },
+        "nutrient-3": {
+          "type": "nutrient",
+          "settings": {
+            "name": "Sugar",
+            "value": "0 g"
+          }
+        },
+        "claim-4": {
+          "type": "claim",
+          "settings": {
+            "text": "Potassium contributes to normal muscle function."
+          }
+        },
+        "claim-5": {
+          "type": "claim",
+          "settings": {
+            "text": "Magnesium contributes to a reduction of tiredness and fatigue."
+          }
+        },
+        "claim-6": {
+          "type": "claim",
+          "settings": {
+            "text": "Mixes clear in 500 ml of water."
+          }
+        }
+      },
+      "block_order": [
+        "nutrient-0",
+        "nutrient-1",
+        "nutrient-2",
+        "nutrient-3",
+        "claim-4",
+        "claim-5",
+        "claim-6"
+      ]
+    },
+    "el-flavours": {
+      "type": "el-flavours",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "product": "electrolife-hydration"
+      },
+      "blocks": {
+        "flavour-0": {
+          "type": "flavour",
+          "settings": {
+            "name": "Citrus Salt",
+            "note": "Sharp lemon-lime with a salted finish.",
+            "swatch": "#E8CF4A"
+          }
+        },
+        "flavour-1": {
+          "type": "flavour",
+          "settings": {
+            "name": "Watermelon",
+            "note": "Light and fresh. Easy to drink in big volumes.",
+            "swatch": "#E86F6F"
+          }
+        },
+        "flavour-2": {
+          "type": "flavour",
+          "settings": {
+            "name": "Mixed Berry",
+            "note": "Rounder and sweeter, still zero sugar.",
+            "swatch": "#7E5BA6"
+          }
+        },
+        "flavour-3": {
+          "type": "flavour",
+          "settings": {
+            "name": "Pure",
+            "note": "Unflavoured. Add it to anything.",
+            "swatch": "#D5DBD9"
+          }
+        }
+      },
+      "block_order": [
+        "flavour-0",
+        "flavour-1",
+        "flavour-2",
+        "flavour-3"
+      ]
+    },
+    "el-steps": {
+      "type": "el-steps",
+      "settings": {},
+      "blocks": {
+        "step-0": {
+          "type": "step",
+          "settings": {
+            "title": "Tear",
+            "text": "Single-serve sticks. In your gym bag, kit bag or back pocket."
+          }
+        },
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "title": "Pour",
+            "text": "Into 500 ml of cold water. Shake for five seconds."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "title": "Train",
+            "text": "Drink before, during or after sessions where you sweat."
+          }
+        }
+      },
+      "block_order": [
+        "step-0",
+        "step-1",
+        "step-2"
+      ]
+    },
+    "el-comparison": {
+      "type": "el-comparison",
+      "settings": {},
+      "blocks": {
+        "row-0": {
+          "type": "row",
+          "settings": {
+            "feature": "High sodium per serving",
+            "us": "Yes",
+            "them": "Usually lower",
+            "water": "No"
+          }
+        },
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "feature": "Zero sugar",
+            "us": "Yes",
+            "them": "Usually not",
+            "water": "Yes"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "feature": "Full dose on the label",
+            "us": "Yes",
+            "them": "Varies",
+            "water": "n/a"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "feature": "Fits in a pocket",
+            "us": "Yes",
+            "them": "No",
+            "water": "No"
+          }
+        }
+      },
+      "block_order": [
+        "row-0",
+        "row-1",
+        "row-2",
+        "row-3"
+      ]
+    },
+    "el-subscribe": {
+      "type": "el-subscribe",
+      "settings": {
+        "product": "electrolife-hydration"
+      },
+      "blocks": {
+        "sub_perk-0": {
+          "type": "sub_perk",
+          "settings": {
+            "text": "Save 25% on every box"
+          }
+        },
+        "sub_perk-1": {
+          "type": "sub_perk",
+          "settings": {
+            "text": "Free next-day UK delivery"
+          }
+        },
+        "sub_perk-2": {
+          "type": "sub_perk",
+          "settings": {
+            "text": "Skip, swap flavour or cancel any time"
+          }
+        },
+        "once_perk-3": {
+          "type": "once_perk",
+          "settings": {
+            "text": "30 sticks, one flavour"
+          }
+        },
+        "once_perk-4": {
+          "type": "once_perk",
+          "settings": {
+            "text": "Free next-day UK delivery"
+          }
+        },
+        "once_perk-5": {
+          "type": "once_perk",
+          "settings": {
+            "text": "Switch to subscribe any time"
+          }
+        }
+      },
+      "block_order": [
+        "sub_perk-0",
+        "sub_perk-1",
+        "sub_perk-2",
+        "once_perk-3",
+        "once_perk-4",
+        "once_perk-5"
+      ]
+    },
+    "el-reviews": {
+      "type": "el-reviews",
+      "settings": {}
+    },
+    "el-quiz-cta": {
+      "type": "el-quiz-cta",
+      "settings": {
+        "link": "/pages/hydration-quiz"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
-      }
+    "el-faq": {
+      "type": "el-faq",
+      "settings": {},
+      "blocks": {
+        "question-0": {
+          "type": "question",
+          "settings": {
+            "question": "How many sticks should I use?",
+            "answer": "<p>One stick in 500 ml of water per session where you sweat heavily. Take the quiz for a suggestion based on your training.</p>"
+          }
+        },
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "question": "When should I drink it?",
+            "answer": "<p>Before, during or after training. Many people sip one during sessions over an hour or in hot conditions.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "question": "Is it suitable for vegans?",
+            "answer": "<p>Yes. Full ingredients and allergen information are on the product page.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I skip or cancel my subscription?",
+            "answer": "<p>Yes. Pause, skip, swap flavour or cancel any time from your account.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is delivery?",
+            "answer": "<p>Free next-day delivery across the UK on orders placed before the daily cut-off.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-0",
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4"
+      ]
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "el-hero",
+    "el-trust-strip",
+    "el-nutrition",
+    "el-flavours",
+    "el-steps",
+    "el-comparison",
+    "el-subscribe",
+    "el-reviews",
+    "el-quiz-cta",
+    "el-faq"
   ]
 }

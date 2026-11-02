@@ -1,0 +1,33 @@
+<section class="el el-trust">
+  <div class="el-container el-trust__grid">
+    {%- for block in section.blocks -%}
+      <div class="el-trust__item" {{ block.shopify_attributes }}>
+        {% render 'el-icon', icon: block.settings.icon %}
+        <div><p class="el-trust__title">{{ block.settings.title }}</p><p class="el-trust__text">{{ block.settings.text }}</p></div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Electrolife trust strip",
+  "tag": "div",
+  "max_blocks": 6,
+  "blocks": [{
+    "type": "item", "name": "Item",
+    "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "drop", "options": [
+        { "value": "drop", "label": "Droplet" }, { "value": "no-sugar", "label": "No sugar" }, { "value": "leaf", "label": "Leaf" },
+        { "value": "shield", "label": "Shield" }, { "value": "truck", "label": "Delivery" }, { "value": "repeat", "label": "Subscription" }, { "value": "check", "label": "Tick" } ] },
+      { "type": "text", "id": "title", "label": "Title", "default": "1,000 mg sodium" },
+      { "type": "text", "id": "text", "label": "Text", "default": "Per stick, on the label" }
+    ]
+  }],
+  "presets": [{ "name": "Electrolife trust strip", "blocks": [
+    { "type": "item", "settings": { "icon": "drop", "title": "1,000 mg sodium", "text": "Per stick, on the label" } },
+    { "type": "item", "settings": { "icon": "no-sugar", "title": "Zero sugar", "text": "No fillers, no colours" } },
+    { "type": "item", "settings": { "icon": "leaf", "title": "Vegan", "text": "Plant-based ingredients" } },
+    { "type": "item", "settings": { "icon": "truck", "title": "Free next-day delivery", "text": "Across the UK" } }
+  ] }]
+}
+{% endschema %}

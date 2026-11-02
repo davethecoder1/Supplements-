@@ -1,0 +1,116 @@
+{%- assign p = section.settings.product -%}
+<section class="el" id="el-quiz-{{ section.id }}">
+  <div class="el-quiz" data-el-quiz data-product-url="{{ p.url | default: '/collections/all' }}" data-box="{{ section.settings.sticks }}">
+    <div class="el-progress">
+      <div class="el-progress__meta"><span>Hydration quiz</span><span data-q-count>Question 1 of 3</span></div>
+      <div class="el-progress__track"><div class="el-progress__bar" data-q-bar></div></div>
+    </div>
+
+    {%- assign questions = 'How do you mostly train?|How much do you sweat?|How long and how often?' | split: '|' -%}
+    {%- assign hints = 'Pick the closest.|Think about a normal session indoors.|Your typical week.' | split: '|' -%}
+
+    <div data-q="0" class="el-stack" style="gap: 24px;">
+      <h1 class="el-h2" tabindex="-1">{{ questions[0] }}</h1><p class="el-muted" style="margin: 0;">{{ hints[0] }}</p>
+      <div class="el-options">
+        <button type="button" class="el-option" data-v="0"><strong>Gym &amp; strength</strong><span>Weights, hypertrophy, classes</span></button>
+        <button type="button" class="el-option" data-v="0"><strong>CrossFit &amp; HIIT</strong><span>High intensity, lots of sweat</span></button>
+        <button type="button" class="el-option" data-v="0"><strong>Running &amp; cycling</strong><span>Endurance, longer sessions</span></button>
+        <button type="button" class="el-option" data-v="0"><strong>Team sport</strong><span>Football, rugby, hockey, court</span></button>
+      </div>
+    </div>
+    <div data-q="1" class="el-stack" style="gap: 24px;" hidden>
+      <h2 class="el-h2" tabindex="-1">{{ questions[1] }}</h2><p class="el-muted" style="margin: 0;">{{ hints[1] }}</p>
+      <div class="el-options">
+        <button type="button" class="el-option" data-v="1"><strong>A little</strong><span>Damp, not dripping</span></button>
+        <button type="button" class="el-option" data-v="2"><strong>A fair amount</strong><span>Shirt is wet by the end</span></button>
+        <button type="button" class="el-option" data-v="3"><strong>A lot</strong><span>Dripping, salt marks on kit</span></button>
+      </div>
+      <button type="button" class="el-textbtn" data-back>Back</button>
+    </div>
+    <div data-q="2" class="el-stack" style="gap: 24px;" hidden>
+      <h2 class="el-h2" tabindex="-1">{{ questions[2] }}</h2><p class="el-muted" style="margin: 0;">{{ hints[2] }}</p>
+      <div class="el-options">
+        <button type="button" class="el-option" data-v="1" data-s="3"><strong>Under 1 hour, 2–3 times a week</strong></button>
+        <button type="button" class="el-option" data-v="2" data-s="5"><strong>About 1 hour, 4–5 times a week</strong></button>
+        <button type="button" class="el-option" data-v="3" data-s="6"><strong>Over 1 hour, 5+ times a week</strong></button>
+      </div>
+      <button type="button" class="el-textbtn" data-back>Back</button>
+    </div>
+
+    <div data-q="result" class="el-stack" style="gap: 24px;" hidden>
+      <span class="el-tag">Your suggestion</span>
+      <h2 class="el-h2" tabindex="-1" data-r-title></h2>
+      <div class="el-card el-result">
+        <div><p class="el-label" style="color: var(--el-ink-muted);">Per session</p><strong data-r-session></strong></div>
+        <div><p class="el-label" style="color: var(--el-ink-muted);">Per month</p><strong data-r-month></strong></div>
+        <div><p class="el-label" style="color: var(--el-ink-muted);">Plan</p><strong data-r-plan></strong></div>
+      </div>
+      <p class="el-muted" style="margin: 0;" data-r-body></p>
+      <div class="el-band" style="padding: 20px 24px;">
+        <div><p style="font-weight: 600;">{{ section.settings.offer_title }}</p><p style="font-size: 14px;">{{ section.settings.offer_text }}</p></div>
+        <a class="el-btn" href="{{ p.url | default: '/collections/all' }}" data-r-link>Start my plan</a>
+      </div>
+      <button type="button" class="el-textbtn" data-restart>Retake the quiz</button>
+      <p class="el-muted" style="margin: 0; font-size: 13px;">{{ section.settings.disclaimer }}</p>
+    </div>
+    <div aria-live="polite" class="visually-hidden" data-q-live></div>
+  </div>
+</section>
+<script>
+(function () {
+  var root = document.querySelector('#el-quiz-{{ section.id }} [data-el-quiz]');
+  if (!root) return;
+  var steps = root.querySelectorAll('[data-q]');
+  var total = 3, step = 0, sweat = 1, len = { v: 1, s: 3 };
+  function show(i) {
+    step = i;
+    steps.forEach(function (el) { el.hidden = String(el.dataset.q) !== String(i); });
+    var done = i === 'result';
+    root.querySelector('[data-q-count]').textContent = done ? 'Done' : 'Question ' + (i + 1) + ' of ' + total;
+    root.querySelector('[data-q-bar]').style.width = (done ? 100 : (i / total) * 100) + '%';
+    var h = root.querySelector('[data-q="' + i + '"] [tabindex="-1"]');
+    if (h && i !== 0) h.focus();
+  }
+  function result() {
+    var score = sweat + len.v;
+    var heavy = score >= 5;
+    var monthly = Math.round(len.s * 4.3 * (heavy ? 1.5 : 1));
+    var boxes = Math.max(1, Math.min(3, Math.round(monthly / parseInt(root.dataset.box || 30, 10))));
+    var titles = { 1: 'A box a month will cover you.', 2: 'Two boxes a month suits your training.', 3: 'You sweat hard. Three boxes a month.' };
+    root.querySelector('[data-r-title]').textContent = titles[boxes];
+    root.querySelector('[data-r-session]').textContent = heavy ? '1–2 sticks' : '1 stick';
+    root.querySelector('[data-r-month]').textContent = '~' + monthly + ' sticks';
+    root.querySelector('[data-r-plan]').textContent = boxes + (boxes === 1 ? ' box' : ' boxes') + ' / month';
+    root.querySelector('[data-r-body]').textContent = heavy
+      ? 'Use one stick in 500 ml for most sessions, and a second on long, hot or very sweaty days. Start with Citrus Salt or the variety box to find your flavour.'
+      : 'One stick in 500 ml on training days, before or during your session. Start with Citrus Salt or the variety box to find your flavour.';
+    root.querySelector('[data-q-live]').textContent = titles[boxes];
+    show('result');
+  }
+  root.querySelectorAll('[data-q] .el-option').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var q = btn.closest('[data-q]').dataset.q;
+      if (q === '1') sweat = parseInt(btn.dataset.v, 10);
+      if (q === '2') { len = { v: parseInt(btn.dataset.v, 10), s: parseInt(btn.dataset.s, 10) }; return result(); }
+      show(parseInt(q, 10) + 1);
+    });
+  });
+  root.querySelectorAll('[data-back]').forEach(function (b) { b.addEventListener('click', function () { show(step - 1); }); });
+  root.querySelector('[data-restart]').addEventListener('click', function () { show(0); });
+  show(0);
+})();
+</script>
+{% schema %}
+{
+  "name": "Hydration quiz",
+  "tag": "div",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Recommended product" },
+    { "type": "number", "id": "sticks", "label": "Sticks per box", "default": 30 },
+    { "type": "text", "id": "offer_title", "label": "Offer title", "default": "Subscribe & save 25%" },
+    { "type": "text", "id": "offer_text", "label": "Offer text", "default": "Free next-day delivery. Skip or cancel any time." },
+    { "type": "text", "id": "disclaimer", "label": "Disclaimer", "default": "General guidance only, not medical advice. If you have a medical condition or follow a low-sodium diet, speak to your GP first." }
+  ],
+  "presets": [{ "name": "Hydration quiz" }]
+}
+{% endschema %}

@@ -1,0 +1,65 @@
+{%- liquid
+  assign hero_product = section.settings.product
+  if hero_product != blank
+    assign per_stick = hero_product.price | times: 0.75 | round | times: 1.0 | divided_by: section.settings.sticks_per_box | round
+  endif
+-%}
+<section class="el el-hero">
+  <div class="el-container el-split">
+    <div class="el-stack">
+      {%- if section.settings.tag != blank -%}<span class="el-tag">{{ section.settings.tag }}</span>{%- endif -%}
+      <h1 class="el-h1">{{ section.settings.heading | newline_to_br }}</h1>
+      {%- if section.settings.text != blank -%}<div class="el-lead">{{ section.settings.text }}</div>{%- endif -%}
+      <div class="el-btns">
+        {%- if section.settings.button_label != blank -%}
+          <a class="el-btn" href="{{ section.settings.button_link | default: hero_product.url }}">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.button2_label != blank -%}
+          <a class="el-btn el-btn--ghost" href="{{ section.settings.button2_link | default: '/pages/hydration-quiz' }}">{{ section.settings.button2_label }}</a>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.rating_text != blank -%}
+        <p class="el-rating">
+          <span aria-hidden="true">{%- for i in (1..5) -%}<svg viewBox="0 0 24 24"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21.1l1.4-7L2 9.3l7-.8z"/></svg>{%- endfor -%}</span>
+          {{ section.settings.rating_text }}
+        </p>
+      {%- endif -%}
+    </div>
+    <div class="el-hero__media">
+      {%- if section.settings.show_price and hero_product != blank -%}
+        <span class="el-tag el-tag--data el-hero__price">From {{ per_stick | money }} per stick</span>
+      {%- endif -%}
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '(min-width: 750px) 50vw, 100vw', alt: section.settings.image.alt }}
+      {%- else -%}
+        <div class="el-box" role="img" aria-label="Electrolife Hydration box">
+          <span style="font-family: var(--el-display); font-weight: 600;">Electrolife</span>
+          <div><div class="el-box__name">Hydration</div><div class="el-label" style="color: var(--el-ground); margin-top: 8px;">30 sticks</div></div>
+          <div class="el-box__bar">1,000 mg sodium per stick</div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Electrolife hero",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "tag", "label": "Badge", "default": "1,000 mg sodium · 0 g sugar" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Hydration,\nmeasured." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>The electrolytes you lose in sweat, in the amounts that matter. One stick, one bottle, no sugar and no fillers. Built for people who train hard.</p>" },
+    { "type": "text", "id": "button_label", "label": "Primary button", "default": "Shop Hydration" },
+    { "type": "url", "id": "button_link", "label": "Primary button link", "info": "Leave blank to use the product below" },
+    { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "Take the 60-second quiz" },
+    { "type": "url", "id": "button2_link", "label": "Secondary button link" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "info": "Leave blank until you have reviews" },
+    { "type": "image_picker", "id": "image", "label": "Product image", "info": "Without an image, a drawn box is shown" },
+    { "type": "product", "id": "product", "label": "Hero product" },
+    { "type": "checkbox", "id": "show_price", "label": "Show subscription price per stick", "default": true },
+    { "type": "number", "id": "sticks_per_box", "label": "Sticks per box", "default": 30 }
+  ],
+  "presets": [{ "name": "Electrolife hero" }]
+}
+{% endschema %}

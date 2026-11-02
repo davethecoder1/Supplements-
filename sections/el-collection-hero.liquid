@@ -1,0 +1,38 @@
+<section class="el el-collection-hero">
+  <div class="el-container el-stack" style="gap: 16px;">
+    <nav aria-label="Breadcrumb" class="el-muted" style="font-size: 13px;"><a href="{{ routes.root_url }}" class="el-muted">Home</a> / {{ collection.title }}</nav>
+    <h1 class="el-h1">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}<div class="el-lead">{{ collection.description }}</div>{%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <ul class="el-chips">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>{% render 'el-icon', icon: block.settings.icon %}<span>{{ block.settings.text }}</span></li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    <p class="el-label" style="color: var(--el-ink-muted);">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</p>
+  </div>
+</section>
+{% stylesheet %}
+
+.el-collection-hero { padding: 56px 0 24px; border-bottom: 1px solid var(--el-line); }
+.el-chips { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.el-chips li { display: inline-flex; align-items: center; gap: 8px; background: var(--el-surface); border: 1px solid var(--el-line); border-radius: var(--el-radius-pill); padding: 8px 14px; font-size: 14px; font-weight: 500; }
+.el-chips .el-icon { width: 18px; height: 18px; }
+#ProductGridContainer .card__heading { font-family: var(--el-display); font-weight: 600; font-size: 20px; letter-spacing: -0.01em; }
+#ProductGridContainer .card__inner { border-radius: var(--el-radius-md); background: var(--el-mist); }
+#ProductGridContainer .price { font-size: 15px; }
+#ProductGridContainer .quick-add__submit { border-radius: var(--el-radius-md); min-height: 48px; }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Collection header",
+  "tag": "div",
+  "blocks": [{ "type": "chip", "name": "Highlight", "settings": [
+    { "type": "select", "id": "icon", "label": "Icon", "default": "check", "options": [
+      { "value": "drop", "label": "Droplet" }, { "value": "no-sugar", "label": "No sugar" }, { "value": "leaf", "label": "Leaf" },
+      { "value": "shield", "label": "Shield" }, { "value": "truck", "label": "Delivery" }, { "value": "repeat", "label": "Subscription" }, { "value": "check", "label": "Tick" } ] },
+    { "type": "text", "id": "text", "label": "Text", "default": "Free next-day UK delivery" } ] }],
+  "presets": [{ "name": "Collection header" }]
+}
+{% endschema %}

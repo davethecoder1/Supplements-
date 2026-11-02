@@ -1,0 +1,48 @@
+<section class="el el-section" style="padding-top: 0;">
+  <div class="el-container">
+    <div class="el-card el-compare">
+      <table>
+        <caption>{{ section.settings.heading }}</caption>
+        <thead><tr>
+          <th scope="col"><span class="visually-hidden">Feature</span></th>
+          <th scope="col" class="is-us">{{ section.settings.col1 }}</th>
+          <th scope="col">{{ section.settings.col2 }}</th>
+          <th scope="col">{{ section.settings.col3 }}</th>
+        </tr></thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row">{{ block.settings.feature }}</th>
+              <td class="is-us">{{ block.settings.us }}</td>
+              <td>{{ block.settings.them }}</td>
+              <td>{{ block.settings.water }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Electrolife comparison",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "How it compares" },
+    { "type": "text", "id": "col1", "label": "Column 1", "default": "Electrolife" },
+    { "type": "text", "id": "col2", "label": "Column 2", "default": "Typical sports drink" },
+    { "type": "text", "id": "col3", "label": "Column 3", "default": "Water" }
+  ],
+  "blocks": [{ "type": "row", "name": "Row", "settings": [
+    { "type": "text", "id": "feature", "label": "Feature" },
+    { "type": "text", "id": "us", "label": "Column 1", "default": "Yes" },
+    { "type": "text", "id": "them", "label": "Column 2" },
+    { "type": "text", "id": "water", "label": "Column 3" } ] }],
+  "presets": [{ "name": "Electrolife comparison", "blocks": [
+    { "type": "row", "settings": { "feature": "High sodium per serving", "us": "Yes", "them": "Usually lower", "water": "No" } },
+    { "type": "row", "settings": { "feature": "Zero sugar", "us": "Yes", "them": "Usually not", "water": "Yes" } },
+    { "type": "row", "settings": { "feature": "Full dose on the label", "us": "Yes", "them": "Varies", "water": "n/a" } },
+    { "type": "row", "settings": { "feature": "Fits in a pocket", "us": "Yes", "them": "No", "water": "No" } }
+  ] }]
+}
+{% endschema %}

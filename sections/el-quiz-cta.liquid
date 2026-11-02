@@ -1,0 +1,24 @@
+<section class="el el-section--tight">
+  <div class="el-container">
+    <div class="el-band">
+      <div class="el-stack" style="gap: 8px; max-width: 640px;">
+        <h2 class="el-h2" style="font-size: 32px;">{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.text }}</p>
+      </div>
+      <a class="el-btn" href="{{ section.settings.link | default: '/pages/hydration-quiz' }}">{{ section.settings.button }}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Electrolife quiz banner",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "How much do you actually sweat?" },
+    { "type": "text", "id": "text", "label": "Text", "default": "Three questions. We'll suggest how many sticks a week and which plan fits your training." },
+    { "type": "text", "id": "button", "label": "Button", "default": "Start the quiz" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "presets": [{ "name": "Electrolife quiz banner" }]
+}
+{% endschema %}

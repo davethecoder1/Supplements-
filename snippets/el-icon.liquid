@@ -1,0 +1,12 @@
+{%- comment -%} Electrolife line icons. Usage: {% render 'el-icon', icon: 'drop' %} {%- endcomment -%}
+<svg class="el-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  {%- case icon -%}
+    {%- when 'drop' -%}<path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11z"/>
+    {%- when 'no-sugar' -%}<circle cx="12" cy="12" r="9"/><path d="M6 18L18 6"/>
+    {%- when 'leaf' -%}<path d="M5 19c8 0 14-6 14-14-8 0-14 6-14 14z"/><path d="M5 19l7-7"/>
+    {%- when 'shield' -%}<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>
+    {%- when 'truck' -%}<path d="M3 6h11v10H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>
+    {%- when 'repeat' -%}<path d="M4 12a8 8 0 0 1 14-5l2 2"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5l-2-2"/><path d="M4 20v-5h5"/>
+    {%- else -%}<path d="M5 12l5 5L20 7"/>
+  {%- endcase -%}
+</svg>
