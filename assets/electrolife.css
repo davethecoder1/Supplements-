@@ -309,3 +309,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 .product-form__input input[value="3 boxes (90 sticks)"] + label::after { margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--el-charge); color: #000; font-size: 12px; font-weight: 700; }
 .product-form__input input[value="2 boxes (60 sticks)"] + label::after { content: "Save 10%"; }
 .product-form__input input[value="3 boxes (90 sticks)"] + label::after { content: "Save 15%"; }
+
+/* ---- Cart drawer reassurance ---- */
+.el-cart-reassure { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 13px; color: #333; }
+.el-cart-reassure .el-icon { width: 20px; height: 20px; stroke: #000; flex: none; }

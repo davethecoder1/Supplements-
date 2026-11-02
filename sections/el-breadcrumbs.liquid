@@ -1,0 +1,39 @@
+{%- comment -%} Breadcrumbs (Home › Collection › Product) with BreadcrumbList structured data for Google. {%- endcomment -%}
+{%- liquid
+  if collection
+    assign parent_title = collection.title
+    assign parent_url = collection.url
+  else
+    assign parent_title = 'Shop all'
+    assign parent_url = '/collections/shop-all'
+  endif
+  assign here = product.title | default: page.title | default: article.title
+-%}
+<nav class="el-crumbs page-width" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="{{ routes.root_url }}">Home</a></li>
+    <li><a href="{{ parent_url }}">{{ parent_title | escape }}</a></li>
+    <li><span aria-current="page">{{ here | escape }}</span></li>
+  </ol>
+</nav>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": {{ shop.url | append: routes.root_url | json }} },
+    { "@type": "ListItem", "position": 2, "name": {{ parent_title | json }}, "item": {{ shop.url | append: parent_url | json }} },
+    { "@type": "ListItem", "position": 3, "name": {{ here | json }} }
+  ]
+}
+</script>
+{% stylesheet %}
+.el-crumbs { padding-top: 16px; }
+.el-crumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 0; font-size: 13px; color: #555; }
+.el-crumbs li + li::before { content: "\203A"; margin: 0 10px; color: #999; }
+.el-crumbs a { color: #555; text-underline-offset: 3px; display: inline-flex; min-height: 24px; align-items: center; }
+.el-crumbs [aria-current] { color: #000; font-weight: 600; }
+{% endstylesheet %}
+{% schema %}
+{ "name": "Breadcrumbs", "tag": "div", "presets": [{ "name": "Breadcrumbs" }] }
+{% endschema %}

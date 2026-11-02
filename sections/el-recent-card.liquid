@@ -1,0 +1,7 @@
+{%- comment -%} Renders a single product card. Fetched by el-recent via the Section Rendering API (/products/handle?section_id=el-recent-card). {%- endcomment -%}
+{%- if product -%}
+  <li class="grid__item">{% render 'card-product', card_product: product, media_aspect_ratio: 'square', show_secondary_image: false, section_id: 'el-recent' %}</li>
+{%- endif -%}
+{% schema %}
+{ "name": "Recently viewed card", "tag": "div" }
+{% endschema %}
