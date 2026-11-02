@@ -1,0 +1,63 @@
+{%- comment -%}
+  "Why it works for you": three points tailored to each Shop by goal collection.
+  Content is chosen by collection handle; other collections hide this section.
+{%- endcomment -%}
+{%- liquid
+  assign show = true
+  case collection.handle
+    when 'elite-athletes'
+      assign h = 'Built for the long, hard stuff.'
+      assign p1 = 'Big sodium for big sweat|1,000 mg per stick. Long sessions and race days can mean heavy salt losses, especially if you see salt marks on your kit.'
+      assign p2 = 'No sugar to work around|Fuel how you like, with gels, food or a carb drink, and keep your electrolytes separate and simple.'
+      assign p3 = 'Fits your race kit|Flat sticks for a back pocket or race belt. One stick per 500 ml bottle.'
+    when 'gym-goers'
+      assign h = 'For sessions where you finish soaked.'
+      assign p1 = 'Only when you need it|Most short lifting sessions need just water. Reach for a stick for long sessions, hot rooms and HIIT.'
+      assign p2 = 'Zero sugar, 5 kcal|Electrolytes without the sugar of a typical sports drink.'
+      assign p3 = 'Shaker-ready|Pour, shake for five seconds, done. Potassium contributes to normal muscle function.'
+    when 'everyday'
+      assign h = 'Make water more interesting.'
+      assign p1 = 'Four flavours, or Pure|Citrus Salt, Watermelon, Mixed Berry, or unflavoured to add to anything.'
+      assign p2 = 'Hot days and busy days|Handy for heatwaves, long commutes and travel, when you sweat more than usual.'
+      assign p3 = "Don't overdo it|Electrolife is high in sodium. Most people get plenty of salt from food, so use it on days you sweat."
+    when 'head-fuzz'
+      assign h = 'The morning after, sorted (sort of).'
+      assign p1 = 'Not a hangover cure|Nothing is. But a big glass of water is a good start, and Electrolife makes it easier to drink.'
+      assign p2 = 'Zero sugar|No sugar rush, and four flavours to choose from.'
+      assign p3 = 'Magnesium included|Magnesium contributes to a reduction of tiredness and fatigue. Please drink responsibly.'
+    else
+      assign show = false
+  endcase
+-%}
+{%- if show -%}
+<section class="el el-section el-why">
+  <div class="el-container">
+    <span class="el-tag">Why it works for you</span>
+    <h2 class="el-why__title">{{ h }}</h2>
+    <ol class="el-why__grid">
+      {%- assign points = p1 | append: '~' | append: p2 | append: '~' | append: p3 | split: '~' -%}
+      {%- for pt in points -%}
+        {%- assign bits = pt | split: '|' -%}
+        <li class="el-why__item">
+          <span class="el-why__num" aria-hidden="true">0{{ forloop.index }}</span>
+          <h3 class="el-why__h">{{ bits[0] }}</h3>
+          <p class="el-why__p">{{ bits[1] }}</p>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+{%- endif -%}
+{% stylesheet %}
+.el-why .el-tag { margin-bottom: 14px; }
+.el-why__title { margin: 0 0 32px; font-family: var(--el-display); font-weight: 800; font-size: clamp(36px, 4.4vw, 64px); line-height: .95; letter-spacing: -0.04em; }
+.el-why__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.el-why__item { background: #F4F4F4; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+.el-why__num { font: 500 13px var(--el-mono); color: #555; letter-spacing: .08em; }
+.el-why__h { margin: 0; font: 800 24px/1.1 var(--el-display); letter-spacing: -0.02em; }
+.el-why__p { margin: 0; color: #333; font-size: 16px; line-height: 1.5; }
+@media (max-width: 749px) { .el-why__grid { grid-template-columns: 1fr; } }
+{% endstylesheet %}
+{% schema %}
+{ "name": "Why it works (goals)", "tag": "div", "presets": [{ "name": "Why it works (goals)" }] }
+{% endschema %}

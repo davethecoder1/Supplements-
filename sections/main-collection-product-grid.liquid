@@ -157,6 +157,13 @@
                 "
               >
                 {% assign skip_card_product_styles = false %}
+                {%- liquid
+                  assign el_promo_at = collection.products.size | at_most: 2
+                  assign el_show_promo = false
+                  if paginate.current_page == 1 and collection.handle != 'accessories' and section.settings.show_promo != false
+                    assign el_show_promo = true
+                  endif
+                -%}
                 {%- for product in collection.products -%}
                   {% assign lazy_load = false %}
                   {%- if forloop.index > 2 -%}
@@ -183,6 +190,17 @@
                       product_view_context: 'collection'
                     %}
                   </li>
+                  {%- if el_show_promo and forloop.index == el_promo_at -%}
+                    <li class="grid__item el-promo-item">
+                      <a class="el-promo" href="/pages/build-your-box">
+                        <span class="el-tag">New</span>
+                        <span class="el-promo__title">Build your<br>own box.</span>
+                        <span class="el-promo__text">Mix any flavours, in fives. Up to 15% off bigger boxes.</span>
+                        <span class="el-promo__dots" aria-hidden="true"><i style="background:#E8CF4A"></i><i style="background:#E86F6F"></i><i style="background:#7E5BA6"></i><i style="background:#D5DBD9"></i></span>
+                        <span class="el-promo__cta">Start building <span aria-hidden="true">&rarr;</span></span>
+                      </a>
+                    </li>
+                  {%- endif -%}
                   {%- assign skip_card_product_styles = true -%}
                 {%- endfor -%}
               </ul>

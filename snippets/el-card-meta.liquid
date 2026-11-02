@@ -1,0 +1,31 @@
+{%- comment -%} Flavour dots + subscription chip on product cards. {%- endcomment -%}
+{%- assign el_flav = card_product.options_with_values | where: 'name', 'Flavour' | first -%}
+{%- if el_flav or card_product.selling_plan_groups.size > 0 -%}
+  <div class="el-card-meta">
+    {%- if el_flav -%}
+      <span class="el-card-dots" aria-label="{{ el_flav.values.size }} flavours">
+        {%- for v in el_flav.values -%}
+          {%- liquid
+            case v
+              when 'Citrus Salt'
+                assign c = '#E8CF4A'
+              when 'Watermelon'
+                assign c = '#E86F6F'
+              when 'Mixed Berry'
+                assign c = '#7E5BA6'
+              when 'Pure'
+                assign c = '#D5DBD9'
+              else
+                assign c = 'conic-gradient(#E8CF4A 0 25%, #E86F6F 0 50%, #7E5BA6 0 75%, #D5DBD9 0)'
+            endcase
+          -%}
+          <i style="background: {{ c }};" title="{{ v | escape }}"></i>
+        {%- endfor -%}
+      </span>
+    {%- endif -%}
+    {%- if card_product.selling_plan_groups.size > 0 -%}
+      {%- assign el_adj = card_product.selling_plan_groups.first.selling_plans.first.price_adjustments.first -%}
+      <span class="el-card-sub">Subscribe{% if el_adj.value_type == 'percentage' %} &amp; save {{ el_adj.value }}%{% endif %}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}

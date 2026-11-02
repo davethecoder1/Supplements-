@@ -56,7 +56,7 @@
         "enable_filtering": false,
         "filter_type": "horizontal",
         "enable_sorting": true,
-        "columns_mobile": "1",
+        "columns_mobile": "2",
         "padding_top": 36,
         "padding_bottom": 48
       }
@@ -103,7 +103,8 @@
         "item-1",
         "item-2",
         "item-3"
-      ]
+      ],
+      "disabled": true
     },
     "subscribe": {
       "type": "el-subscribe",
@@ -162,7 +163,8 @@
       "type": "el-quiz-cta",
       "settings": {
         "link": "/pages/hydration-quiz"
-      }
+      },
+      "disabled": true
     },
     "faq": {
       "type": "el-faq",
@@ -219,14 +221,68 @@
         "question-4",
         "q-sub"
       ]
+    },
+    "why": {
+      "type": "el-goal-why",
+      "settings": {}
+    },
+    "other-goals": {
+      "type": "el-goals",
+      "settings": {
+        "label": "Shop by goal",
+        "heading": "Explore other goals",
+        "text": ""
+      },
+      "blocks": {
+        "g0": {
+          "type": "goal",
+          "settings": {
+            "collection": "elite-athletes",
+            "text": "For long sessions, race days and heavy sweat.",
+            "style": "dark"
+          }
+        },
+        "g1": {
+          "type": "goal",
+          "settings": {
+            "collection": "gym-goers",
+            "text": "One stick in your shaker. Before, during or after.",
+            "style": "grey"
+          }
+        },
+        "g2": {
+          "type": "goal",
+          "settings": {
+            "collection": "everyday",
+            "text": "Hot days, desk days and busy days.",
+            "style": "grey"
+          }
+        },
+        "g3": {
+          "type": "goal",
+          "settings": {
+            "collection": "head-fuzz",
+            "text": "Late night, early start? Start with water.",
+            "style": "charge"
+          }
+        }
+      },
+      "block_order": [
+        "g0",
+        "g1",
+        "g2",
+        "g3"
+      ]
     }
   },
   "order": [
     "hero",
     "product-grid",
+    "why",
     "trust",
     "subscribe",
     "quiz",
+    "other-goals",
     "faq"
   ]
 }

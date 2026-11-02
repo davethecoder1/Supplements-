@@ -213,6 +213,7 @@
                 {%- assign el_ps = card_product.price | times: 1.0 | divided_by: 30 | round -%}
                 <p class="el-card-perstick">{{ el_ps | money }} per stick</p>
               {%- endif -%}
+              {%- render 'el-card-meta', card_product: card_product -%}
               {%- if card_product.quantity_price_breaks_configured? -%}
                 {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                   {% liquid
