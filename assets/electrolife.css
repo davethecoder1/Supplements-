@@ -464,3 +464,23 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 .card__badge .badge, .price__badge-sale { font-family: var(--el-sans); font-weight: 700; letter-spacing: 0; }
 
 /* sync: phone review fixes */
+
+/* ---- Footer ---- */
+.footer { border-top: 0; }
+.footer .footer-block__heading { font-family: var(--el-mono); font-weight: 500; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--el-charge); margin-bottom: 16px; }
+.footer .footer-block--text .footer-block__heading { font-family: var(--el-display); font-weight: 800; font-size: 28px; letter-spacing: -0.03em; text-transform: none; color: #fff; }
+.footer .footer-block__details-content .list-menu__item--link { color: rgba(255,255,255,.75); font-size: 15px; padding: 6px 0; min-height: 32px; text-decoration: none; transition: color .15s; }
+.footer .footer-block__details-content .list-menu__item--link:hover, .footer .footer-block__details-content .list-menu__item--active { color: var(--el-charge); text-decoration: none; }
+.footer .footer-block__details-content .rte, .footer .footer-block__details-content p { color: rgba(255,255,255,.7); font-size: 15px; max-width: 320px; }
+.footer .newsletter-form__field-wrapper .field { border-radius: 999px; }
+.footer .newsletter-form__field-wrapper .field__input { border-radius: 999px; background: #111; color: #fff; border: 1px solid #333; padding-left: 20px; min-height: 52px; }
+.footer .newsletter-form__field-wrapper .field:after, .footer .newsletter-form__field-wrapper .field:before { border-radius: 999px; }
+.footer .newsletter-form__button { right: 6px; width: 40px; height: 40px; top: 6px; border-radius: 50%; background: var(--el-charge); color: #000; }
+.footer .newsletter-form__button .svg-wrapper { color: #000; }
+.footer__content-bottom { border-top: 1px solid #222; padding-top: 20px; }
+.footer .copyright__content, .footer .copyright__content a, .footer .policies a { color: rgba(255,255,255,.55); font-size: 13px; }
+.footer .list-payment { opacity: .9; }
+@media (min-width: 990px) {
+  .footer__content-top .footer__blocks-wrapper { grid-template-columns: 1.6fr repeat(4, 1fr); gap: 40px; display: grid; }
+  .footer__content-top .footer__blocks-wrapper > .footer-block { width: auto; max-width: none; }
+}

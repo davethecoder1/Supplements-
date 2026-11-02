@@ -16,29 +16,43 @@
       "settings": {
         "color_scheme": "scheme-3",
         "newsletter_enable": true,
-        "newsletter_heading": "New flavours, news and offers",
+        "newsletter_heading": "Get 15% off your first order",
         "enable_follow_on_shop": true,
         "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
         "payment_enable": true,
         "show_policy": true,
         "margin_top": 0,
-        "padding_top": 36,
+        "padding_top": 56,
         "padding_bottom": 36
       },
       "blocks": {
+        "brand": {
+          "type": "text",
+          "settings": {
+            "heading": "Electrolife",
+            "subtext": "<p>High-sodium, zero-sugar electrolytes for people who sweat. Built around the numbers, without the hype.</p>"
+          }
+        },
         "shop": {
           "type": "link_list",
           "settings": {
             "heading": "Shop",
-            "menu": "main-menu"
+            "menu": "footer-shop"
+          }
+        },
+        "learn": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Learn",
+            "menu": "footer-learn"
           }
         },
         "help": {
           "type": "link_list",
           "settings": {
-            "heading": "Help & info",
+            "heading": "Help",
             "menu": "footer"
           }
         },
@@ -51,13 +65,67 @@
         }
       },
       "block_order": [
+        "brand",
         "shop",
+        "learn",
         "help",
         "policies"
       ]
+    },
+    "ftrust": {
+      "type": "el-footer-trust",
+      "settings": {},
+      "blocks": {
+        "t0": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "title": "Free next-day delivery",
+            "text": "Across the UK"
+          }
+        },
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "repeat",
+            "title": "14-day returns",
+            "text": "On unopened items"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "title": "Secure checkout",
+            "text": "All major cards & wallets"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Vegan, zero sugar",
+            "text": "1,000 mg sodium per stick"
+          }
+        }
+      },
+      "block_order": [
+        "t0",
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    "fbrand": {
+      "type": "el-footer-brand",
+      "settings": {
+        "word": "ELECTROLIFE"
+      }
     }
   },
   "order": [
-    "footer"
+    "ftrust",
+    "footer",
+    "fbrand"
   ]
 }

@@ -1,0 +1,13 @@
+{%- comment -%} Giant brand wordmark at the very bottom of the page. Decorative. {%- endcomment -%}
+<div class="el-fbrand" aria-hidden="true">
+  <div class="el-fbrand__word">{{ section.settings.word | default: 'ELECTROLIFE' }}</div>
+</div>
+{% stylesheet %}
+.el-fbrand { background: #000; overflow: hidden; padding: 0 var(--el-gutter, 20px); line-height: 0; }
+.el-fbrand__word { font-family: var(--el-display); font-weight: 800; letter-spacing: -0.05em; line-height: .78; color: #151515; font-size: 16.2vw; white-space: nowrap; text-align: center; transform: translateY(8%); user-select: none;
+  background: linear-gradient(180deg, #1c1c1c 0%, #1c1c1c 55%, var(--el-charge) 55.1%, var(--el-charge) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: .95; }
+@media (max-width: 749px) { .el-fbrand__word { font-size: 17vw; } }
+{% endstylesheet %}
+{% schema %}
+{ "name": "Footer wordmark", "tag": "div", "settings": [{ "type": "text", "id": "word", "label": "Word", "default": "ELECTROLIFE" }], "presets": [{ "name": "Footer wordmark" }] }
+{% endschema %}

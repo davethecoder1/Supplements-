@@ -1,0 +1,35 @@
+{%- comment -%} Trust band shown above the footer on every page. {%- endcomment -%}
+<section class="el-ftrust" aria-label="Why shop with us">
+  <ul class="el-container el-ftrust__grid" role="list">
+    {%- for block in section.blocks -%}
+      <li class="el-ftrust__item" {{ block.shopify_attributes }}>
+        {%- render 'el-icon', icon: block.settings.icon -%}
+        <span><strong>{{ block.settings.title }}</strong><small>{{ block.settings.text }}</small></span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+{% stylesheet %}
+.el-ftrust { background: #F4F4F4; border-top: 1px solid #E4E4E4; }
+.el-ftrust__grid { list-style: none; margin: 0 auto; padding-top: 28px; padding-bottom: 28px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.el-ftrust__item { display: flex; align-items: center; gap: 14px; }
+.el-ftrust__item .el-icon { width: 28px; height: 28px; stroke: #000; flex: none; }
+.el-ftrust__item span { display: flex; flex-direction: column; gap: 2px; }
+.el-ftrust__item strong { font-weight: 800; font-size: 15px; }
+.el-ftrust__item small { font-size: 13px; color: #555; }
+@media (max-width: 989px) { .el-ftrust__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .el-ftrust__grid { gap: 16px 12px; } .el-ftrust__item { gap: 10px; } .el-ftrust__item strong { font-size: 14px; } }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Footer trust band",
+  "tag": "div",
+  "blocks": [{ "type": "item", "name": "Item", "limit": 4, "settings": [
+    { "type": "select", "id": "icon", "label": "Icon", "default": "truck", "options": [
+      { "value": "truck", "label": "Delivery" }, { "value": "repeat", "label": "Returns" }, { "value": "shield", "label": "Secure" },
+      { "value": "leaf", "label": "Leaf" }, { "value": "drop", "label": "Droplet" }, { "value": "no-sugar", "label": "No sugar" }, { "value": "check", "label": "Tick" } ] },
+    { "type": "text", "id": "title", "label": "Title" },
+    { "type": "text", "id": "text", "label": "Text" } ] }],
+  "presets": [{ "name": "Footer trust band" }]
+}
+{% endschema %}
