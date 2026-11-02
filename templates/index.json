@@ -356,11 +356,56 @@
         "question-3",
         "question-4"
       ]
+    },
+    "el-goals": {
+      "type": "el-goals",
+      "settings": {},
+      "blocks": {
+        "goal-0": {
+          "type": "goal",
+          "settings": {
+            "collection": "elite-athletes",
+            "text": "For long sessions, race days and heavy sweat.",
+            "style": "dark"
+          }
+        },
+        "goal-1": {
+          "type": "goal",
+          "settings": {
+            "collection": "gym-goers",
+            "text": "One stick in your shaker. Before, during or after.",
+            "style": "grey"
+          }
+        },
+        "goal-2": {
+          "type": "goal",
+          "settings": {
+            "collection": "everyday",
+            "text": "Hot days, desk days and busy days.",
+            "style": "grey"
+          }
+        },
+        "goal-3": {
+          "type": "goal",
+          "settings": {
+            "collection": "head-fuzz",
+            "text": "Late night, early start? Start with water.",
+            "style": "charge"
+          }
+        }
+      },
+      "block_order": [
+        "goal-0",
+        "goal-1",
+        "goal-2",
+        "goal-3"
+      ]
     }
   },
   "order": [
     "el-hero",
     "el-trust-strip",
+    "el-goals",
     "el-nutrition",
     "el-flavours",
     "el-steps",
