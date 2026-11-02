@@ -22,8 +22,8 @@
         "c1": {
           "type": "chip",
           "settings": {
-            "icon": "repeat",
-            "text": "Subscribe & save 25%"
+            "icon": "check",
+            "text": "4 flavours, plus a variety box"
           }
         },
         "c2": {
@@ -155,7 +155,8 @@
         "once_perk-3",
         "once_perk-4",
         "once_perk-5"
-      ]
+      ],
+      "disabled": true
     },
     "quiz": {
       "type": "el-quiz-cta",
@@ -191,8 +192,8 @@
         "question-3": {
           "type": "question",
           "settings": {
-            "question": "Can I skip or cancel my subscription?",
-            "answer": "<p>Yes. Pause, skip, swap flavour or cancel any time from your account.</p>"
+            "question": "Can I mix flavours?",
+            "answer": "<p>Yes. The Variety Box has all four flavours in one box, so you can find your favourite before committing.</p>"
           }
         },
         "question-4": {

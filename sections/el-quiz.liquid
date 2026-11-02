@@ -1,8 +1,11 @@
 {%- assign p = section.settings.product -%}
+{%- capture variant_map -%}{
+  {%- for v in p.variants -%}"{{ v.option1 | escape }}|{{ v.option2 | split: ' ' | first }}":{{ v.id }}{% unless forloop.last %},{% endunless %}{%- endfor -%}
+}{%- endcapture -%}
 <section class="el" id="el-quiz-{{ section.id }}">
-  <div class="el-quiz" data-el-quiz data-product-url="{{ p.url | default: '/collections/all' }}" data-box="{{ section.settings.sticks }}">
+  <div class="el-quiz" data-el-quiz data-product-url="{{ p.url | default: '/collections/all' }}" data-box="{{ section.settings.sticks }}" data-variants='{{ variant_map | strip }}'>
     <div class="el-progress">
-      <div class="el-progress__meta"><span>Hydration quiz</span><span data-q-count>Question 1 of 3</span></div>
+      <div class="el-progress__meta"><span>Hydration quiz</span><span data-q-count>Question 1 of 4</span></div>
       <div class="el-progress__track"><div class="el-progress__bar" data-q-bar></div></div>
     </div>
 
@@ -36,6 +39,17 @@
       </div>
       <button type="button" class="el-textbtn" data-back>Back</button>
     </div>
+    <div data-q="3" class="el-stack" style="gap: 24px;" hidden>
+      <h2 class="el-h2" tabindex="-1">Which flavour sounds best?</h2><p class="el-muted" style="margin: 0;">All zero sugar. You can change it any time.</p>
+      <div class="el-options">
+        <button type="button" class="el-option" data-f="Citrus Salt"><strong>Citrus Salt</strong><span>Sharp lemon-lime, salted finish</span></button>
+        <button type="button" class="el-option" data-f="Watermelon"><strong>Watermelon</strong><span>Light, fresh, easy to drink</span></button>
+        <button type="button" class="el-option" data-f="Mixed Berry"><strong>Mixed Berry</strong><span>Rounder and sweeter</span></button>
+        <button type="button" class="el-option" data-f="Pure"><strong>Pure</strong><span>Unflavoured, add to anything</span></button>
+        <button type="button" class="el-option" data-f="Variety box"><strong>Not sure</strong><span>Try all four in a variety box</span></button>
+      </div>
+      <button type="button" class="el-textbtn" data-back>Back</button>
+    </div>
 
     <div data-q="result" class="el-stack" style="gap: 24px;" hidden>
       <span class="el-tag">Your suggestion</span>
@@ -43,12 +57,16 @@
       <div class="el-card el-result">
         <div><p class="el-label" style="color: var(--el-ink-muted);">Per session</p><strong data-r-session></strong></div>
         <div><p class="el-label" style="color: var(--el-ink-muted);">Per month</p><strong data-r-month></strong></div>
-        <div><p class="el-label" style="color: var(--el-ink-muted);">Plan</p><strong data-r-plan></strong></div>
+        <div><p class="el-label" style="color: var(--el-ink-muted);">Order</p><strong data-r-plan></strong></div>
+        <div><p class="el-label" style="color: var(--el-ink-muted);">Flavour</p><strong data-r-flavour></strong></div>
       </div>
       <p class="el-muted" style="margin: 0;" data-r-body></p>
       <div class="el-band" style="padding: 20px 24px;">
         <div><p style="font-weight: 600;">{{ section.settings.offer_title }}</p><p style="font-size: 14px;">{{ section.settings.offer_text }}</p></div>
-        <a class="el-btn" href="{{ p.url | default: '/collections/all' }}" data-r-link>Start my plan</a>
+      </div>
+      <div class="el-btns">
+        <a class="el-btn el-btn--charge" href="{{ p.url | default: '/collections/all' }}" data-r-add>Add to basket</a>
+        <a class="el-btn el-btn--ghost" href="{{ p.url | default: '/collections/all' }}" data-r-link>View product</a>
       </div>
       <button type="button" class="el-textbtn" data-restart>Retake the quiz</button>
       <p class="el-muted" style="margin: 0; font-size: 13px;">{{ section.settings.disclaimer }}</p>
@@ -61,7 +79,8 @@
   var root = document.querySelector('#el-quiz-{{ section.id }} [data-el-quiz]');
   if (!root) return;
   var steps = root.querySelectorAll('[data-q]');
-  var total = 3, step = 0, sweat = 1, len = { v: 1, s: 3 };
+  var total = 4, step = 0, sweat = 1, len = { v: 1, s: 3 }, flavour = 'Citrus Salt', variants = {};
+  try { variants = JSON.parse(root.dataset.variants || '{}'); } catch (e) {}
   function show(i) {
     step = i;
     steps.forEach(function (el) { el.hidden = String(el.dataset.q) !== String(i); });
@@ -80,10 +99,16 @@
     root.querySelector('[data-r-title]').textContent = titles[boxes];
     root.querySelector('[data-r-session]').textContent = heavy ? '1–2 sticks' : '1 stick';
     root.querySelector('[data-r-month]').textContent = '~' + monthly + ' sticks';
-    root.querySelector('[data-r-plan]').textContent = boxes + (boxes === 1 ? ' box' : ' boxes') + ' / month';
+    root.querySelector('[data-r-plan]').textContent = boxes + (boxes === 1 ? ' box' : ' boxes') + ' a month';
+    root.querySelector('[data-r-flavour]').textContent = flavour === 'Variety box' ? 'Variety box' : flavour;
+    var vid = variants[flavour + '|' + boxes];
+    var base = root.dataset.productUrl;
+    var add = root.querySelector('[data-r-add]'), link = root.querySelector('[data-r-link]');
+    if (vid) { add.href = '/cart/add?id=' + vid + '&quantity=1'; link.href = base + '?variant=' + vid; }
+    else { add.href = base; link.href = base; }
     root.querySelector('[data-r-body]').textContent = heavy
-      ? 'Use one stick in 500 ml for most sessions, and a second on long, hot or very sweaty days. Start with Citrus Salt or the variety box to find your flavour.'
-      : 'One stick in 500 ml on training days, before or during your session. Start with Citrus Salt or the variety box to find your flavour.';
+      ? 'Use one stick in 500 ml for most sessions, and a second on long, hot or very sweaty days.'
+      : 'One stick in 500 ml on training days, before or during your session.';
     root.querySelector('[data-q-live]').textContent = titles[boxes];
     show('result');
   }
@@ -91,7 +116,8 @@
     btn.addEventListener('click', function () {
       var q = btn.closest('[data-q]').dataset.q;
       if (q === '1') sweat = parseInt(btn.dataset.v, 10);
-      if (q === '2') { len = { v: parseInt(btn.dataset.v, 10), s: parseInt(btn.dataset.s, 10) }; return result(); }
+      if (q === '2') len = { v: parseInt(btn.dataset.v, 10), s: parseInt(btn.dataset.s, 10) };
+      if (q === '3') { flavour = btn.dataset.f; return result(); }
       show(parseInt(q, 10) + 1);
     });
   });
@@ -107,8 +133,8 @@
   "settings": [
     { "type": "product", "id": "product", "label": "Recommended product" },
     { "type": "number", "id": "sticks", "label": "Sticks per box", "default": 30 },
-    { "type": "text", "id": "offer_title", "label": "Offer title", "default": "Subscribe & save 25%" },
-    { "type": "text", "id": "offer_text", "label": "Offer text", "default": "Free next-day delivery. Skip or cancel any time." },
+    { "type": "text", "id": "offer_title", "label": "Offer title", "default": "15% off your first order" },
+    { "type": "text", "id": "offer_text", "label": "Offer text", "default": "Use code WELCOME15 at checkout." },
     { "type": "text", "id": "disclaimer", "label": "Disclaimer", "default": "General guidance only, not medical advice. If you have a medical condition or follow a low-sodium diet, speak to your GP first." }
   ],
   "presets": [{ "name": "Hydration quiz" }]

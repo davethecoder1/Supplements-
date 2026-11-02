@@ -231,3 +231,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 /* Header: crisp white with a hairline */
 .header-wrapper { border-bottom: 1px solid #E4E4E4; }
 .header__menu-item { font-weight: 600; }
+
+/* Quiz: keep hidden steps hidden (layout classes set display) */
+.el-quiz [hidden] { display: none !important; }
+.el-quiz .el-result { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }

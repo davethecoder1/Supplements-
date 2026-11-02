@@ -3,7 +3,7 @@
   assign img_m = section.settings.image_mobile | default: img_d
   assign hero_product = section.settings.product
   if hero_product != blank and section.settings.show_price
-    assign per_stick = hero_product.price | times: 0.75 | divided_by: section.settings.sticks_per_box | round
+    assign per_stick = hero_product.price | divided_by: section.settings.sticks_per_box | round
   endif
 -%}
 <section class="el el-hb el-hb--{{ section.settings.height }}" style="--hb-overlay: {{ section.settings.overlay | divided_by: 100.0 }};">
@@ -34,7 +34,7 @@
         {%- endif -%}
       </div>
       {%- if per_stick -%}
-        <p class="el-hb__note">From {{ per_stick | money }} per stick with Subscribe &amp; save</p>
+        <p class="el-hb__note">Just {{ per_stick | money }} per stick</p>
       {%- endif -%}
     </div>
   </div>
@@ -89,7 +89,7 @@
     { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "Find your routine" },
     { "type": "url", "id": "button2_link", "label": "Secondary button link" },
     { "type": "product", "id": "product", "label": "Hero product" },
-    { "type": "checkbox", "id": "show_price", "label": "Show subscription price per stick", "default": true },
+    { "type": "checkbox", "id": "show_price", "label": "Show price per stick", "default": true },
     { "type": "number", "id": "sticks_per_box", "label": "Sticks per box", "default": 30 }
   ],
   "presets": [{ "name": "Hero banner (full width)" }]

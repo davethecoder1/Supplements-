@@ -24,8 +24,8 @@
         "a1": {
           "type": "announcement",
           "settings": {
-            "text": "Subscribe & save 25%",
-            "link": ""
+            "text": "Not sure where to start? Take the 60-second quiz",
+            "link": "/pages/hydration-quiz"
           }
         },
         "a2": {
