@@ -13,8 +13,8 @@
 </style>
 <script>
   (function () {
-    var els = document.querySelectorAll('[data-el-eta]:not([data-ready])');
-    if (!els.length || !window.Intl) return;
+    if (window.__elEta || !window.Intl) return;
+    window.__elEta = true;
     var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     function ukNow() {
       var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date());
@@ -37,6 +37,14 @@
       el.querySelector('[data-eta-text]').innerHTML = txt;
       el.hidden = false;
     }
-    els.forEach(function (el) { el.dataset.ready = '1'; render(el); setInterval(function () { render(el); }, 30000); });
+    function init() {
+      document.querySelectorAll('[data-el-eta]:not([data-ready])').forEach(function (el) { el.dataset.ready = '1'; render(el); });
+    }
+    init();
+    setInterval(function () { document.querySelectorAll('[data-el-eta][data-ready]').forEach(render); }, 30000);
+    // Basket drawers re-render without running scripts, so pick up any new countdowns.
+    var pending = false;
+    new MutationObserver(function () { if (pending) return; pending = true; requestAnimationFrame(function () { pending = false; init(); }); })
+      .observe(document.body, { childList: true, subtree: true });
   })();
 </script>

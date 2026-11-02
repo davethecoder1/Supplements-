@@ -1,0 +1,12 @@
+{%- comment -%} Basket extras above the checkout button: first-order code, delivery countdown. {%- endcomment -%}
+{%- if cart.item_count > 0 -%}
+  <div class="el-cart-extras">
+    {%- if cart.cart_level_discount_applications.size == 0 and customer == nil -%}
+      <a class="el-cart-code" href="/discount/WELCOME15?redirect=/cart">
+        <span class="el-cart-code__tag">WELCOME15</span>
+        <span>First order? <strong>Tap to apply 15% off</strong></span>
+      </a>
+    {%- endif -%}
+    {%- render 'el-delivery-countdown', cutoff: 14 -%}
+  </div>
+{%- endif -%}

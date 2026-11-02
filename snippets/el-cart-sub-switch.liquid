@@ -1,0 +1,15 @@
+{%- comment -%}
+  "Switch to Subscribe & save" for a basket line that isn't on a subscription yet.
+  Usage inside a cart item loop: {% render 'el-cart-sub-switch', item: item, line: forloop.index %}
+{%- endcomment -%}
+{%- if item.selling_plan_allocation == nil and item.product.selling_plan_groups.size > 0 -%}
+  {%- assign el_plan = item.product.selling_plan_groups.first.selling_plans.first -%}
+  {%- assign el_adj = el_plan.price_adjustments.first -%}
+  {%- if el_plan and el_adj.value_type == 'percentage' and el_adj.value > 0 -%}
+    {%- assign el_save = item.final_line_price | times: el_adj.value | divided_by: 100 -%}
+    <button type="button" class="el-subswitch" data-el-sub-line="{{ line }}" data-el-sub-plan="{{ el_plan.id }}" data-el-sub-qty="{{ item.quantity }}">
+      <span class="el-subswitch__badge">Save {{ el_adj.value }}%</span>
+      <span>Switch to Subscribe &amp; save, <strong>{{ el_save | money }} off</strong></span>
+    </button>
+  {%- endif -%}
+{%- endif -%}

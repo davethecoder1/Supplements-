@@ -1,0 +1,22 @@
+{%- comment -%} Accepted payment icons under the checkout button. {%- endcomment -%}
+{%- if shop.enabled_payment_types.size > 0 -%}
+  <ul class="el-cart-pay list-unstyled" role="list" aria-label="Payment methods accepted">
+    {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>{%- endfor -%}
+  </ul>
+{%- endif -%}
+<script>
+  if (!window.__elSubSwitch) {
+    window.__elSubSwitch = true;
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-el-sub-line]'); if (!b) return;
+      b.disabled = true; b.setAttribute('aria-busy', 'true');
+      var drawer = document.querySelector('cart-drawer');
+      var inDrawer = drawer && drawer.contains(b);
+      fetch('/cart/change.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ line: Number(b.dataset.elSubLine), quantity: Number(b.dataset.elSubQty), selling_plan: Number(b.dataset.elSubPlan), sections: 'cart-drawer,cart-icon-bubble', sections_url: location.pathname }) })
+        .then(function (r) { return r.json(); })
+        .then(function (s) { if (inDrawer && drawer.renderContents && s.sections) drawer.renderContents(s); else location.reload(); })
+        .catch(function () { location.reload(); });
+    });
+  }
+</script>
