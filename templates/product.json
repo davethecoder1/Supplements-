@@ -16,9 +16,28 @@
           "type": "title",
           "settings": {}
         },
+        "rating": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"jdgm-widget jdgm-preview-badge\" data-id=\"{{ product.id }}\" data-template=\"product\">{{ product.metafields.judgeme.badge }}</div>"
+          }
+        },
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "High-sodium electrolyte drink mix. 30 single-serve sticks.",
+            "text_style": "body"
+          }
+        },
         "price": {
           "type": "price",
           "settings": {}
+        },
+        "stats": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"el-stats\"><div><strong>1,000</strong><span>mg sodium</span></div><div><strong>200</strong><span>mg potassium</span></div><div><strong>60</strong><span>mg magnesium</span></div><div><strong>0 g</strong><span>sugar</span></div></div>"
+          }
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -31,6 +50,12 @@
           "type": "quantity_selector",
           "settings": {}
         },
+        "subscribe": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- assign fid = 'product-form-' | append: section.id -%}{%- render 'el-subscribe-picker', product: product, form_id: fid -%}"
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -38,40 +63,29 @@
             "show_gift_card_recipient": true
           }
         },
+        "trust": {
+          "type": "text",
+          "settings": {
+            "text": "Free next-day UK delivery · Secure checkout",
+            "text_style": "subtitle"
+          }
+        },
         "description": {
           "type": "description",
           "settings": {}
         },
-        "subtitle": {
-          "type": "text",
+        "subscriptions_app_block_MKGNfR": {
+          "type": "shopify://apps/subscriptions/blocks/app-block/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
           "settings": {
-            "text": "High-sodium electrolyte drink mix. 30 single-serve sticks.",
-            "text_style": "body"
-          }
-        },
-        "stats": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<div class=\"el-stats\"><div><strong>1,000</strong><span>mg sodium</span></div><div><strong>200</strong><span>mg potassium</span></div><div><strong>60</strong><span>mg magnesium</span></div><div><strong>0 g</strong><span>sugar</span></div></div>"
-          }
-        },
-        "trust": {
-          "type": "text",
-          "settings": {
-            "text": "Free next-day UK delivery \u00b7 Secure checkout",
-            "text_style": "subtitle"
-          }
-        },
-        "rating": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<div class=\"jdgm-widget jdgm-preview-badge\" data-id=\"{{ product.id }}\" data-template=\"product\">{{ product.metafields.judgeme.badge }}</div>"
-          }
-        },
-        "subscribe": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{%- assign fid = 'product-form-' | append: section.id -%}{%- render 'el-subscribe-picker', product: product, form_id: fid -%}"
+            "widget_style": "card",
+            "widget_style_card_selector": "radio_button",
+            "subscription_policy_url": "",
+            "color_text_body": "#6D7175",
+            "dividers_color": "#8F8D8D",
+            "background_color": "#FFFFFF",
+            "border_thickness": 1,
+            "border_radius": 0,
+            "product": "{{product}}"
           }
         }
       },
@@ -86,7 +100,8 @@
         "subscribe",
         "buy_buttons",
         "trust",
-        "description"
+        "description",
+        "subscriptions_app_block_MKGNfR"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -111,21 +126,24 @@
           "type": "row",
           "settings": {
             "name": "Energy",
-            "amount": "20 kJ / 5 kcal"
+            "amount": "20 kJ / 5 kcal",
+            "nrv": ""
           }
         },
         "row-1": {
           "type": "row",
           "settings": {
             "name": "Sugars",
-            "amount": "0 g"
+            "amount": "0 g",
+            "nrv": ""
           }
         },
         "row-2": {
           "type": "row",
           "settings": {
             "name": "Sodium",
-            "amount": "1,000 mg"
+            "amount": "1,000 mg",
+            "nrv": ""
           }
         },
         "row-3": {
@@ -152,11 +170,22 @@
         "row-3",
         "row-4"
       ],
-      "settings": {}
+      "settings": {
+        "label": "Full transparency",
+        "heading": "Nutrition information",
+        "text": "<p>Potassium contributes to normal muscle function. Magnesium contributes to a reduction of tiredness and fatigue.</p>",
+        "serving": "Per stick",
+        "footnote": "*NRV = Nutrient Reference Value."
+      }
     },
     "el-reviews": {
       "type": "el-reviews",
-      "settings": {}
+      "settings": {
+        "label": "Verified reviews",
+        "heading": "Tested in the gym, not the boardroom.",
+        "summary": "",
+        "press_label": "As seen in"
+      }
     },
     "el-faq": {
       "type": "el-faq",
@@ -212,7 +241,11 @@
         "question-4",
         "q-sub"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Questions",
+        "heading_tag": "h2",
+        "open_first": true
+      }
     }
   },
   "order": [
