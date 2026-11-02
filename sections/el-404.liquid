@@ -1,0 +1,49 @@
+<section class="el el-404">
+  <div class="el-container el-stack el-404__inner">
+    <span class="el-tag">Error 404</span>
+    <h1 class="el-404__title">{{ section.settings.heading | newline_to_br }}</h1>
+    <div class="el-404__text">{{ section.settings.text }}</div>
+    <div class="el-btns">
+      <a class="el-btn el-btn--charge" href="/products/electrolife-hydration">Shop Hydration</a>
+      <a class="el-btn el-404__ghost" href="/pages/hydration-quiz">Take the quiz</a>
+    </div>
+    <nav class="el-404__links" aria-label="Popular pages">
+      <a href="{{ routes.root_url }}">Home</a>
+      <a href="/collections/shop-all">Shop all</a>
+      <a href="/pages/science">The science</a>
+      <a href="/pages/faq">FAQ</a>
+      <a href="/pages/contact">Contact</a>
+    </nav>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="el-404__search">
+      <label for="el-404-q" class="visually-hidden">Search</label>
+      <input id="el-404-q" type="search" name="q" placeholder="Search the shop" autocomplete="off">
+      <button type="submit" class="el-btn">Search</button>
+    </form>
+  </div>
+</section>
+{% stylesheet %}
+.el-404 { background: #000; color: #fff; padding: 120px 0; min-height: 70vh; display: flex; align-items: center; }
+.el-404__inner { gap: 24px; align-items: flex-start; max-width: 760px; }
+.el-404__title { font-family: var(--el-display); font-weight: 800; font-size: clamp(52px, 8vw, 120px); line-height: .9; letter-spacing: -0.045em; margin: 0; color: #fff; }
+.el-404__text { font-size: 19px; color: rgba(255,255,255,.75); max-width: 520px; }
+.el-404__text p { margin: 0; }
+.el-404__ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); }
+.el-404__ghost:hover { background: #fff; color: #000; }
+.el-404__links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.el-404__links a { color: #fff; font-weight: 600; text-underline-offset: 4px; min-height: 44px; display: inline-flex; align-items: center; }
+.el-404__search { display: flex; gap: 10px; width: 100%; max-width: 520px; }
+.el-404__search input { flex: 1; min-height: 52px; border-radius: 999px; border: 1px solid #333; background: #111; color: #fff; padding: 0 20px; font: 16px var(--el-sans); }
+.el-404__search .el-btn { background: #fff; color: #000; border-color: #fff; }
+@media (max-width: 749px) { .el-404 { padding: 72px 0; } .el-404 .el-btns { flex-direction: column; width: 100%; } .el-404 .el-btn { width: 100%; } .el-404__search .el-btn { width: auto; } }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "404 page",
+  "tag": "div",
+  "settings": [
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "This page\nsweated off." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>We couldn't find the page you were looking for. It may have moved, or the link might be wrong.</p>" }
+  ],
+  "presets": [{ "name": "404 page" }]
+}
+{% endschema %}

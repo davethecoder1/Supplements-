@@ -92,6 +92,12 @@
           "settings": {
             "custom_liquid": "{%- render 'el-sticky-atc', product: product, section_id: section.id -%}"
           }
+        },
+        "perstick": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- liquid\n  assign v = product.selected_or_first_available_variant\n  assign sticks = v.title | split: '(' | last | split: ' ' | first | plus: 0\n  if sticks == 0\n    assign sticks = 30\n  endif\n  assign per = v.price | times: 1.0 | divided_by: sticks | round\n  assign plan = product.selling_plan_groups.first.selling_plans.first\n  assign adj = plan.price_adjustments.first\n-%}\n{%- if product.type == 'Electrolyte Drink Mix' -%}<p class=\"el-perstick\"><strong>{{ per | money }} per stick</strong>{%- if adj and adj.value_type == 'percentage' -%}{%- assign keep = 100 | minus: adj.value -%}{%- assign sub = per | times: keep | divided_by: 100.0 | round -%} \u00b7 or {{ sub | money }} with Subscribe &amp; save{%- endif -%}</p>{%- endif -%}"
+          }
         }
       },
       "block_order": [
@@ -99,6 +105,7 @@
         "rating",
         "subtitle",
         "price",
+        "perstick",
         "stats",
         "variant_picker",
         "quantity_selector",

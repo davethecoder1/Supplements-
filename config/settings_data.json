@@ -13,7 +13,7 @@
     "type_header_font": "assistant_n4",
     "type_body_font": "assistant_n4",
     "page_width": 1400,
-    "animations_reveal_on_scroll": false,
+    "animations_reveal_on_scroll": true,
     "buttons_radius": 40,
     "variant_pills_border_opacity": 100,
     "variant_pills_radius": 40,

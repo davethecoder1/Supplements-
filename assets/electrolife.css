@@ -275,3 +275,13 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 /* ---- Empty basket ---- */
 .el-empty-cart__text { margin: 0 0 1.6rem; color: #555; font-size: 15px; }
 .el-empty-cart__shop { margin-top: 1rem; }
+
+/* ---- Scroll reveal (only active when el-reveal.js runs and motion is allowed) ---- */
+.el-reveal-on [data-el-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1); transition-delay: var(--el-delay, 0ms); }
+.el-reveal-on [data-el-reveal].el-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .el-reveal-on [data-el-reveal] { opacity: 1; transform: none; transition: none; } }
+.el-reveal-on .el-goal[data-el-reveal].el-in:hover { transform: translateY(-4px); }
+
+/* ---- Price per stick under the product price ---- */
+.el-perstick { margin: -4px 0 4px; font-size: 14px; color: #555; }
+.el-perstick strong { color: #000; font-weight: 700; }
