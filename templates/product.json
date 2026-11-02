@@ -126,6 +126,7 @@
         "subtitle",
         "price",
         "perstick",
+        "description",
         "stats",
         "variant_picker",
         "fnote",
@@ -135,7 +136,6 @@
         "stock",
         "eta",
         "trust",
-        "description",
         "info",
         "sticky"
       ],

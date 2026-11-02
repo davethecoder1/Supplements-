@@ -99,6 +99,7 @@
         "title",
         "rating",
         "price",
+        "description",
         "variant_picker",
         "quantity_selector",
         "subscriptions_app_block_MKGNfR",
@@ -106,7 +107,6 @@
         "stock",
         "eta",
         "trust",
-        "description",
         "info",
         "sticky"
       ],
