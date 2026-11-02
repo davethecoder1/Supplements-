@@ -64,6 +64,58 @@
                       </li>
                     </ul>
                   </div>
+                {%- elsif link.handle == 'shop' -%}
+                  <div class="el-mm el-mm-shop page-width">
+                    <ul class="el-mm-shop__links" role="list">
+                      {%- for childlink in link.links -%}
+                        <li><a href="{{ childlink.url }}" class="el-mm-shop__link"{% if childlink.current %} aria-current="page"{% endif %}>{{ childlink.title | escape }}<span aria-hidden="true">&rarr;</span></a></li>
+                      {%- endfor -%}
+                    </ul>
+                    <ul class="el-mm-shop__products" role="list">
+                      {%- assign feat = 'electrolife-hydration,electrolife-hydration-variety-box,electrolife-starter-kit' | split: ',' -%}
+                      {%- for h in feat -%}
+                        {%- assign fp = all_products[h] -%}
+                        {%- if fp != blank and fp.available -%}
+                          <li>
+                            <a href="{{ fp.url }}" class="el-mm-shop__card">
+                              {%- if fp.featured_image -%}{{ fp.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', widths: '200, 300, 400', sizes: '220px', alt: '' }}{%- endif -%}
+                              <span class="el-mm-shop__name">{{ fp.title | remove: 'Electrolife ' | escape }}</span>
+                              <span class="el-mm-shop__price">From {{ fp.price_min | money }}</span>
+                            </a>
+                          </li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {%- elsif link.handle == 'learn' -%}
+                  <div class="el-mm el-mm-learn page-width">
+                    <ul class="el-mm-learn__grid" role="list">
+                      {%- for childlink in link.links -%}
+                        {%- liquid
+                          case childlink.title
+                            when 'The science'
+                              assign d = 'Sweat, sodium and our sweat-rate calculator.'
+                            when 'How we compare'
+                              assign d = 'An honest look against sports drinks and tablets.'
+                            when 'Articles'
+                              assign d = 'Guides for runners, gym-goers and hot days.'
+                            when 'FAQ'
+                              assign d = "How to use it, who it's for, delivery and more."
+                            when 'Our story'
+                              assign d = 'Hydration, without the hype.'
+                            else
+                              assign d = ''
+                          endcase
+                        -%}
+                        <li>
+                          <a href="{{ childlink.url }}" class="el-mm-learn__item"{% if childlink.current %} aria-current="page"{% endif %}>
+                            <span class="el-mm-learn__title">{{ childlink.title | escape }}</span>
+                            {%- if d != blank -%}<span class="el-mm-learn__desc">{{ d }}</span>{%- endif -%}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
                 {%- else -%}
                 <ul
                   class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
