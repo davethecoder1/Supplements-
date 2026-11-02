@@ -1,0 +1,198 @@
+{%- assign n = section.blocks.size | at_least: 1 -%}
+<section
+  class="el el-s3d"
+  id="el-s3d-{{ section.id }}"
+  style="--steps: {{ n }}; --p: 0; --rot: 0; --spin: 0; --out: 0; --band: {{ section.blocks.first.settings.colour | default: '#D7F75B' }};"
+  data-steps="{{ n }}"
+>
+  <div class="el-s3d__sticky">
+    <div class="el-container el-s3d__grid">
+      <div class="el-s3d__copy">
+        {%- if section.settings.label != blank -%}<p class="el-label el-s3d__label">{{ section.settings.label }}</p>{%- endif -%}
+        <div class="el-s3d__steps">
+          {%- for block in section.blocks -%}
+            <div
+              class="el-s3d__step{% if forloop.first %} is-active{% endif %}"
+              data-colour="{{ block.settings.colour }}"
+              data-flavour="{{ block.settings.flavour | escape }}"
+              {{ block.shopify_attributes }}
+            >
+              <span class="el-s3d__num">{{ forloop.index | prepend: '0' }} / {{ n | prepend: '0' }}</span>
+              <h2 class="el-s3d__title">{{ block.settings.title }}</h2>
+              {%- if block.settings.text != blank -%}<div class="el-s3d__text">{{ block.settings.text }}</div>{%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+        <div class="el-s3d__bar" aria-hidden="true"><i></i></div>
+        {%- if section.settings.button_label != blank -%}
+          <a class="el-btn el-btn--charge el-s3d__cta" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+
+      <div class="el-s3d__stage" aria-hidden="true">
+        <div class="el-s3d__glow"></div>
+        <div class="el-s3d__scene">
+          <div class="el-s3d__sticks">
+            <i style="--i: -1; --zf: 1; --yf: 1;"></i><i style="--i: 0; --zf: -0.5; --yf: 1.35;"></i><i style="--i: 1; --zf: 1; --yf: 1;"></i>
+          </div>
+          <div class="el-s3d__box">
+            <div class="f f--front">
+              <span class="f__top">Electrolyte drink mix</span>
+              <span class="f__word">ELECTRO<br>LIFE</span>
+              <span class="f__sub">Hydration</span>
+              <span class="f__band"><span class="f__flavour">{{ section.blocks.first.settings.flavour }}</span></span>
+              <span class="f__stats"><b>1,000</b> mg sodium &nbsp; <b>0 g</b> sugar</span>
+            </div>
+            <div class="f f--back"><span class="f__word f__word--sm">30 sticks<br>× 500 ml</span></div>
+            <div class="f f--right"><span>ELECTROLIFE</span></div>
+            <div class="f f--left"><span>HYDRATION</span></div>
+            <div class="f f--top"></div>
+            <div class="f f--bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.el-s3d { position: relative; background: #000; color: #fff; height: calc(var(--steps) * 90vh + 100vh); }
+.el-s3d__sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+.el-s3d__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; width: 100%; }
+.el-s3d__label { color: var(--el-charge); margin-bottom: 24px; }
+.el-s3d__steps { position: relative; min-height: 300px; }
+.el-s3d__step { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(32px); transition: opacity .5s ease, transform .5s ease; pointer-events: none; }
+.el-s3d__step.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.el-s3d__num { font-family: var(--el-mono); font-size: 13px; letter-spacing: .1em; color: rgba(255,255,255,.5); }
+.el-s3d__title { font-family: var(--el-display); font-weight: 800; font-size: clamp(44px, 6vw, 96px); line-height: .92; letter-spacing: -0.045em; margin: 16px 0 20px; color: #fff; }
+.el-s3d__text { font-size: 19px; line-height: 1.5; color: rgba(255,255,255,.75); max-width: 460px; }
+.el-s3d__text p { margin: 0; }
+.el-s3d__bar { height: 3px; background: rgba(255,255,255,.15); border-radius: 3px; margin: 32px 0; max-width: 460px; overflow: hidden; }
+.el-s3d__bar i { display: block; height: 100%; width: calc(var(--p) * 100%); background: var(--band); transition: background .5s; }
+
+.el-s3d__stage { position: relative; height: min(76vh, 720px); display: flex; align-items: center; justify-content: center; perspective: 1600px; }
+.el-s3d__glow { position: absolute; width: 70%; aspect-ratio: 1; border-radius: 50%; background: var(--band); filter: blur(110px); opacity: .35; transition: background .6s; }
+.el-s3d__scene { position: relative; width: 300px; height: 430px; transform-style: preserve-3d; transform: scale(var(--s3d-scale, 1)); }
+
+.el-s3d__box {
+  --w: 300px; --h: 430px; --d: 110px;
+  position: absolute; inset: 0; transform-style: preserve-3d;
+  transform: rotateX(calc(6deg + var(--spin) * 8deg)) rotateY(calc(-24deg + var(--rot) * 1deg)) translateY(calc(var(--spin) * -28px));
+  will-change: transform;
+}
+.f { position: absolute; left: 50%; top: 50%; background: #0a0a0a; border: 1px solid #262626; backface-visibility: hidden; }
+.f--front, .f--back { width: var(--w); height: var(--h); margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2); border-radius: 10px; }
+.f--front { transform: translateZ(calc(var(--d) / 2)); padding: 24px; display: flex; flex-direction: column; background: #000; }
+.f--back { transform: rotateY(180deg) translateZ(calc(var(--d) / 2)); display: flex; align-items: flex-end; padding: 24px; }
+.f--right, .f--left { width: var(--d); height: var(--h); margin: calc(var(--h) / -2) 0 0 calc(var(--d) / -2); display: flex; align-items: center; justify-content: center; background: #111; }
+.f--right { transform: rotateY(90deg) translateZ(calc(var(--w) / 2)); }
+.f--left { transform: rotateY(-90deg) translateZ(calc(var(--w) / 2)); }
+.f--right span, .f--left span { transform: rotate(-90deg); white-space: nowrap; font-family: var(--el-display); font-weight: 800; font-size: 34px; letter-spacing: -0.03em; }
+.f--left span { color: var(--el-charge); font-size: 26px; }
+.f--top, .f--bottom { width: var(--w); height: var(--d); margin: calc(var(--d) / -2) 0 0 calc(var(--w) / -2); background: #161616; }
+.f--top { transform: rotateX(90deg) translateZ(calc(var(--h) / 2)); }
+.f--bottom { transform: rotateX(-90deg) translateZ(calc(var(--h) / 2)); }
+.f__top { font-family: var(--el-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: #aaa; }
+.f__word { font-family: var(--el-display); font-weight: 900; font-size: 60px; line-height: .86; letter-spacing: -0.035em; margin-top: 28px; color: #fff; }
+.f__word--sm { font-size: 34px; margin: 0; }
+.f__sub { font-family: var(--el-display); font-weight: 800; font-size: 24px; color: var(--el-charge); margin-top: 10px; letter-spacing: -0.02em; }
+.f__band { margin-top: auto; height: 46px; border-radius: 6px; background: var(--band); display: flex; align-items: center; padding: 0 14px; transition: background .5s; }
+.f__flavour { font-family: var(--el-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: #000; }
+.f__stats { margin-top: 14px; font-size: 11px; color: #bbb; }
+.f__stats b { font-family: var(--el-display); font-size: 22px; color: #fff; }
+
+.el-s3d__sticks { position: absolute; inset: 0; transform-style: preserve-3d; }
+.el-s3d__sticks i {
+  position: absolute; left: 50%; top: 50%; width: 52px; height: 250px; margin: -125px 0 0 -26px; border-radius: 6px;
+  background: linear-gradient(#000 0 72%, var(--band) 72%); border: 1px solid #333; transition: background .5s;
+  transform: translateX(calc(var(--i) * var(--out) * 230px)) translateY(calc(var(--yf) * var(--out) * -170px)) translateZ(calc(-20px + var(--zf) * var(--out) * 160px)) rotateZ(calc(var(--i) * var(--out) * 22deg));
+  opacity: var(--out);
+}
+
+@media (max-width: 989px) {
+  .el-s3d__grid { grid-template-columns: 1fr; gap: 0; height: 100%; grid-template-rows: 1fr auto; padding-top: 72px; padding-bottom: 32px; }
+  .el-s3d__stage { order: -1; height: auto; min-height: 0; --s3d-scale: .72; }
+  .el-s3d__steps { min-height: 210px; }
+  .el-s3d__title { font-size: 44px; margin: 10px 0 12px; }
+  .el-s3d__text { font-size: 16px; }
+  .el-s3d__label { margin-bottom: 12px; }
+  .el-s3d__bar { margin: 16px 0; }
+  .el-s3d__cta { width: 100%; }
+}
+@media (max-width: 989px) and (max-height: 700px) { .el-s3d__stage { --s3d-scale: .56; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .el-s3d { height: auto; }
+  .el-s3d__sticky { position: static; height: auto; padding: 96px 0; }
+  .el-s3d__steps { min-height: 0; display: grid; gap: 40px; }
+  .el-s3d__step { position: static; opacity: 1; transform: none; }
+  .el-s3d__box { transform: rotateX(4deg) rotateY(-24deg); }
+  .el-s3d__bar, .el-s3d__sticks { display: none; }
+}
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var root = document.getElementById('el-s3d-{{ section.id }}');
+    if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var steps = root.querySelectorAll('.el-s3d__step');
+    var flavour = root.querySelector('.f__flavour');
+    var n = steps.length || 1, current = -1, ticking = false;
+
+    function update() {
+      ticking = false;
+      var r = root.getBoundingClientRect();
+      var total = r.height - window.innerHeight;
+      var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+      root.style.setProperty('--p', p.toFixed(4));
+      var i = Math.min(n - 1, Math.floor(p * n));
+      // Box rests facing forward for most of each step, then spins 360deg into the next one.
+      var local = Math.min(1, p * n - i);
+      var t = i < n - 1 ? Math.min(1, Math.max(0, (local - 0.65) / 0.35)) : 0;
+      var e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      root.style.setProperty('--rot', ((i + e) * 360).toFixed(2));
+      root.style.setProperty('--spin', Math.sin(e * Math.PI).toFixed(3));
+      var out = i === n - 1 ? Math.min(1, Math.max(0, (local - 0.1) / 0.5)) : 0;
+      root.style.setProperty('--out', out.toFixed(3));
+      if (i !== current) {
+        current = i;
+        steps.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
+        var s = steps[i];
+        if (s) {
+          if (s.dataset.colour) root.style.setProperty('--band', s.dataset.colour);
+          if (flavour && s.dataset.flavour) flavour.textContent = s.dataset.flavour;
+        }
+      }
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "3D scroll story",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Inside every stick" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop Hydration" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [{
+    "type": "step", "name": "Step", "limit": 6,
+    "settings": [
+      { "type": "text", "id": "title", "label": "Heading", "default": "1,000 mg sodium." },
+      { "type": "richtext", "id": "text", "label": "Text" },
+      { "type": "text", "id": "flavour", "label": "Flavour shown on box", "default": "Citrus Salt" },
+      { "type": "color", "id": "colour", "label": "Flavour colour", "default": "#E8CF4A" }
+    ]
+  }],
+  "presets": [{ "name": "3D scroll story", "blocks": [
+    { "type": "step", "settings": { "title": "1,000 mg sodium.", "flavour": "Citrus Salt", "colour": "#E8CF4A" } },
+    { "type": "step", "settings": { "title": "Zero sugar.", "flavour": "Watermelon", "colour": "#E86F6F" } },
+    { "type": "step", "settings": { "title": "Four flavours.", "flavour": "Mixed Berry", "colour": "#7E5BA6" } }
+  ] }]
+}
+{% endschema %}
