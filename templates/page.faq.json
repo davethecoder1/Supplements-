@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "faq": {
+      "type": "el-faq",
+      "settings": {
+        "heading": "Questions, answered."
+      },
+      "blocks": {
+        "q-0": {
+          "type": "question",
+          "settings": {
+            "question": "How do I use Electrolife?",
+            "answer": "<p>Tear open one stick, pour it into 500 ml of cold water and shake for a few seconds.</p>"
+          }
+        },
+        "q-1": {
+          "type": "question",
+          "settings": {
+            "question": "When should I drink it?",
+            "answer": "<p>Before, during or after sessions where you sweat a lot. Many people sip one during sessions over an hour, or in hot conditions.</p>"
+          }
+        },
+        "q-2": {
+          "type": "question",
+          "settings": {
+            "question": "How many sticks a day?",
+            "answer": "<p>One stick per sweaty session is plenty for most people. Electrolife is high in sodium, so don't use more than you need. The <a href=\"/pages/hydration-quiz\">hydration quiz</a> gives a suggestion based on your training.</p>"
+          }
+        },
+        "q-3": {
+          "type": "question",
+          "settings": {
+            "question": "Do I need it for every workout?",
+            "answer": "<p>No. For short, easy sessions, water is usually enough. Electrolife is for long, hot or very sweaty sessions. Read more on our <a href=\"/pages/science\">science page</a>.</p>"
+          }
+        },
+        "q-4": {
+          "type": "question",
+          "settings": {
+            "question": "How much sugar is in it?",
+            "answer": "<p>None. Every flavour has 0 g of sugar.</p>"
+          }
+        },
+        "q-5": {
+          "type": "question",
+          "settings": {
+            "question": "Is it suitable for vegans?",
+            "answer": "<p>Yes. Full ingredients and allergen information are on each product page.</p>"
+          }
+        },
+        "q-6": {
+          "type": "question",
+          "settings": {
+            "question": "Can I mix flavours?",
+            "answer": "<p>Yes. The Variety Box has all four flavours in one box, so you can find your favourite before committing.</p>"
+          }
+        },
+        "q-7": {
+          "type": "question",
+          "settings": {
+            "question": "Who shouldn't use Electrolife?",
+            "answer": "<p>If you have high blood pressure, heart or kidney problems, are pregnant, or have been told to cut down on salt, speak to your GP first. It isn't intended for children.</p>"
+          }
+        },
+        "q-8": {
+          "type": "question",
+          "settings": {
+            "question": "Will it help with a hangover?",
+            "answer": "<p>Electrolife isn't a hangover cure, and nothing is. It's a zero-sugar way to make water more interesting the morning after a late night. Please drink responsibly.</p>"
+          }
+        },
+        "q-9": {
+          "type": "question",
+          "settings": {
+            "question": "How should I store it?",
+            "answer": "<p>Somewhere cool and dry, away from direct sunlight. Keep the sticks sealed until you use them.</p>"
+          }
+        },
+        "q-10": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is delivery?",
+            "answer": "<p>Free next-day delivery across the UK on orders placed before the daily cut-off.</p>"
+          }
+        },
+        "q-11": {
+          "type": "question",
+          "settings": {
+            "question": "Do you have a discount for first orders?",
+            "answer": "<p>Yes. Use code WELCOME15 at checkout for 15% off your first order.</p>"
+          }
+        },
+        "q-12": {
+          "type": "question",
+          "settings": {
+            "question": "How do I get in touch?",
+            "answer": "<p>Send us a message through our <a href=\"/pages/contact\">contact page</a> and we'll get back to you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q-0",
+        "q-1",
+        "q-2",
+        "q-3",
+        "q-4",
+        "q-5",
+        "q-6",
+        "q-7",
+        "q-8",
+        "q-9",
+        "q-10",
+        "q-11",
+        "q-12"
+      ]
+    },
+    "quiz": {
+      "type": "el-quiz-cta",
+      "settings": {
+        "link": "/pages/hydration-quiz"
+      }
+    }
+  },
+  "order": [
+    "faq",
+    "quiz"
+  ]
+}

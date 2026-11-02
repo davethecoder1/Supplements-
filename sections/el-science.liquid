@@ -1,0 +1,181 @@
+<section class="el el-sci" id="el-sci-{{ section.id }}">
+  <header class="el-sci__hero">
+    <div class="el-container el-stack" style="gap: 24px;">
+      {%- if section.settings.label != blank -%}<span class="el-tag">{{ section.settings.label }}</span>{%- endif -%}
+      <h1 class="el-sci__title">{{ section.settings.heading | newline_to_br }}</h1>
+      {%- if section.settings.intro != blank -%}<div class="el-sci__intro">{{ section.settings.intro }}</div>{%- endif -%}
+    </div>
+  </header>
+
+  <div class="el-container el-sci__body">
+    {%- assign ch = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'chapter' -%}
+          {%- assign ch = ch | plus: 1 -%}
+          <article class="el-sci__ch" {{ block.shopify_attributes }}>
+            <div class="el-sci__ch-head">
+              <span class="el-sci__num">{% if ch < 10 %}0{% endif %}{{ ch }}</span>
+              <h2 class="el-sci__h2">{{ block.settings.heading }}</h2>
+            </div>
+            <div class="el-sci__ch-text">{{ block.settings.text }}</div>
+            {%- if block.settings.stat != blank -%}
+              <div class="el-sci__stat">
+                <strong>{{ block.settings.stat }}</strong>
+                <span>{{ block.settings.stat_label }}</span>
+              </div>
+            {%- endif -%}
+          </article>
+
+        {%- when 'calculator' -%}
+          <div class="el-sci__calc" data-sweat-calc data-stick="{{ block.settings.stick_mg }}" {{ block.shopify_attributes }}>
+            <div class="el-stack" style="gap: 12px;">
+              <span class="el-label">Try it</span>
+              <h2 class="el-sci__h2">{{ block.settings.heading }}</h2>
+              <div class="el-sci__calc-intro">{{ block.settings.text }}</div>
+            </div>
+            <form class="el-sci__form" onsubmit="return false;">
+              <label><span>Weight before (kg)</span><input type="number" inputmode="decimal" step="0.1" min="20" max="250" name="before" placeholder="75.0" required></label>
+              <label><span>Weight after (kg)</span><input type="number" inputmode="decimal" step="0.1" min="20" max="250" name="after" placeholder="74.2" required></label>
+              <label><span>Drank during (ml)</span><input type="number" inputmode="numeric" step="50" min="0" max="10000" name="drank" placeholder="500" value="0"></label>
+              <label><span>Session length (min)</span><input type="number" inputmode="numeric" step="5" min="10" max="600" name="mins" placeholder="60" required></label>
+            </form>
+            <div class="el-sci__out" aria-live="polite">
+              <div><span>Sweat lost</span><strong data-o-sweat>–</strong></div>
+              <div><span>Sweat rate</span><strong data-o-rate>–</strong></div>
+              <div><span>Est. sodium lost</span><strong data-o-sodium>–</strong></div>
+            </div>
+            <p class="el-sci__note" data-o-note>Enter your numbers to see your estimate.</p>
+            <p class="el-sci__small">{{ block.settings.disclaimer }}</p>
+          </div>
+
+        {%- when 'sources' -%}
+          <aside class="el-sci__sources" {{ block.shopify_attributes }}>
+            <h2 class="el-label">{{ block.settings.heading }}</h2>
+            <div class="el-sci__src-list">{{ block.settings.list }}</div>
+          </aside>
+      {%- endcase -%}
+    {%- endfor -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="el-sci__cta">
+        <h2 class="el-sci__h2">{{ section.settings.cta_heading }}</h2>
+        <div class="el-btns">
+          <a class="el-btn el-btn--charge" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+          <a class="el-btn el-sci__ghost" href="/pages/hydration-quiz">Take the quiz</a>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.el-sci { background: #fff; }
+.el-sci__hero { background: #000; color: #fff; padding: 120px 0 96px; }
+.el-sci__title { font-family: var(--el-display); font-weight: 800; font-size: clamp(52px, 8vw, 128px); line-height: .9; letter-spacing: -0.045em; margin: 0; color: #fff; }
+.el-sci__intro { font-size: 21px; line-height: 1.5; color: rgba(255,255,255,.75); max-width: 640px; }
+.el-sci__intro p { margin: 0; }
+.el-sci__body { padding-top: 24px; padding-bottom: 96px; max-width: 1100px; }
+.el-sci__ch { display: grid; grid-template-columns: 1.1fr 1fr; grid-template-areas: "head stat" "text stat"; column-gap: 64px; row-gap: 16px; padding: 72px 0; border-bottom: 1px solid var(--el-line); }
+.el-sci__ch-head { grid-area: head; display: flex; flex-direction: column; gap: 12px; }
+.el-sci__num { font-family: var(--el-mono); font-size: 13px; letter-spacing: .1em; color: var(--el-ink-muted); }
+.el-sci__h2 { font-family: var(--el-display); font-weight: 800; font-size: clamp(32px, 4vw, 52px); line-height: 1; letter-spacing: -0.035em; margin: 0; }
+.el-sci__ch-text { grid-area: text; font-size: 18px; line-height: 1.6; color: #333; }
+.el-sci__ch-text p { margin: 0 0 1em; }
+.el-sci__stat { grid-area: stat; align-self: center; background: var(--el-surface); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 8px; }
+.el-sci__stat strong { font-family: var(--el-display); font-weight: 800; font-size: clamp(44px, 5vw, 72px); line-height: 1; letter-spacing: -0.04em; }
+.el-sci__stat span { font-size: 15px; color: var(--el-ink-muted); }
+.el-sci__ch:nth-of-type(3n+2) .el-sci__stat { background: #000; color: #fff; }
+.el-sci__ch:nth-of-type(3n+2) .el-sci__stat span { color: rgba(255,255,255,.7); }
+.el-sci__ch:nth-of-type(3n) .el-sci__stat { background: var(--el-charge); }
+
+.el-sci__calc { margin: 72px 0; background: #000; color: #fff; border-radius: 24px; padding: clamp(28px, 5vw, 64px); display: grid; gap: 32px; }
+.el-sci__calc .el-label { color: var(--el-charge); }
+.el-sci__calc .el-sci__h2 { color: #fff; }
+.el-sci__calc-intro { color: rgba(255,255,255,.75); font-size: 17px; max-width: 620px; }
+.el-sci__calc-intro p { margin: 0; }
+.el-sci__form { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.el-sci__form label { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: rgba(255,255,255,.75); }
+.el-sci__form input { min-height: 56px; border-radius: 14px; border: 1px solid #333; background: #111; color: #fff; padding: 0 16px; font: 600 20px/1 var(--el-sans); width: 100%; }
+.el-sci__form input:focus-visible { outline: 2px solid var(--el-charge); outline-offset: 2px; }
+.el-sci__out { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.el-sci__out div { background: #151515; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 6px; }
+.el-sci__out span { font-family: var(--el-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+.el-sci__out strong { font-family: var(--el-display); font-weight: 800; font-size: clamp(28px, 3.4vw, 44px); letter-spacing: -0.03em; color: var(--el-charge); }
+.el-sci__note { margin: 0; font-size: 17px; color: #fff; }
+.el-sci__small { margin: 0; font-size: 13px; color: rgba(255,255,255,.55); }
+
+.el-sci__sources { padding: 48px 0; border-bottom: 1px solid var(--el-line); }
+.el-sci__src-list { font-size: 14px; line-height: 1.6; color: #444; margin-top: 16px; }
+.el-sci__src-list ol, .el-sci__src-list ul { padding-left: 20px; margin: 0; display: grid; gap: 8px; }
+.el-sci__src-list a { color: inherit; }
+.el-sci__cta { padding-top: 72px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+.el-sci__ghost { background: transparent; color: #000; border-color: #000; }
+.el-sci__ghost:hover { background: #000; color: #fff; }
+
+@media (max-width: 989px) {
+  .el-sci__hero { padding: 80px 0 64px; }
+  .el-sci__ch { grid-template-columns: 1fr; grid-template-areas: "head" "text" "stat"; padding: 48px 0; }
+  .el-sci__form { grid-template-columns: 1fr 1fr; }
+  .el-sci__out { grid-template-columns: 1fr; }
+}
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var calc = document.querySelector('#el-sci-{{ section.id }} [data-sweat-calc]');
+    if (!calc) return;
+    var f = calc.querySelector('form');
+    var stick = parseFloat(calc.dataset.stick) || 1000;
+    var LOW = 460, HIGH = 1840; // mg sodium per litre of sweat, typical range (20–80 mmol/L)
+    function n(name) { var v = parseFloat(f.elements[name].value); return isNaN(v) ? null : v; }
+    function fmt(x) { return Math.round(x).toLocaleString('en-GB'); }
+    function update() {
+      var b = n('before'), a = n('after'), d = n('drank') || 0, m = n('mins');
+      var o = function (k, t) { calc.querySelector('[data-o-' + k + ']').textContent = t; };
+      if (b === null || a === null || !m) { o('sweat', '–'); o('rate', '–'); o('sodium', '–'); calc.querySelector('[data-o-note]').textContent = 'Enter your numbers to see your estimate.'; return; }
+      var litres = (b - a) + d / 1000;
+      if (litres <= 0 || litres > 10) { o('sweat', '–'); o('rate', '–'); o('sodium', '–'); calc.querySelector('[data-o-note]').textContent = 'Those numbers don’t add up. Check your weights and the amount you drank.'; return; }
+      var rate = litres / (m / 60);
+      var lo = litres * LOW, hi = litres * HIGH;
+      o('sweat', litres.toFixed(1) + ' L');
+      o('rate', rate.toFixed(1) + ' L/hr');
+      o('sodium', fmt(lo) + '–' + fmt(hi) + ' mg');
+      var level = rate < 0.8 ? 'a light' : rate < 1.5 ? 'a moderate' : 'a heavy';
+      calc.querySelector('[data-o-note]').textContent = 'That’s ' + level + ' sweat rate. Depending on how salty your sweat is, you lost roughly ' + fmt(lo) + ' to ' + fmt(hi) + ' mg of sodium. One stick contains ' + fmt(stick) + ' mg.';
+    }
+    f.addEventListener('input', update);
+    update();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Science page",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "The science" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "The science\nof sweat." },
+    { "type": "richtext", "id": "intro", "label": "Intro" },
+    { "type": "text", "id": "cta_heading", "label": "Closing heading", "default": "Ready to try it?" },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Shop Hydration" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    { "type": "chapter", "name": "Chapter", "settings": [
+      { "type": "text", "id": "heading", "label": "Heading" },
+      { "type": "richtext", "id": "text", "label": "Text" },
+      { "type": "text", "id": "stat", "label": "Big number" },
+      { "type": "text", "id": "stat_label", "label": "Big number label" } ] },
+    { "type": "calculator", "name": "Sweat calculator", "limit": 1, "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Work out your sweat rate" },
+      { "type": "richtext", "id": "text", "label": "Text" },
+      { "type": "number", "id": "stick_mg", "label": "Sodium per stick (mg)", "default": 1000 },
+      { "type": "text", "id": "disclaimer", "label": "Disclaimer", "default": "An estimate only, not medical advice." } ] },
+    { "type": "sources", "name": "Sources", "limit": 1, "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Sources" },
+      { "type": "richtext", "id": "list", "label": "List" } ] }
+  ],
+  "presets": [{ "name": "Science page" }]
+}
+{% endschema %}

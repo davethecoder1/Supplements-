@@ -1,0 +1,99 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "el-science",
+      "settings": {
+        "label": "The science",
+        "heading": "The science\nof sweat.",
+        "intro": "<p>What you lose when you train hard, why water alone doesn't replace it, and exactly what's in every stick. No hype, just the numbers.</p>",
+        "cta_heading": "Ready to try it?",
+        "button_label": "Shop Hydration",
+        "button_link": "/products/electrolife-hydration"
+      },
+      "blocks": {
+        "chapter-0": {
+          "type": "chapter",
+          "settings": {
+            "heading": "Why you sweat.",
+            "text": "<p>Sweat is how your body cools down. As it evaporates from your skin, it carries heat away with it.</p><p>How much you sweat depends on how hard you train, how hot and humid it is, your size and your genetics. During hard exercise, sweat rates commonly run between half a litre and two litres an hour, and more in the heat.</p>",
+            "stat": "0.5\u20132 L",
+            "stat_label": "sweat per hour during hard exercise, typical range"
+          }
+        },
+        "chapter-1": {
+          "type": "chapter",
+          "settings": {
+            "heading": "What's in sweat.",
+            "text": "<p>Sweat is mostly water, but it also carries electrolytes out of your body. Sodium is the main one. Potassium and magnesium are lost too, in much smaller amounts.</p><p>How salty your sweat is varies a lot from person to person. For most people it's somewhere between about 460 and 1,840 mg of sodium per litre. If you get white salt marks on your kit or stinging eyes, you're probably at the saltier end.</p>",
+            "stat": "460\u20131,840 mg",
+            "stat_label": "sodium per litre of sweat, typical range"
+          }
+        },
+        "chapter-2": {
+          "type": "chapter",
+          "settings": {
+            "heading": "Water replaces fluid. Not salt.",
+            "text": "<p>Plain water puts fluid back, but not the sodium you've sweated out. That's why sports nutrition guidelines suggest including sodium in drinks during long sessions, in hot conditions, or when you sweat heavily.</p><p>For short, easy sessions, water is usually enough. Electrolife is for the sessions where you finish soaked.</p>",
+            "stat": "1,000 mg",
+            "stat_label": "sodium in every Electrolife stick"
+          }
+        },
+        "calc": {
+          "type": "calculator",
+          "settings": {
+            "heading": "Work out your sweat rate.",
+            "text": "<p>Weigh yourself in minimal clothing right before and right after a typical session, and note how much you drank. Each kilogram you lose is roughly a litre of sweat.</p>",
+            "stick_mg": 1000,
+            "disclaimer": "An estimate only, based on a typical range for sweat sodium. It isn't medical advice."
+          }
+        },
+        "chapter-3": {
+          "type": "chapter",
+          "settings": {
+            "heading": "What's in a stick.",
+            "text": "<p>Each stick contains 1,000 mg of sodium, 200 mg of potassium (10% of your daily reference intake) and 60 mg of magnesium (16%). There's no sugar.</p><p>Potassium contributes to normal muscle function. Magnesium contributes to a reduction of tiredness and fatigue.</p>",
+            "stat": "0 g",
+            "stat_label": "sugar per stick"
+          }
+        },
+        "chapter-4": {
+          "type": "chapter",
+          "settings": {
+            "heading": "Who should check first.",
+            "text": "<p>Electrolife is high in sodium by design. If you have high blood pressure, heart or kidney problems, or have been told to cut down on salt, speak to your GP before using it.</p><p>It isn't intended for children. Don't use more than you need: one stick per sweaty session is plenty for most people.</p>",
+            "stat": "",
+            "stat_label": ""
+          }
+        },
+        "sources": {
+          "type": "sources",
+          "settings": {
+            "heading": "Sources",
+            "list": "<ol><li>Baker LB (2017). Sweating rate and sweat sodium concentration in athletes: a review of methodology and intra/interindividual variability. <em>Sports Medicine</em> 47(Suppl 1):111\u2013128. <a href=\"https://doi.org/10.1007/s40279-017-0691-5\">doi:10.1007/s40279-017-0691-5</a></li><li>American College of Sports Medicine, Sawka MN et al. (2007). Exercise and fluid replacement. <em>Medicine &amp; Science in Sports &amp; Exercise</em> 39(2):377\u2013390. <a href=\"https://doi.org/10.1249/mss.0b013e31802ca597\">doi:10.1249/mss.0b013e31802ca597</a></li><li>Thomas DT, Erdman KA, Burke LM (2016). Nutrition and athletic performance. <em>Medicine &amp; Science in Sports &amp; Exercise</em> 48(3):543\u2013568. <a href=\"https://doi.org/10.1249/MSS.0000000000000852\">doi:10.1249/MSS.0000000000000852</a></li><li>Great Britain Nutrition and Health Claims Register. <a href=\"https://www.gov.uk/government/publications/great-britain-nutrition-and-health-claims-nhc-register\">gov.uk</a></li></ol>"
+          }
+        }
+      },
+      "block_order": [
+        "chapter-0",
+        "chapter-1",
+        "chapter-2",
+        "calc",
+        "chapter-3",
+        "chapter-4",
+        "sources"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
