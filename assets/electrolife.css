@@ -484,3 +484,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
   .footer__content-top .footer__blocks-wrapper { grid-template-columns: 1.6fr repeat(4, 1fr); gap: 40px; display: grid; }
   .footer__content-top .footer__blocks-wrapper > .footer-block { width: auto; max-width: none; }
 }
+/* Equal-height cards without percentage heights (iOS Safari doesn't always resolve height:100% inside stretched flex items) */
+.product-grid > .grid__item { display: flex; flex-direction: column; }
+.product-grid > .grid__item > .card-wrapper { flex: 1 1 auto; height: auto; display: flex; flex-direction: column; }
+.product-grid > .grid__item > .card-wrapper > .card { flex: 1 1 auto; height: auto; }
