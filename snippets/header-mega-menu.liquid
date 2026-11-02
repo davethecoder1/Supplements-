@@ -30,6 +30,41 @@
                 class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
+                {%- if link.handle == 'shop-by-goal' -%}
+                  <div class="el-mm page-width">
+                    <ul class="el-mm__grid" role="list">
+                      {%- for childlink in link.links -%}
+                        {%- liquid
+                          case forloop.index
+                            when 1
+                              assign tone = 'dark'
+                            when 4
+                              assign tone = 'charge'
+                            else
+                              assign tone = 'grey'
+                          endcase
+                          assign blurb = childlink.object.seo.description | default: childlink.object.description | strip_html | truncatewords: 12
+                        -%}
+                        <li>
+                          <a href="{{ childlink.url }}" class="el-mm__tile el-mm__tile--{{ tone }}"{% if childlink.current %} aria-current="page"{% endif %}>
+                            <span class="el-mm__num">0{{ forloop.index }}</span>
+                            <span class="el-mm__title">{{ childlink.title | escape }}</span>
+                            {%- if blurb != blank -%}<span class="el-mm__text">{{ blurb | escape }}</span>{%- endif -%}
+                            <span class="el-mm__cta">Shop now <span aria-hidden="true">&rarr;</span></span>
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                      <li>
+                        <a href="/pages/hydration-quiz" class="el-mm__tile el-mm__tile--outline">
+                          <span class="el-mm__num">?</span>
+                          <span class="el-mm__title">Not sure?</span>
+                          <span class="el-mm__text">Answer four quick questions and we'll suggest a routine.</span>
+                          <span class="el-mm__cta">Take the quiz <span aria-hidden="true">&rarr;</span></span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                {%- else -%}
                 <ul
                   class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
                   role="list"
@@ -67,6 +102,7 @@
                     </li>
                   {%- endfor -%}
                 </ul>
+                {%- endif -%}
               </div>
             </details>
           </header-menu>

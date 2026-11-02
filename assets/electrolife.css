@@ -285,3 +285,27 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 /* ---- Price per stick under the product price ---- */
 .el-perstick { margin: -4px 0 4px; font-size: 14px; color: #555; }
 .el-perstick strong { color: #000; font-weight: 700; }
+
+/* ---- Mega menu: Shop by goal tiles ---- */
+.el-mm { padding-top: 24px; padding-bottom: 32px; }
+.el-mm__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.el-mm__tile { height: 100%; min-height: 200px; display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 16px; text-decoration: none; color: #000; background: #F4F4F4; transition: transform .2s ease; }
+.el-mm__tile:hover { transform: translateY(-3px); }
+.el-mm__tile--dark { background: #000; color: #fff; }
+.el-mm__tile--charge { background: var(--el-charge); }
+.el-mm__tile--outline { background: #fff; box-shadow: inset 0 0 0 1.5px #000; }
+.el-mm__num { font-family: var(--el-mono); font-size: 12px; letter-spacing: .08em; opacity: .7; }
+.el-mm__title { margin-top: auto; font-family: var(--el-display); font-weight: 800; font-size: 26px; line-height: 1; letter-spacing: -0.03em; }
+.el-mm__text { font-size: 13px; line-height: 1.35; opacity: .8; }
+.el-mm__cta { font-weight: 700; font-size: 13px; margin-top: 4px; }
+.el-mm__tile--dark:focus-visible { outline-color: var(--el-charge); }
+@media (prefers-reduced-motion: reduce) { .el-mm__tile, .el-mm__tile:hover { transition: none; transform: none; } }
+
+/* ---- Product cards ---- */
+.badge.el-badge-best { background: #000; color: #fff; border-color: #000; }
+.el-card-perstick { margin: 2px 0 0; font-size: 13px; color: #555; }
+/* Pack buttons: show the multi-buy saving */
+.product-form__input input[value="2 boxes (60 sticks)"] + label::after,
+.product-form__input input[value="3 boxes (90 sticks)"] + label::after { margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--el-charge); color: #000; font-size: 12px; font-weight: 700; }
+.product-form__input input[value="2 boxes (60 sticks)"] + label::after { content: "Save 10%"; }
+.product-form__input input[value="3 boxes (90 sticks)"] + label::after { content: "Save 15%"; }

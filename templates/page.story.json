@@ -1,0 +1,71 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "el-science",
+      "settings": {
+        "label": "Our story",
+        "heading": "Hydration,\nwithout the hype.",
+        "intro": "<p>Electrolife started with a simple frustration: most hydration drinks are either full of sugar, or light on the thing you actually lose in sweat. So we made one built around the numbers.</p>",
+        "cta_heading": "Ready to try it?",
+        "button_label": "Shop Hydration",
+        "button_link": "/products/electrolife-hydration"
+      },
+      "blocks": {
+        "chapter-0": {
+          "type": "chapter",
+          "settings": {
+            "heading": "Built around what you lose.",
+            "text": "<p>When you sweat, sodium is the electrolyte you lose most. Yet plenty of hydration drinks contain surprisingly little of it.</p><p>So we started with the number that matters and built everything around it: 1,000 mg of sodium in every stick, printed on the front of the box.</p>",
+            "stat": "1,000 mg",
+            "stat_label": "sodium in every stick"
+          }
+        },
+        "chapter-1": {
+          "type": "chapter",
+          "settings": {
+            "heading": "No sugar. No fillers.",
+            "text": "<p>You don't need a fizzy-drink's worth of sugar to rehydrate after a gym session. Electrolife is zero sugar, vegan, and made with a short list of ingredients you can actually read.</p><p>If you need fuel for a long endurance event, eat or drink carbohydrate separately. We'd rather you chose that on purpose.</p>",
+            "stat": "0 g",
+            "stat_label": "sugar per stick"
+          }
+        },
+        "chapter-2": {
+          "type": "chapter",
+          "settings": {
+            "heading": "Honest about when you need it.",
+            "text": "<p>Here's something most brands won't tell you: for a short, easy session, water is usually all you need.</p><p>Electrolife is for the sessions where you finish soaked: long runs, hot days, packed classes and two-a-days. We'd rather you used it when it helps than every day out of habit.</p>",
+            "stat": "500 ml",
+            "stat_label": "one stick, one bottle"
+          }
+        },
+        "chapter-3": {
+          "type": "chapter",
+          "settings": {
+            "heading": "Science you can check.",
+            "text": "<p>We link our sources, stick to authorised health claims, and explain the numbers on our <a href=\"/pages/science\">science page</a>, including a calculator so you can work out your own sweat rate.</p><p>No miracle promises. Just electrolytes, in the amounts that matter.</p>",
+            "stat": "4",
+            "stat_label": "flavours, including unflavoured Pure"
+          }
+        }
+      },
+      "block_order": [
+        "chapter-0",
+        "chapter-1",
+        "chapter-2",
+        "chapter-3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,117 @@
+{%- comment -%}
+  Email sign-up pop-up: "15% off your first order".
+  - Shows once (then hidden for 14 days, or forever after signing up), after 20s or on exit intent (desktop).
+  - Never on cart, checkout, account, password or 404 pages, or in the theme editor.
+  - Accessible dialog: focus moves in, Esc / backdrop / close button close it, focus returns.
+  On success Shopify reloads with ?customer_posted=true, and we show the code straight away.
+{%- endcomment -%}
+{%- liquid
+  assign skip = false
+  if request.design_mode or template.name == 'cart' or template.name == 'password' or template.name == '404' or template.name contains 'customers'
+    assign skip = true
+  endif
+-%}
+{%- unless skip -%}
+<div class="el-pop" id="el-pop" hidden>
+  <div class="el-pop__backdrop" data-el-pop-close></div>
+  <div class="el-pop__dialog" role="dialog" aria-modal="true" aria-labelledby="el-pop-title" tabindex="-1">
+    <button type="button" class="el-pop__x" data-el-pop-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    {%- form 'customer', id: 'el-pop-form', class: 'el-pop__form' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="el-pop__done" data-el-pop-success>
+          <span class="el-tag">You're in</span>
+          <h2 class="el-pop__title" id="el-pop-title">Here's your 15% off.</h2>
+          <p class="el-pop__text">Use this code at checkout on your first order:</p>
+          <p class="el-pop__code">WELCOME15</p>
+          <a href="/products/electrolife-hydration" class="el-btn el-btn--charge el-btn--block">Shop Hydration</a>
+        </div>
+      {%- else -%}
+        <span class="el-tag">First order</span>
+        <h2 class="el-pop__title" id="el-pop-title">Get 15% off.</h2>
+        <p class="el-pop__text">Join the list for new flavours, hydration tips and offers. We'll show your code straight away.</p>
+        <input type="hidden" name="contact[tags]" value="newsletter, popup">
+        <label for="el-pop-email" class="visually-hidden">Email address</label>
+        <input id="el-pop-email" type="email" name="contact[email]" required autocomplete="email" placeholder="Your email address" class="el-pop__input"
+          {% if form.errors %}aria-invalid="true" aria-describedby="el-pop-error"{% endif %}>
+        {%- if form.errors -%}
+          <p class="el-pop__error" id="el-pop-error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+        <button type="submit" class="el-btn el-btn--block">Get my code</button>
+        <p class="el-pop__small">You can unsubscribe any time. See our <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">privacy policy</a>.</p>
+        <button type="button" class="el-pop__no" data-el-pop-close>No thanks</button>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</div>
+<style>
+  .el-pop[hidden] { display: none; }
+  .el-pop { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .el-pop__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.55); }
+  .el-pop__dialog { position: relative; width: 100%; max-width: 440px; background: #fff; color: #000; border-radius: 24px; padding: 40px 28px 24px; box-shadow: 0 30px 80px rgba(0,0,0,.35); animation: el-pop-in .3s cubic-bezier(.2,.7,.2,1); }
+  .el-pop__dialog:focus { outline: none; }
+  .el-pop__form { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
+  .el-pop__form .el-tag { align-self: flex-start; }
+  .el-pop__title { font-family: var(--el-display); font-weight: 800; font-size: 44px; line-height: .95; letter-spacing: -0.04em; margin: 0; }
+  .el-pop__text { margin: 0; color: #555; font-size: 16px; }
+  .el-pop__input { box-sizing: border-box; min-height: 54px; border-radius: 999px; border: 1.5px solid #000; padding: 0 20px; font: 16px var(--el-sans); width: 100%; }
+  .el-pop__error { margin: -4px 0 0; color: #B3261E; font-size: 14px; }
+  .el-pop__small { margin: 0; font-size: 12px; color: #555; text-align: center; }
+  .el-pop__small a { color: inherit; }
+  .el-pop__no { background: none; border: 0; min-height: 44px; font: 600 14px var(--el-sans); color: #555; text-decoration: underline; cursor: pointer; }
+  .el-pop__x { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #F4F4F4; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #000; }
+  .el-pop__code { margin: 0; font: 700 28px/1 var(--el-mono); letter-spacing: .12em; text-align: center; padding: 18px; border: 2px dashed #000; border-radius: 14px; background: #D7F75B; }
+  .el-pop__done { display: flex; flex-direction: column; gap: 14px; }
+  .el-pop__done .el-tag { align-self: flex-start; }
+  @keyframes el-pop-in { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .el-pop__dialog { animation: none; } }
+</style>
+<script>
+  (function () {
+    var pop = document.getElementById('el-pop');
+    if (!pop) return;
+    var KEY = 'el_pop_state';
+    var dialog = pop.querySelector('.el-pop__dialog');
+    var lastFocus = null, timer = null;
+    function get() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } }
+    function set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+    function open() {
+      if (!pop.hidden) return;
+      lastFocus = document.activeElement;
+      pop.hidden = false;
+      document.documentElement.style.overflow = 'hidden';
+      var f = pop.querySelector('input[type=email]') || dialog;
+      setTimeout(function () { f.focus(); }, 50);
+      document.removeEventListener('mouseout', exitIntent);
+    }
+    function close() {
+      pop.hidden = true;
+      document.documentElement.style.overflow = '';
+      var s = get(); if (!s.joined) set({ dismissed: Date.now() });
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    pop.addEventListener('click', function (e) { if (e.target.closest('[data-el-pop-close]')) close(); });
+    pop.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key !== 'Tab') return;
+      var els = pop.querySelectorAll('a[href], button, input:not([type=hidden])');
+      var first = els[0], last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    function exitIntent(e) { if (!e.relatedTarget && e.clientY <= 0) open(); }
+
+    // After submitting: show the result (success code, or the error) straight away.
+    var posted = /customer_posted=true/.test(location.search) || location.hash === '#el-pop-form';
+    if (pop.querySelector('[data-el-pop-success]')) { set({ joined: true }); if (posted) open(); return; }
+    if (pop.querySelector('.el-pop__error')) { open(); return; }
+
+    var s = get();
+    if (s.joined) return;
+    if (s.dismissed && Date.now() - s.dismissed < 14 * 864e5) return;
+    timer = setTimeout(open, 20000);
+    if (window.matchMedia('(pointer: fine)').matches) document.addEventListener('mouseout', exitIntent);
+  })();
+</script>
+{%- endunless -%}

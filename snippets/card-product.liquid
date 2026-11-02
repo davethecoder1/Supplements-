@@ -141,6 +141,8 @@
                 >
                   {{- 'products.product.on_sale' | t -}}
                 </span>
+              {%- elsif card_product.tags contains 'best-seller' -%}
+                <span id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}" class="badge badge--bottom-left el-badge-best">Best seller</span>
               {%- endif -%}
             </div>
           </div>
@@ -207,6 +209,10 @@
               {%- endif -%}
 
               {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+              {%- if card_product.type == 'Electrolyte Drink Mix' -%}
+                {%- assign el_ps = card_product.price | times: 1.0 | divided_by: 30 | round -%}
+                <p class="el-card-perstick">{{ el_ps | money }} per stick</p>
+              {%- endif -%}
               {%- if card_product.quantity_price_breaks_configured? -%}
                 {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                   {% liquid
@@ -565,6 +571,8 @@
               >
                 {{- 'products.product.on_sale' | t -}}
               </span>
+            {%- elsif card_product.tags contains 'best-seller' -%}
+              <span id="Badge-{{ section_id }}-{{ card_product.id }}" class="badge badge--bottom-left el-badge-best">Best seller</span>
             {%- endif -%}
           </div>
         </div>
