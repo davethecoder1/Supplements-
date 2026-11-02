@@ -59,6 +59,7 @@
   assign site_id = root | append: '/#website'
   assign currency = cart.currency.iso_code | default: 'GBP'
 -%}
+{%- assign search_target = root | append: routes.search_url | append: '?q={search_term_string}' -%}
 {%- capture return_policy -%}
 {
   "@type": "MerchantReturnPolicy",
@@ -120,7 +121,7 @@
       "inLanguage": "en-GB",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": { "@type": "EntryPoint", "urlTemplate": {{ root | append: routes.search_url | append: '?q={search_term_string}' | json }} },
+        "target": { "@type": "EntryPoint", "urlTemplate": {{ search_target | json }} },
         "query-input": "required name=search_term_string"
       }
     }
