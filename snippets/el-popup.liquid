@@ -48,7 +48,7 @@
     {%- endform -%}
   </div>
 </div>
-<div class="el-pop-tab" id="el-pop-tab" hidden>
+<div class="el-pop-tab" id="el-pop-tab" data-page="{{ template.name }}" hidden>
   <button type="button" class="el-pop-tab__open" aria-haspopup="dialog" aria-controls="el-pop">Get 15% off your first order</button>
   <button type="button" class="el-pop-tab__x" aria-label="Hide offer">
     <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
@@ -126,7 +126,7 @@
     var phone = window.matchMedia('(max-width: 749px)').matches;
     if (phone) {
       var tab = document.getElementById('el-pop-tab');
-      if (!tab || {{ template.name | json }} === 'product') return;
+      if (!tab || tab.getAttribute('data-page') === 'product') return;
       setTimeout(function () { tab.hidden = false; }, 6000);
       tab.querySelector('.el-pop-tab__open').addEventListener('click', function () { tab.hidden = true; open(); });
       tab.querySelector('.el-pop-tab__x').addEventListener('click', function () { tab.hidden = true; set({ dismissed: Date.now() }); });
