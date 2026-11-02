@@ -1,0 +1,97 @@
+{%- liquid
+  assign img_d = section.settings.image
+  assign img_m = section.settings.image_mobile | default: img_d
+  assign hero_product = section.settings.product
+  if hero_product != blank and section.settings.show_price
+    assign per_stick = hero_product.price | times: 0.75 | divided_by: section.settings.sticks_per_box | round
+  endif
+-%}
+<section class="el el-hb el-hb--{{ section.settings.height }}" style="--hb-overlay: {{ section.settings.overlay | divided_by: 100.0 }};">
+  <div class="el-hb__media" aria-hidden="true">
+    {%- if img_d != blank -%}
+      <picture>
+        {%- if img_m != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ img_m | image_url: width: 750 }} 750w, {{ img_m | image_url: width: 1200 }} 1200w" sizes="100vw">
+        {%- endif -%}
+        {{ img_d | image_url: width: 2880 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '1200, 1800, 2400, 2880', sizes: '100vw', alt: '', class: 'el-hb__img' }}
+      </picture>
+    {%- else -%}
+      <div class="el-hb__placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="el-container el-hb__inner">
+    <div class="el-hb__content">
+      {%- if section.settings.tag != blank -%}<span class="el-tag">{{ section.settings.tag }}</span>{%- endif -%}
+      <h1 class="el-hb__title">{{ section.settings.heading | newline_to_br }}</h1>
+      {%- if section.settings.text != blank -%}<div class="el-hb__text">{{ section.settings.text }}</div>{%- endif -%}
+      <div class="el-btns">
+        {%- if section.settings.button_label != blank -%}
+          <a class="el-btn el-btn--charge" href="{{ section.settings.button_link | default: hero_product.url | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.button2_label != blank -%}
+          <a class="el-btn el-hb__ghost" href="{{ section.settings.button2_link | default: '/pages/hydration-quiz' }}">{{ section.settings.button2_label }}</a>
+        {%- endif -%}
+      </div>
+      {%- if per_stick -%}
+        <p class="el-hb__note">From {{ per_stick | money }} per stick with Subscribe &amp; save</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.el-hb { position: relative; overflow: hidden; background: #000; color: #fff; display: flex; align-items: center; }
+.el-hb--large { min-height: min(92vh, 960px); }
+.el-hb--medium { min-height: min(72vh, 760px); }
+.el-hb--small { min-height: 520px; }
+.el-hb__media, .el-hb__media picture { position: absolute; inset: 0; display: block; }
+.el-hb__img { width: 100%; height: 100%; object-fit: cover; object-position: 70% center; }
+.el-hb__placeholder { position: absolute; inset: 0; background: radial-gradient(60% 70% at 75% 50%, rgba(215,247,91,.35), rgba(0,0,0,0) 70%), #000; }
+.el-hb__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,var(--hb-overlay)) 0%, rgba(0,0,0,0) 60%); }
+.el-hb__inner { position: relative; z-index: 1; width: 100%; padding-top: 96px; padding-bottom: 96px; }
+.el-hb__content { max-width: 660px; display: flex; flex-direction: column; gap: 24px; }
+.el-hb__title { font-family: var(--el-display); font-weight: 800; font-size: clamp(56px, 8.4vw, 136px); line-height: .9; letter-spacing: -0.045em; margin: 0; color: #fff; }
+.el-hb__text { font-size: 20px; line-height: 1.5; color: rgba(255,255,255,.78); max-width: 520px; }
+.el-hb__text p { margin: 0; }
+.el-hb__ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); }
+.el-hb__ghost:hover { background: #fff; color: #000; border-color: #fff; }
+.el-hb__note { margin: 0; font-family: var(--el-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+
+@media (max-width: 749px) {
+  .el-hb { align-items: flex-end; }
+  .el-hb--large, .el-hb--medium { min-height: 640px; height: calc(100svh - 120px); max-height: 860px; }
+  .el-hb__img { object-position: center top; }
+  .el-hb__media::after { background: linear-gradient(0deg, rgba(0,0,0,.95) 0%, rgba(0,0,0,.85) 30%, rgba(0,0,0,0) 62%); }
+  .el-hb__inner { padding-top: 40px; padding-bottom: 40px; }
+  .el-hb__content { gap: 18px; }
+  .el-hb__text { font-size: 17px; }
+  .el-hb .el-btns { flex-direction: column; }
+  .el-hb .el-btn { width: 100%; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero banner (full width)",
+  "tag": "div",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image (desktop)", "info": "Landscape, at least 2400px wide. Keep the left side dark for the text." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Background image (mobile)", "info": "Portrait. Products at the top, space at the bottom for text." },
+    { "type": "range", "id": "overlay", "label": "Text-side shading", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 70 },
+    { "type": "select", "id": "height", "label": "Height", "default": "large", "options": [
+      { "value": "large", "label": "Large (nearly full screen)" }, { "value": "medium", "label": "Medium" }, { "value": "small", "label": "Small" } ] },
+    { "type": "text", "id": "tag", "label": "Badge", "default": "1,000 mg sodium · 0 g sugar" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Hydration,\nmeasured." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>The electrolytes you lose in sweat, in the amounts that matter. One stick, one bottle, no sugar.</p>" },
+    { "type": "text", "id": "button_label", "label": "Primary button", "default": "Shop Hydration" },
+    { "type": "url", "id": "button_link", "label": "Primary button link", "info": "Leave blank to link to the product below" },
+    { "type": "text", "id": "button2_label", "label": "Secondary button", "default": "Find your routine" },
+    { "type": "url", "id": "button2_link", "label": "Secondary button link" },
+    { "type": "product", "id": "product", "label": "Hero product" },
+    { "type": "checkbox", "id": "show_price", "label": "Show subscription price per stick", "default": true },
+    { "type": "number", "id": "sticks_per_box", "label": "Sticks per box", "default": 30 }
+  ],
+  "presets": [{ "name": "Hero banner (full width)" }]
+}
+{% endschema %}

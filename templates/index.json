@@ -9,13 +9,6 @@
  */
 {
   "sections": {
-    "el-hero": {
-      "type": "el-hero",
-      "settings": {
-        "product": "electrolife-hydration",
-        "button2_link": "/pages/hydration-quiz"
-      }
-    },
     "el-trust-strip": {
       "type": "el-trust-strip",
       "settings": {},
@@ -400,10 +393,19 @@
         "goal-2",
         "goal-3"
       ]
+    },
+    "el-hero-banner": {
+      "type": "el-hero-banner",
+      "settings": {
+        "image": "shopify://shop_images/electrolife-hero-desktop.jpg",
+        "image_mobile": "shopify://shop_images/electrolife-hero-mobile.jpg",
+        "product": "electrolife-hydration",
+        "button2_link": "/collections/shop-all"
+      }
     }
   },
   "order": [
-    "el-hero",
+    "el-hero-banner",
     "el-trust-strip",
     "el-goals",
     "el-nutrition",
