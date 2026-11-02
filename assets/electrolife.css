@@ -407,3 +407,39 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 .cart-item .product-option dt { font-weight: 700; }
 .cart-item .product-option:has(dt) { background: #F4F4F4; border-radius: 10px; padding: 6px 10px; display: inline-block; margin-top: 6px; }
 .cart__checkout-button { min-height: 56px; font-weight: 800; font-size: 17px; }
+
+/* =====================================================================
+   Spacing system: one page width, one gutter, one section rhythm,
+   one section-title size, shared by custom and theme sections.
+   ===================================================================== */
+:root {
+  --el-gutter: 20px;
+  --el-sec: clamp(56px, 7vw, 104px);
+  --el-title: clamp(36px, 4.6vw, 68px);
+}
+@media (min-width: 750px) { :root { --el-gutter: 50px; } }
+
+/* 1. Same column width and side padding everywhere */
+.el-container, .page-width { max-width: var(--page-width, 1400px); margin-left: auto; margin-right: auto; padding-left: var(--el-gutter); padding-right: var(--el-gutter); box-sizing: border-box; }
+.el-container { width: 100%; }
+
+/* 2 + 3. One vertical rhythm, smaller on phones, applied to every content section */
+.el-section, .el-fx, .el-som, .el-recent { padding-top: var(--el-sec); padding-bottom: var(--el-sec); }
+.el-signup { padding: clamp(48px, 6vw, 80px) 0; }
+.el-section--tight { padding: clamp(32px, 4vw, 48px) 0; }
+
+/* 4. Two white sections in a row: don't double the gap */
+.shopify-section:has(> .el-section:not(.el-when)) + .shopify-section > .el-section:not(.el-when) { padding-top: 0; }
+
+/* 5. One section-title size */
+.el-h2, .el-fx__title, .el-when__title, .el-sugar__title, .el-som__title, .el-why__title, .el-recent__title, .el-sci__h2,
+.collection__title .title, .blog__title .title, .related-products__heading {
+  font-family: var(--el-display); font-weight: 800; font-size: var(--el-title); line-height: .95; letter-spacing: -0.04em;
+}
+/* Consistent space under section headings */
+.el-head, .el-fx__head, .el-when__head { margin-bottom: 32px; }
+.el-why__title { margin-bottom: 32px; }
+.collection__title.title-wrapper, .blog__title.title-wrapper, .related-products__heading { margin-bottom: 32px; }
+/* Intentionally narrower reading columns keep their width */
+.el-sci__body.el-container { max-width: 1100px; }
+.el-404__inner.el-container { max-width: 760px; }
