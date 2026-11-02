@@ -58,10 +58,9 @@
           }
         },
         "trust": {
-          "type": "text",
+          "type": "custom_liquid",
           "settings": {
-            "text": "Free next-day UK delivery \u00b7 Secure checkout",
-            "text_style": "subtitle"
+            "custom_liquid": "<ul class=\"el-ptrust\"><li>{%- render 'el-icon', icon: 'truck' -%}<span>Free next-day UK delivery</span></li><li>{%- render 'el-icon', icon: 'repeat' -%}<a href=\"/pages/returns-and-refunds\">14-day returns</a></li><li>{%- render 'el-icon', icon: 'shield' -%}<span>Secure checkout</span></li></ul>"
           }
         },
         "description": {

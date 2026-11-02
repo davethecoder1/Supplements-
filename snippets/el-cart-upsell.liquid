@@ -1,0 +1,61 @@
+{%- comment -%}
+  Cart drawer upsell: suggests the shaker bottle when it isn't already in the basket.
+  Adds via AJAX and re-renders the drawer using Dawn's own cart-drawer.renderContents().
+{%- endcomment -%}
+{%- assign up = all_products['electrolife-shaker-bottle'] -%}
+{%- assign up_variant = up.selected_or_first_available_variant -%}
+{%- assign in_cart = false -%}
+{%- for item in cart.items -%}{%- if item.product_id == up.id -%}{%- assign in_cart = true -%}{%- endif -%}{%- endfor -%}
+{%- if cart.item_count > 0 and up != blank and up_variant.available and in_cart == false -%}
+  <div class="el-upsell">
+    <p class="el-upsell__label">Complete your kit</p>
+    <div class="el-upsell__row">
+      {%- if up.featured_image -%}
+        {{ up.featured_image | image_url: width: 160 | image_tag: class: 'el-upsell__img', width: 64, height: 64, loading: 'lazy', alt: up.title }}
+      {%- endif -%}
+      <div class="el-upsell__info">
+        <a href="{{ up.url }}" class="el-upsell__title">{{ up.title | remove: 'Electrolife ' }}</a>
+        <span class="el-upsell__price">{{ up_variant.price | money }}</span>
+      </div>
+      <button type="button" class="el-upsell__btn" data-el-upsell-add="{{ up_variant.id }}">Add</button>
+    </div>
+  </div>
+{%- endif -%}
+<style>
+  .el-upsell { margin: 0 3rem 1.2rem; padding: 14px 16px; border-radius: 14px; background: #F4F4F4; }
+  .el-upsell__label { margin: 0 0 8px; font: 600 12px/1 var(--el-mono, monospace); letter-spacing: .08em; text-transform: uppercase; color: #555; }
+  .el-upsell__row { display: flex; align-items: center; gap: 12px; }
+  .el-upsell__img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; background: #fff; }
+  .el-upsell__info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .el-upsell__title { font-weight: 700; color: #000; text-decoration: none; font-size: 15px; }
+  .el-upsell__price { font-size: 14px; color: #555; }
+  .el-upsell__btn { min-height: 44px; min-width: 72px; padding: 0 18px; border-radius: 999px; border: 0; background: #000; color: #fff; font: 700 15px var(--el-sans, sans-serif); cursor: pointer; }
+  .el-upsell__btn[aria-busy="true"] { opacity: .6; }
+  @media (max-width: 749px) { .el-upsell { margin: 0 1.5rem 1rem; } }
+</style>
+<script>
+  if (!window.__elUpsell) {
+    window.__elUpsell = true;
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-el-upsell-add]');
+      if (!btn) return;
+      var drawer = document.querySelector('cart-drawer');
+      btn.setAttribute('aria-busy', 'true');
+      fetch((window.routes && window.routes.cart_add_url ? window.routes.cart_add_url : '/cart/add') + '.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          items: [{ id: Number(btn.dataset.elUpsellAdd), quantity: 1 }],
+          sections: 'cart-drawer,cart-icon-bubble',
+          sections_url: window.location.pathname
+        })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (state) {
+          if (drawer && typeof drawer.renderContents === 'function' && state.sections) drawer.renderContents(state);
+          else window.location.href = '/cart';
+        })
+        .catch(function () { window.location.href = '/cart'; });
+    });
+  }
+</script>
