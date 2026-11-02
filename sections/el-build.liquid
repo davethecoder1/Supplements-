@@ -201,7 +201,7 @@
   "tag": "div",
   "settings": [
     { "type": "product", "id": "product", "label": "Box product", "info": "Its pack options must end with the stick count, e.g. \"1 box (30 sticks)\". Defaults to the Variety Box." },
-    { "type": "range", "id": "step", "label": "Sticks per click", "min": 5, "max": 10, "step": 5, "default": 5 },
+    { "type": "select", "id": "step", "label": "Sticks per click", "default": "5", "options": [{ "value": "5", "label": "5" }, { "value": "10", "label": "10" }] },
     { "type": "text", "id": "label", "label": "Label", "default": "Build your box" },
     { "type": "textarea", "id": "heading", "label": "Heading", "default": "Your mix.\nYour rules." },
     { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Pick any combination of our four flavours. Your mix is packed and sent as one box.</p>" }

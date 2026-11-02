@@ -13,7 +13,7 @@
       "type": "el-build",
       "settings": {
         "product": "electrolife-hydration-variety-box",
-        "step": 5
+        "step": "5"
       },
       "blocks": {
         "flavour-0": {
