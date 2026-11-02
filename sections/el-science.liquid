@@ -1,4 +1,5 @@
 <section class="el el-sci" id="el-sci-{{ section.id }}">
+  {%- unless section.settings.hide_hero -%}
   <header class="el-sci__hero">
     <div class="el-container el-stack" style="gap: 24px;">
       {%- if section.settings.label != blank -%}<span class="el-tag">{{ section.settings.label }}</span>{%- endif -%}
@@ -6,6 +7,7 @@
       {%- if section.settings.intro != blank -%}<div class="el-sci__intro">{{ section.settings.intro }}</div>{%- endif -%}
     </div>
   </header>
+  {%- endunless -%}
 
   <div class="el-container el-sci__body">
     {%- assign ch = 0 -%}
@@ -154,6 +156,7 @@
   "name": "Science page",
   "tag": "div",
   "settings": [
+    { "type": "checkbox", "id": "hide_hero", "label": "Hide the black header", "default": false },
     { "type": "text", "id": "label", "label": "Label", "default": "The science" },
     { "type": "textarea", "id": "heading", "label": "Heading", "default": "The science\nof sweat." },
     { "type": "richtext", "id": "intro", "label": "Intro" },

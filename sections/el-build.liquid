@@ -1,0 +1,215 @@
+{%- comment -%}
+  Build your box: shoppers choose their own mix of flavours in steps of 5 sticks.
+  Adds the matching Variety Box pack (30 / 60 / 90 sticks) to the basket with the chosen mix saved as a
+  line item property ("Your mix"), which shows in the basket, checkout, order emails and the admin order.
+{%- endcomment -%}
+{%- liquid
+  assign box = all_products[section.settings.product]
+  if box == blank
+    assign box = all_products['electrolife-hydration-variety-box']
+  endif
+-%}
+{%- capture packs -%}[
+  {%- for v in box.variants -%}
+    {%- assign sticks = v.title | split: '(' | last | split: ' ' | first | plus: 0 -%}
+    {"id": {{ v.id }}, "sticks": {{ sticks }}, "price": {{ v.price | money | json }}, "per": {{ v.price | times: 1.0 | divided_by: sticks | round | money | json }}, "available": {{ v.available | json }}}{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+]{%- endcapture -%}
+<section class="el el-build" id="el-build-{{ section.id }}" data-packs='{{ packs | strip_newlines | escape }}' data-step="{{ section.settings.step }}">
+  <div class="el-container el-build__grid">
+    <div class="el-build__intro el-stack">
+      <span class="el-tag">{{ section.settings.label }}</span>
+      <h1 class="el-build__title">{{ section.settings.heading | newline_to_br }}</h1>
+      <div class="el-lead">{{ section.settings.text }}</div>
+      <ul class="el-build__perks">
+        <li>{%- render 'el-icon', icon: 'check' -%}<span>Any mix, in steps of {{ section.settings.step }} sticks</span></li>
+        <li>{%- render 'el-icon', icon: 'check' -%}<span>Bigger boxes save up to 15%</span></li>
+        <li>{%- render 'el-icon', icon: 'truck' -%}<span>Free next-day UK delivery</span></li>
+      </ul>
+    </div>
+
+    <div class="el-build__card">
+      <fieldset class="el-build__size">
+        <legend>1. Choose your box size</legend>
+        <div class="el-build__sizes" data-sizes></div>
+      </fieldset>
+
+      <fieldset class="el-build__mix">
+        <legend>2. Choose your flavours</legend>
+        {%- for block in section.blocks -%}
+          <div class="el-build__row" data-flavour="{{ block.settings.name | escape }}" {{ block.shopify_attributes }}>
+            <span class="el-build__dot" style="background: {{ block.settings.colour }};" aria-hidden="true"></span>
+            <div class="el-build__name"><strong>{{ block.settings.name }}</strong><span>{{ block.settings.note }}</span></div>
+            <div class="el-build__stepper">
+              <button type="button" data-dec aria-label="Remove {{ section.settings.step }} {{ block.settings.name }} sticks">&minus;</button>
+              <output data-count aria-label="{{ block.settings.name }} sticks">0</output>
+              <button type="button" data-inc aria-label="Add {{ section.settings.step }} {{ block.settings.name }} sticks">+</button>
+            </div>
+          </div>
+        {%- endfor -%}
+      </fieldset>
+
+      <div class="el-build__status">
+        <div class="el-build__bar" aria-hidden="true"><i data-bar></i></div>
+        <p data-status aria-live="polite">0 of 30 sticks chosen</p>
+        <div class="el-build__helpers">
+          <button type="button" class="el-build__link" data-even>Fill evenly</button>
+          <button type="button" class="el-build__link" data-clear>Clear</button>
+        </div>
+      </div>
+
+      <div class="el-build__total">
+        <div><span class="el-build__price" data-price></span><span class="el-build__per" data-per></span></div>
+        <button type="button" class="el-btn el-btn--charge" data-add disabled>Add to basket</button>
+      </div>
+      <p class="el-build__error" data-error role="alert" hidden></p>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.el-build { padding: 72px 0 96px; }
+.el-build__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: start; }
+.el-build__intro { gap: 20px; position: sticky; top: 120px; }
+.el-build__intro .el-tag { align-self: flex-start; }
+.el-build__title { font-family: var(--el-display); font-weight: 800; font-size: clamp(48px, 6vw, 96px); line-height: .9; letter-spacing: -0.045em; margin: 0; }
+.el-build__perks { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; font-weight: 600; }
+.el-build__perks li { display: flex; gap: 10px; align-items: center; }
+.el-build__perks .el-icon { stroke: #000; }
+.el-build__card { background: #F4F4F4; border-radius: 24px; padding: 28px; display: grid; gap: 24px; }
+.el-build fieldset { border: 0; padding: 0; margin: 0; }
+.el-build legend { font-weight: 700; font-size: 17px; margin-bottom: 12px; padding: 0; }
+.el-build__sizes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.el-build__sizes label { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 14px 8px; min-height: 72px; border-radius: 16px; background: #fff; border: 2px solid transparent; cursor: pointer; text-align: center; }
+.el-build__sizes input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.el-build__sizes label:has(input:checked) { border-color: #000; }
+.el-build__sizes label:has(input:focus-visible) { outline: 2px solid #000; outline-offset: 3px; }
+.el-build__sizes strong { font-size: 18px; }
+.el-build__sizes span { font-size: 13px; color: #555; }
+.el-build__sizes em { font-style: normal; font-size: 12px; font-weight: 700; background: var(--el-charge); border-radius: 999px; padding: 2px 8px; margin-top: 4px; }
+.el-build__mix { display: grid; gap: 10px; }
+.el-build__row { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 16px; padding: 12px 14px; }
+.el-build__dot { width: 22px; height: 22px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); }
+.el-build__name { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.el-build__name span { font-size: 13px; color: #555; }
+.el-build__stepper { display: flex; align-items: center; gap: 6px; }
+.el-build__stepper button { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid #000; background: #fff; font-size: 22px; line-height: 1; cursor: pointer; color: #000; }
+.el-build__stepper button:disabled { opacity: .3; cursor: not-allowed; }
+.el-build__stepper output { min-width: 36px; text-align: center; font: 700 20px var(--el-display); }
+.el-build__bar { height: 8px; border-radius: 8px; background: #E4E4E4; overflow: hidden; }
+.el-build__bar i { display: block; height: 100%; width: 0; background: #000; transition: width .25s ease; }
+.el-build__bar i.is-full { background: #2E7D32; }
+.el-build__status p { margin: 10px 0 0; font-weight: 600; }
+.el-build__helpers { display: flex; gap: 16px; margin-top: 4px; }
+.el-build__link { background: none; border: 0; padding: 0; min-height: 44px; font: 600 14px var(--el-sans); text-decoration: underline; cursor: pointer; color: #000; }
+.el-build__total { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid #E4E4E4; padding-top: 20px; }
+.el-build__price { display: block; font: 800 32px/1 var(--el-display); letter-spacing: -0.02em; }
+.el-build__per { font-size: 14px; color: #555; }
+.el-build__error { margin: 0; color: #B3261E; font-weight: 600; }
+@media (max-width: 989px) {
+  .el-build { padding: 40px 0 72px; }
+  .el-build__grid { grid-template-columns: 1fr; gap: 32px; }
+  .el-build__intro { position: static; }
+}
+@media (max-width: 749px) {
+  .el-build__card { padding: 18px; border-radius: 20px; }
+  .el-build__total { flex-direction: column; align-items: stretch; }
+  .el-build__total .el-btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .el-build__bar i { transition: none; } }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var root = document.getElementById('el-build-{{ section.id }}');
+    if (!root) return;
+    var packs = []; try { packs = JSON.parse(root.dataset.packs); } catch (e) {}
+    packs = packs.filter(function (p) { return p.sticks > 0; }).sort(function (a, b) { return a.sticks - b.sticks; });
+    if (!packs.length) return;
+    var STEP = parseInt(root.dataset.step, 10) || 5;
+    var rows = Array.prototype.slice.call(root.querySelectorAll('[data-flavour]'));
+    var counts = rows.map(function () { return 0; });
+    var pack = packs[0];
+    var base = packs[0].sticks ? parseFloat(String(packs[0].price).replace(/[^0-9.]/g, '')) / packs[0].sticks : 0;
+
+    // Size options
+    var sizes = root.querySelector('[data-sizes]');
+    packs.forEach(function (p, i) {
+      var per = parseFloat(String(p.price).replace(/[^0-9.]/g, '')) / p.sticks;
+      var save = base ? Math.round((1 - per / base) * 100) : 0;
+      var l = document.createElement('label');
+      l.innerHTML = '<input type="radio" name="el-build-size-{{ section.id }}" value="' + i + '"' + (i === 0 ? ' checked' : '') + (p.available ? '' : ' disabled') + '>' +
+        '<strong>' + p.sticks + ' sticks</strong><span>' + p.price + '</span>' + (save > 0 ? '<em>Save ' + save + '%</em>' : '');
+      sizes.appendChild(l);
+    });
+    sizes.addEventListener('change', function (e) {
+      pack = packs[parseInt(e.target.value, 10)];
+      // trim the mix if it's now over the new size
+      while (total() > pack.sticks) { var i = counts.lastIndexOf(Math.max.apply(null, counts)); counts[i] -= STEP; }
+      render();
+    });
+
+    function total() { return counts.reduce(function (a, b) { return a + b; }, 0); }
+    function render() {
+      var t = total(), full = t === pack.sticks;
+      rows.forEach(function (row, i) {
+        row.querySelector('[data-count]').textContent = counts[i];
+        row.querySelector('[data-dec]').disabled = counts[i] <= 0;
+        row.querySelector('[data-inc]').disabled = t >= pack.sticks;
+      });
+      var bar = root.querySelector('[data-bar]');
+      bar.style.width = Math.min(100, t / pack.sticks * 100) + '%';
+      bar.classList.toggle('is-full', full);
+      root.querySelector('[data-status]').textContent = full ? 'Your box is full. Ready to add!' : t + ' of ' + pack.sticks + ' sticks chosen. ' + (pack.sticks - t) + ' to go.';
+      root.querySelector('[data-price]').textContent = pack.price;
+      root.querySelector('[data-per]').textContent = pack.per + ' per stick';
+      root.querySelector('[data-add]').disabled = !full || !pack.available;
+    }
+    rows.forEach(function (row, i) {
+      row.querySelector('[data-inc]').addEventListener('click', function () { if (total() + STEP <= pack.sticks) { counts[i] += STEP; render(); } });
+      row.querySelector('[data-dec]').addEventListener('click', function () { if (counts[i] >= STEP) { counts[i] -= STEP; render(); } });
+    });
+    root.querySelector('[data-clear]').addEventListener('click', function () { counts = counts.map(function () { return 0; }); render(); });
+    root.querySelector('[data-even]').addEventListener('click', function () {
+      counts = counts.map(function () { return 0; });
+      var i = 0; while (total() + STEP <= pack.sticks) { counts[i % counts.length] += STEP; i++; }
+      render();
+    });
+
+    root.querySelector('[data-add]').addEventListener('click', function () {
+      var btn = this, err = root.querySelector('[data-error]');
+      var mix = rows.map(function (r, i) { return counts[i] ? r.dataset.flavour + ' ×' + counts[i] : null; }).filter(Boolean).join(', ');
+      btn.disabled = true; btn.textContent = 'Adding…'; err.hidden = true;
+      var drawer = document.querySelector('cart-drawer');
+      fetch('/cart/add.js', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ items: [{ id: pack.id, quantity: 1, properties: { 'Your mix': mix } }], sections: 'cart-drawer,cart-icon-bubble', sections_url: location.pathname })
+      }).then(function (r) { return r.json(); }).then(function (state) {
+        btn.textContent = 'Add to basket'; render();
+        if (state.status && state.description) { err.textContent = state.description; err.hidden = false; return; }
+        if (drawer && typeof drawer.renderContents === 'function' && state.sections) drawer.renderContents(state);
+        else location.href = '/cart';
+      }).catch(function () { location.href = '/cart'; });
+    });
+    render();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Build your box",
+  "tag": "div",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Box product", "info": "Its pack options must end with the stick count, e.g. \"1 box (30 sticks)\". Defaults to the Variety Box." },
+    { "type": "range", "id": "step", "label": "Sticks per click", "min": 5, "max": 10, "step": 5, "default": 5 },
+    { "type": "text", "id": "label", "label": "Label", "default": "Build your box" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Your mix.\nYour rules." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Pick any combination of our four flavours. Your mix is packed and sent as one box.</p>" }
+  ],
+  "blocks": [{ "type": "flavour", "name": "Flavour", "limit": 8, "settings": [
+    { "type": "text", "id": "name", "label": "Name" },
+    { "type": "text", "id": "note", "label": "Short description" },
+    { "type": "color", "id": "colour", "label": "Colour", "default": "#E8CF4A" } ] }],
+  "presets": [{ "name": "Build your box" }]
+}
+{% endschema %}

@@ -1,0 +1,173 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "el-science",
+      "settings": {
+        "label": "How we compare",
+        "heading": "Electrolife\nvs the rest.",
+        "intro": "<p>An honest look at how a stick of Electrolife compares with a typical sports drink and a typical electrolyte tablet, including where they come out on top.</p>",
+        "button_label": ""
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "table": {
+      "type": "el-comparison",
+      "settings": {
+        "heading": "Per 500 ml serving",
+        "col1": "Electrolife",
+        "col2": "Typical sports drink",
+        "col3": "Typical electrolyte tablet"
+      },
+      "blocks": {
+        "row-0": {
+          "type": "row",
+          "settings": {
+            "feature": "Sodium",
+            "us": "1,000 mg",
+            "them": "About 200–300 mg",
+            "water": "About 200–500 mg"
+          }
+        },
+        "row-1": {
+          "type": "row",
+          "settings": {
+            "feature": "Potassium",
+            "us": "200 mg",
+            "them": "About 50–100 mg",
+            "water": "About 100–200 mg"
+          }
+        },
+        "row-2": {
+          "type": "row",
+          "settings": {
+            "feature": "Magnesium",
+            "us": "60 mg",
+            "them": "Usually little or none",
+            "water": "Varies, often low"
+          }
+        },
+        "row-3": {
+          "type": "row",
+          "settings": {
+            "feature": "Sugar",
+            "us": "0 g",
+            "them": "About 25–35 g",
+            "water": "Usually 0–2 g"
+          }
+        },
+        "row-4": {
+          "type": "row",
+          "settings": {
+            "feature": "Energy",
+            "us": "5 kcal",
+            "them": "About 100–140 kcal",
+            "water": "About 5–15 kcal"
+          }
+        },
+        "row-5": {
+          "type": "row",
+          "settings": {
+            "feature": "Price per serving",
+            "us": "£1.25 (£1.00 subscribed)",
+            "them": "About £1.50–£2.50 a bottle",
+            "water": "About 30–60p a tablet"
+          }
+        },
+        "row-6": {
+          "type": "row",
+          "settings": {
+            "feature": "Easy to carry",
+            "us": "Yes, a flat stick",
+            "them": "No, a full bottle",
+            "water": "Yes, a tube"
+          }
+        },
+        "row-7": {
+          "type": "row",
+          "settings": {
+            "feature": "Best for",
+            "us": "Heavy sweating, low sugar",
+            "them": "Long events where you need fuel",
+            "water": "Everyday, light sweating"
+          }
+        }
+      },
+      "block_order": [
+        "row-0",
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5",
+        "row-6",
+        "row-7"
+      ]
+    },
+    "detail": {
+      "type": "el-science",
+      "settings": {
+        "hide_hero": true,
+        "cta_heading": "Ready to try it?",
+        "button_label": "Shop Hydration",
+        "button_link": "/products/electrolife-hydration"
+      },
+      "blocks": {
+        "chapter-0": {
+          "type": "chapter",
+          "settings": {
+            "heading": "When a sports drink is better.",
+            "text": "<p>For long endurance events, like a marathon or a long ride, carbohydrate is genuinely useful fuel, and sports drinks provide it. Many athletes combine an electrolyte drink with gels or food instead, but if you want everything in one bottle, a sports drink makes sense.</p>",
+            "stat": "",
+            "stat_label": ""
+          }
+        },
+        "chapter-1": {
+          "type": "chapter",
+          "settings": {
+            "heading": "When tablets are fine.",
+            "text": "<p>If you sweat lightly or just want to make water more interesting, a cheaper electrolyte tablet is often enough. They tend to contain less sodium, so they're less suited to very sweaty sessions.</p>",
+            "stat": "",
+            "stat_label": ""
+          }
+        },
+        "chapter-2": {
+          "type": "chapter",
+          "settings": {
+            "heading": "When Electrolife is the one.",
+            "text": "<p>Long, hot or very sweaty sessions where you want plenty of sodium without sugar. Each stick has 1,000 mg of sodium, 200 mg of potassium and 60 mg of magnesium. Potassium contributes to normal muscle function, and magnesium contributes to a reduction of tiredness and fatigue.</p>",
+            "stat": "1,000 mg",
+            "stat_label": "sodium, zero sugar"
+          }
+        },
+        "sources": {
+          "type": "sources",
+          "settings": {
+            "heading": "About these figures",
+            "list": "<ul><li>Sports drink and tablet figures are typical ranges taken from UK product labels and retail prices, per 500 ml serving. They vary a lot between brands, so always check the label.</li><li>Electrolife figures are per stick, made up with 500 ml of water. Prices are for a single box; multi-buy and Subscribe &amp; save prices are lower.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "chapter-0",
+        "chapter-1",
+        "chapter-2",
+        "sources"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "table",
+    "detail"
+  ]
+}
