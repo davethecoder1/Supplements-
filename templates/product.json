@@ -96,7 +96,27 @@
         "perstick": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{%- liquid\n  assign v = product.selected_or_first_available_variant\n  assign sticks = v.title | split: '(' | last | split: ' ' | first | plus: 0\n  if sticks == 0\n    assign sticks = 30\n  endif\n  assign per = v.price | times: 1.0 | divided_by: sticks | round\n  assign plan = product.selling_plan_groups.first.selling_plans.first\n  assign adj = plan.price_adjustments.first\n-%}\n{%- if product.type == 'Electrolyte Drink Mix' -%}<p class=\"el-perstick\"><strong>{{ per | money }} per stick</strong>{%- if adj and adj.value_type == 'percentage' -%}{%- assign keep = 100 | minus: adj.value -%}{%- assign sub = per | times: keep | divided_by: 100.0 | round -%} \u00b7 or {{ sub | money }} with Subscribe &amp; save{%- endif -%}</p>{%- endif -%}"
+            "custom_liquid": "{%- liquid\n  assign v = product.selected_or_first_available_variant\n  assign sticks = v.title | split: '(' | last | split: ' ' | first | plus: 0\n  if sticks == 0\n    assign sticks = 30\n  endif\n  assign per = v.price | times: 1.0 | divided_by: sticks | round\n  assign plan = product.selling_plan_groups.first.selling_plans.first\n  assign adj = plan.price_adjustments.first\n-%}\n{%- if product.type == 'Electrolyte Drink Mix' -%}<p class=\"el-perstick\"><strong>{{ per | money }} per stick</strong>{%- if adj and adj.value_type == 'percentage' -%}{%- assign keep = 100 | minus: adj.value -%}{%- assign sub = per | times: keep | divided_by: 100.0 | round -%} · or {{ sub | money }} with Subscribe &amp; save{%- endif -%}</p>{%- endif -%}"
+          }
+        },
+        "fnote": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- render 'el-flavour-note', product: product, section_id: section.id -%}"
+          }
+        },
+        "eta": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- comment -%} Change 14 to your courier's cut-off hour (24h, UK time). {%- endcomment -%}{%- render 'el-delivery-countdown', cutoff: 14 -%}"
+          }
+        },
+        "stock": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": false
           }
         }
       },
@@ -108,9 +128,12 @@
         "perstick",
         "stats",
         "variant_picker",
+        "fnote",
         "quantity_selector",
         "subscriptions_app_block_MKGNfR",
         "buy_buttons",
+        "stock",
+        "eta",
         "trust",
         "description",
         "info",
@@ -123,7 +146,7 @@
         "constrain_to_viewport": true,
         "media_fit": "cover",
         "gallery_layout": "thumbnail_slider",
-        "mobile_thumbnails": "hide",
+        "mobile_thumbnails": "show",
         "media_position": "left",
         "image_zoom": "lightbox",
         "hide_variants": true,
@@ -288,12 +311,127 @@
         "heading": "Recently viewed",
         "limit": 4
       }
+    },
+    "video": {
+      "type": "el-video-band",
+      "settings": {
+        "heading": "",
+        "button_label": "",
+        "alt": "An Electrolife stick being poured into a 500 ml bottle of water"
+      }
+    },
+    "when": {
+      "type": "el-when",
+      "settings": {
+        "label": "How to use",
+        "heading": "When to drink it."
+      },
+      "blocks": {
+        "m0": {
+          "type": "moment",
+          "settings": {
+            "title": "Before",
+            "time": "30–60 min before",
+            "headline": "Start topped up.",
+            "text": "<p>On hot days or before a long session, a stick in 500 ml of water beforehand means you start with sodium on board.</p>"
+          }
+        },
+        "m1": {
+          "type": "moment",
+          "settings": {
+            "title": "During",
+            "time": "Sessions over an hour",
+            "headline": "Sip as you sweat.",
+            "text": "<p>For long, hot or very sweaty sessions, sip one stick in 500 ml during the session.</p>"
+          }
+        },
+        "m2": {
+          "type": "moment",
+          "settings": {
+            "title": "After",
+            "time": "Within an hour after",
+            "headline": "Top back up.",
+            "text": "<p>Finished soaked? Mix a stick into 500 ml with your post-session meal. Plain water is fine after short, easy sessions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "m0",
+        "m1",
+        "m2"
+      ]
+    },
+    "compare": {
+      "type": "el-comparison",
+      "settings": {
+        "heading": "Per 500 ml, compared",
+        "col1": "Electrolife",
+        "col2": "Typical sports drink",
+        "col3": "Water"
+      },
+      "blocks": {
+        "r0": {
+          "type": "row",
+          "settings": {
+            "feature": "Sodium",
+            "us": "1,000 mg",
+            "them": "About 200–300 mg",
+            "water": "None"
+          }
+        },
+        "r1": {
+          "type": "row",
+          "settings": {
+            "feature": "Sugar",
+            "us": "0 g",
+            "them": "About 25–35 g",
+            "water": "0 g"
+          }
+        },
+        "r2": {
+          "type": "row",
+          "settings": {
+            "feature": "Energy",
+            "us": "5 kcal",
+            "them": "About 100–140 kcal",
+            "water": "0 kcal"
+          }
+        },
+        "r3": {
+          "type": "row",
+          "settings": {
+            "feature": "Price per 500 ml",
+            "us": "£1.25 (£1.00 subscribed)",
+            "them": "About £1.50–£2.50",
+            "water": "Free"
+          }
+        },
+        "r4": {
+          "type": "row",
+          "settings": {
+            "feature": "Best for",
+            "us": "Heavy sweating",
+            "them": "Long events needing fuel",
+            "water": "Short, easy sessions"
+          }
+        }
+      },
+      "block_order": [
+        "r0",
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ]
     }
   },
   "order": [
     "crumbs",
     "main",
+    "video",
     "el-product-details",
+    "when",
+    "compare",
     "el-reviews",
     "related",
     "el-faq",

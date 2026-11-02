@@ -1,0 +1,32 @@
+{%- comment -%} Live flavour description under the variant picker. Updates when the shopper picks a flavour. {%- endcomment -%}
+{%- assign el_fo = product.options_with_values | where: 'name', 'Flavour' | first -%}
+{%- if el_fo -%}
+  {%- assign el_sel = el_fo.selected_value | default: el_fo.values.first -%}
+  <p class="el-fnote" id="el-fnote-{{ section_id }}" aria-live="polite"
+     data-notes='{"Citrus Salt":"Sharp lemon-lime with a salted finish. Our bestseller.","Watermelon":"Light and fresh. Easy to drink in big volumes on hot days.","Mixed Berry":"Rounder and sweeter, still zero sugar.","Pure":"Unflavoured, no sweetener. Add it to anything.","Variety box":"All four flavours in one box. Find your favourite."}'
+     data-colours='{"Citrus Salt":"#E8CF4A","Watermelon":"#E86F6F","Mixed Berry":"#7E5BA6","Pure":"#D5DBD9"}'>
+    <span class="el-fnote__dot" aria-hidden="true"></span><strong data-name>{{ el_sel }}</strong><span data-text></span>
+  </p>
+  <style>
+    .el-fnote { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin: -4px 0 4px; padding: 12px 14px; border-radius: 12px; background: #F4F4F4; font-size: 14px; }
+    .el-fnote__dot { width: 12px; height: 12px; border-radius: 50%; align-self: center; box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); background: conic-gradient(#E8CF4A 0 25%, #E86F6F 0 50%, #7E5BA6 0 75%, #D5DBD9 0); }
+    .el-fnote [data-text] { color: #333; }
+  </style>
+  <script>
+    (function () {
+      var el = document.getElementById('el-fnote-{{ section_id }}'); if (!el) return;
+      var notes = JSON.parse(el.dataset.notes), cols = JSON.parse(el.dataset.colours);
+      function set(v) {
+        if (!notes[v]) return;
+        el.querySelector('[data-name]').textContent = v;
+        el.querySelector('[data-text]').textContent = notes[v];
+        el.querySelector('.el-fnote__dot').style.background = cols[v] || '';
+      }
+      set({{ el_sel | json }});
+      document.addEventListener('change', function (e) {
+        var t = e.target;
+        if (t && (t.type === 'radio' || t.tagName === 'SELECT') && notes[t.value]) set(t.value);
+      });
+    })();
+  </script>
+{%- endif -%}

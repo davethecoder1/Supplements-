@@ -1,0 +1,42 @@
+{%- comment -%}
+  Next-day delivery countdown (UK time). Usage: {% render 'el-delivery-countdown', cutoff: 14 %}
+  Cut-off hour is 24h UK time, Monday–Friday. Bank holidays aren't accounted for.
+{%- endcomment -%}
+<p class="el-eta" data-el-eta data-cutoff="{{ cutoff | default: 14 }}" hidden>
+  <svg class="el-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3z"/><path d="M14 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+  <span data-eta-text></span>
+</p>
+<style>
+  .el-eta { display: flex; align-items: center; gap: 10px; margin: 0; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #000; font-size: 14px; }
+  .el-eta .el-icon { width: 22px; height: 22px; stroke: #000; flex: none; }
+  .el-eta strong { font-weight: 800; }
+</style>
+<script>
+  (function () {
+    var els = document.querySelectorAll('[data-el-eta]:not([data-ready])');
+    if (!els.length || !window.Intl) return;
+    var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    function ukNow() {
+      var p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date());
+      var o = {}; p.forEach(function (x) { o[x.type] = x.value; });
+      return { day: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday), h: +o.hour % 24, m: +o.minute };
+    }
+    function nextWorking(d) { d = (d + 1) % 7; while (d === 0 || d === 6) d = (d + 1) % 7; return d; }
+    function render(el) {
+      var cut = +el.dataset.cutoff, n = ukNow(), weekday = n.day >= 1 && n.day <= 5, mins = cut * 60 - (n.h * 60 + n.m);
+      var txt;
+      if (weekday && mins > 0) {
+        var h = Math.floor(mins / 60), m = mins % 60;
+        var del = nextWorking(n.day), when = del === (n.day + 1) % 7 ? 'tomorrow' : 'on ' + DAYS[del];
+        var left = (h ? h + 'h' : '') + (m ? (h ? ' ' : '') + m + 'm' : '');
+        txt = 'Order within <strong>' + left + '</strong> for free delivery <strong>' + when + '</strong>';
+      } else {
+        var ship = weekday ? nextWorking(n.day) : nextWorking(n.day === 6 ? 5 : n.day === 0 ? 5 : n.day);
+        txt = 'Order now for free delivery on <strong>' + DAYS[nextWorking(ship)] + '</strong>';
+      }
+      el.querySelector('[data-eta-text]').innerHTML = txt;
+      el.hidden = false;
+    }
+    els.forEach(function (el) { el.dataset.ready = '1'; render(el); setInterval(function () { render(el); }, 30000); });
+  })();
+</script>

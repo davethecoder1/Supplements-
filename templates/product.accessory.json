@@ -1,0 +1,212 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"jdgm-widget jdgm-preview-badge\" data-id=\"{{ product.id }}\" data-template=\"product\">{{ product.metafields.judgeme.badge }}</div>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "trust": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<ul class=\"el-ptrust\"><li>{%- render 'el-icon', icon: 'truck' -%}<span>Free next-day UK delivery</span></li><li>{%- render 'el-icon', icon: 'repeat' -%}<a href=\"/pages/returns-and-refunds\">14-day returns</a></li><li>{%- render 'el-icon', icon: 'shield' -%}<span>Secure checkout</span></li></ul>"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "subscriptions_app_block_MKGNfR": {
+          "type": "shopify://apps/subscriptions/blocks/app-block/a3bfe9ec-96f8-4508-a003-df608a36d2ad",
+          "settings": {
+            "widget_style": "card",
+            "widget_style_card_selector": "radio_button",
+            "subscription_policy_url": "/pages/subscription-policy",
+            "color_text_body": "#6D7175",
+            "dividers_color": "#8F8D8D",
+            "background_color": "#FFFFFF",
+            "border_thickness": 1,
+            "border_radius": 0,
+            "product": "{{product}}"
+          }
+        },
+        "info": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- render 'el-product-info', product: product -%}"
+          }
+        },
+        "sticky": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- render 'el-sticky-atc', product: product, section_id: section.id -%}"
+          }
+        },
+        "eta": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- comment -%} Change 14 to your courier's cut-off hour (24h, UK time). {%- endcomment -%}{%- render 'el-delivery-countdown', cutoff: 14 -%}"
+          }
+        },
+        "stock": {
+          "type": "inventory",
+          "settings": {
+            "text_style": "body",
+            "inventory_threshold": 10,
+            "show_inventory_quantity": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "subscriptions_app_block_MKGNfR",
+        "buy_buttons",
+        "stock",
+        "eta",
+        "trust",
+        "description",
+        "info",
+        "sticky"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "cover",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "el-reviews": {
+      "type": "el-reviews",
+      "settings": {
+        "label": "Verified reviews",
+        "heading": "Tested in the gym, not the boardroom.",
+        "summary": "",
+        "press_label": "As seen in"
+      }
+    },
+    "el-faq": {
+      "type": "el-faq",
+      "blocks": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "How big is the shaker?",
+            "answer": "<p>500 ml, with 100 ml measuring marks. Sized for one Electrolife stick.</p>"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Is it dishwasher safe?",
+            "answer": "<p>Yes, top rack. Remove the lid seal to clean it.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use it for hot drinks?",
+            "answer": "<p>No. It's designed for cold drinks only, and isn't suitable for hot or fizzy drinks.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2"
+      ],
+      "settings": {
+        "heading": "Questions",
+        "heading_tag": "h2",
+        "open_first": true
+      }
+    },
+    "crumbs": {
+      "type": "el-breadcrumbs",
+      "settings": {}
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You might also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "recent": {
+      "type": "el-recent",
+      "settings": {
+        "heading": "Recently viewed",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "crumbs",
+    "main",
+    "el-reviews",
+    "related",
+    "el-faq",
+    "recent"
+  ]
+}
