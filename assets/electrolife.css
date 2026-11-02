@@ -443,3 +443,22 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 /* Intentionally narrower reading columns keep their width */
 .el-sci__body.el-container { max-width: 1100px; }
 .el-404__inner.el-container { max-width: 760px; }
+
+/* ---- Typography & card fixes (from phone review) ---- */
+/* Prices: bold headline font, not the narrow label font */
+.price, .price-item { font-family: var(--el-display); font-weight: 800; letter-spacing: -0.01em; }
+.price .price-item--regular, .price--on-sale .price-item--regular { font-weight: 600; }
+.card-information .price { font-size: 18px; }
+.card-information .price .price-item--regular s, .card-information .price--on-sale .price-item--regular { font-size: 15px; color: #555; }
+.product__info-container .price { font-size: 30px; }
+/* Buttons: normal letter spacing, tidy sizing */
+.button, .shopify-payment-button__button, .quick-add__submit { letter-spacing: 0; font-family: var(--el-sans); font-weight: 700; }
+.card__content .quick-add__submit { min-height: 44px; padding: 0 16px; font-size: 15px; }
+.card__content .quick-add { margin-top: 12px; }
+/* Equal-height cards: buttons line up at the bottom */
+.grid__item > .card-wrapper, .card-wrapper > .card { height: 100%; }
+.card--standard > .card__content { display: flex; flex-direction: column; flex-grow: 1; }
+.card--standard .card__information { flex-grow: 1; }
+.card--standard .card__content .quick-add { margin-top: auto; padding-top: 12px; }
+/* Sale/saving badge */
+.card__badge .badge, .price__badge-sale { font-family: var(--el-sans); font-weight: 700; letter-spacing: 0; }
