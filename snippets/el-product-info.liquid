@@ -1,0 +1,50 @@
+{%- comment -%}
+  Product info tabs. Content comes from product metafields (Products > product > Metafields):
+  custom.ingredients, custom.allergens, custom.directions, custom.warnings, custom.storage.
+  Each line becomes a paragraph. Empty fields are skipped.
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.custom
+  if product.type == 'Accessory'
+    assign first_label = 'Specifications'
+  else
+    assign first_label = 'Ingredients'
+  endif
+  assign keys = 'ingredients,allergens,directions,warnings,storage' | split: ','
+  assign labels = first_label | append: ',Allergens,How to use,Warnings,Storage & care' | split: ','
+-%}
+<div class="el-info">
+  {%- for key in keys -%}
+    {%- assign field = mf[key] -%}
+    {%- if field != blank and field.value != blank -%}
+      <details class="el-info__item"{% if forloop.first %} open{% endif %}>
+        <summary>{{ labels[forloop.index0] }}</summary>
+        <div class="el-info__body">
+          {%- assign lines = field.value | newline_to_br | split: '<br />' -%}
+          {%- for line in lines -%}
+            {%- assign l = line | strip -%}
+            {%- if l != blank -%}
+              {%- assign parts = l | split: ': ' -%}
+              {%- if key == 'ingredients' and parts.size > 1 and parts.first.size < 30 -%}
+                <p><strong>{{ parts.first | escape }}:</strong> {{ l | remove_first: parts.first | remove_first: ': ' | escape }}</p>
+              {%- else -%}
+                <p>{{ l | escape }}</p>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </details>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+<style>
+  .el-info { border-top: 1px solid #E4E4E4; margin-top: 8px; }
+  .el-info__item { border-bottom: 1px solid #E4E4E4; }
+  .el-info__item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 56px; font-weight: 700; font-size: 16px; }
+  .el-info__item summary::-webkit-details-marker { display: none; }
+  .el-info__item summary::after { content: "+"; font-size: 24px; font-weight: 400; line-height: 1; }
+  .el-info__item[open] summary::after { content: "\2212"; }
+  .el-info__body { padding: 0 0 20px; font-size: 15px; line-height: 1.6; color: #333; }
+  .el-info__body p { margin: 0 0 10px; }
+  .el-info__body p:last-child { margin-bottom: 0; }
+</style>

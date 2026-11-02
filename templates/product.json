@@ -81,6 +81,12 @@
             "border_radius": 0,
             "product": "{{product}}"
           }
+        },
+        "info": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- render 'el-product-info', product: product -%}"
+          }
         }
       },
       "block_order": [
@@ -94,7 +100,8 @@
         "subscriptions_app_block_MKGNfR",
         "buy_buttons",
         "trust",
-        "description"
+        "description",
+        "info"
       ],
       "settings": {
         "enable_sticky_info": true,
