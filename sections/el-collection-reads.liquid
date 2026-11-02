@@ -1,8 +1,20 @@
 {%- comment -%}
-  "Read up": three Learn articles chosen for the current collection (internal links for SEO).
+  "Read up": three Learn articles chosen for the current collection or product (internal links for SEO).
 {%- endcomment -%}
 {%- liquid
-  case collection.handle
+  assign key_handle = collection.handle
+  if product
+    assign key_handle = 'product-' | append: product.handle
+  endif
+  case key_handle
+    when 'product-electrolife-hydration'
+      assign list = 'what-are-electrolytes,electrolytes-vs-water,how-much-sodium-is-too-much'
+    when 'product-electrolife-hydration-variety-box'
+      assign list = 'electrolytes-vs-water,coconut-water-vs-sports-drinks-vs-electrolyte-sticks,what-are-electrolytes'
+    when 'product-electrolife-starter-kit'
+      assign list = 'do-you-need-electrolytes-for-the-gym,electrolytes-vs-water,electrolytes-for-cycling'
+    when 'product-electrolife-shaker-bottle'
+      assign list = 'do-you-need-electrolytes-for-the-gym,electrolytes-in-hot-weather,what-are-electrolytes'
     when 'elite-athletes'
       assign list = 'electrolytes-for-cycling,salty-sweater-how-to-tell,how-much-sodium-do-i-need-when-running'
     when 'gym-goers'

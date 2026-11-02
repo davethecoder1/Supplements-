@@ -746,9 +746,7 @@
         endif
       -%}
 
-      <script type="application/ld+json">
-        {{ product | structured_data }}
-      </script>
+      {%- comment -%} Product structured data is output by snippets/el-schema.liquid {%- endcomment -%}
     </div>
   </product-component>
 </product-info>

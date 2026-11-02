@@ -423,6 +423,13 @@
         "r3",
         "r4"
       ]
+    },
+    "reads": {
+      "type": "el-collection-reads",
+      "settings": {
+        "heading": "Read up.",
+        "blog": "learn"
+      }
     }
   },
   "order": [
@@ -434,6 +441,7 @@
     "compare",
     "el-reviews",
     "related",
+    "reads",
     "el-faq",
     "recent"
   ]

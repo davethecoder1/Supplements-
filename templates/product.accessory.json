@@ -199,6 +199,13 @@
         "heading": "Recently viewed",
         "limit": 4
       }
+    },
+    "reads": {
+      "type": "el-collection-reads",
+      "settings": {
+        "heading": "Read up.",
+        "blog": "learn"
+      }
     }
   },
   "order": [
@@ -206,6 +213,7 @@
     "main",
     "el-reviews",
     "related",
+    "reads",
     "el-faq",
     "recent"
   ]

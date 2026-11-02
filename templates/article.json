@@ -43,9 +43,14 @@
         "content"
       ],
       "settings": {}
+    },
+    "next": {
+      "type": "el-article-next",
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "next"
   ]
 }

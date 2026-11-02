@@ -1,0 +1,83 @@
+{%- comment -%}
+  End-of-article block for internal linking:
+  1. "Shop the guide": the product and collection that match this article
+  2. "Keep reading": up to three related guides that share a tag
+{%- endcomment -%}
+{%- liquid
+  assign p_handle = 'electrolife-hydration'
+  assign c_handle = 'hydration'
+  case article.handle
+    when 'how-much-sodium-do-i-need-when-running', 'salty-sweater-how-to-tell', 'electrolytes-for-cycling'
+      assign c_handle = 'elite-athletes'
+    when 'do-you-need-electrolytes-for-the-gym'
+      assign p_handle = 'electrolife-starter-kit'
+      assign c_handle = 'gym-goers'
+    when 'electrolytes-in-hot-weather'
+      assign c_handle = 'everyday'
+    when 'morning-after-what-helps'
+      assign p_handle = 'electrolife-hydration-variety-box'
+      assign c_handle = 'head-fuzz'
+    when 'coconut-water-vs-sports-drinks-vs-electrolyte-sticks', 'electrolytes-vs-water'
+      assign p_handle = 'electrolife-hydration-variety-box'
+  endcase
+  assign p = all_products[p_handle]
+  assign c = collections[c_handle]
+  assign shown = 0
+-%}
+<section class="el el-section el-anext">
+  <div class="el-container">
+    {%- if p != blank -%}
+      <div class="el-anext__shop">
+        <a class="el-anext__img" href="{{ p.url }}" tabindex="-1" aria-hidden="true">
+          {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', widths: '250, 375, 500', sizes: '(min-width: 750px) 240px, 40vw', alt: '' }}{%- endif -%}
+        </a>
+        <div class="el-anext__copy">
+          <span class="el-tag">Shop the guide</span>
+          <h2 class="el-anext__title"><a href="{{ p.url }}">{{ p.title }}</a></h2>
+          <p class="el-anext__text">1,000 mg sodium, 200 mg potassium and 60 mg magnesium per stick. Zero sugar. From {{ p.price_min | money_without_trailing_zeros }}.</p>
+          <div class="el-anext__btns">
+            <a class="el-btn el-btn--charge" href="{{ p.url }}">Shop {{ p.title | remove: 'Electrolife ' }}</a>
+            {%- if c != blank -%}<a class="el-anext__link" href="{{ c.url }}">See all {{ c.title }} picks <span aria-hidden="true">→</span></a>{%- endif -%}
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- capture related -%}
+      {%- for a in blog.articles -%}
+        {%- if a.id == article.id -%}{%- continue -%}{%- endif -%}
+        {%- assign match = false -%}
+        {%- for t in a.tags -%}{%- if article.tags contains t -%}{%- assign match = true -%}{%- break -%}{%- endif -%}{%- endfor -%}
+        {%- if match -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <li><a class="el-anext__rel" href="{{ a.url }}"><span>{{ a.title }}</span><span aria-hidden="true">→</span></a></li>
+          {%- if shown >= 3 -%}{%- break -%}{%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if shown > 0 -%}
+      <h2 class="el-anext__h">Keep reading</h2>
+      <ul class="el-anext__list" role="list">{{ related }}</ul>
+    {%- endif -%}
+  </div>
+</section>
+{% stylesheet %}
+.el-anext .el-container { max-width: 860px; }
+.el-anext__shop { display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: center; background: #F4F4F4; border-radius: 24px; padding: 24px; }
+.el-anext__img { display: block; border-radius: 16px; overflow: hidden; background: #fff; aspect-ratio: 1; }
+.el-anext__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.el-anext__copy { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.el-anext__title { margin: 0; font: 800 clamp(26px, 3vw, 36px)/1 var(--el-display); letter-spacing: -0.03em; }
+.el-anext__title a { color: inherit; text-decoration: none; }
+.el-anext__text { margin: 0; color: #333; }
+.el-anext__btns { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin-top: 6px; }
+.el-anext__link { font-weight: 700; color: inherit; min-height: 44px; display: inline-flex; align-items: center; }
+.el-anext__h { margin: 48px 0 12px; font: 800 28px/1 var(--el-display); letter-spacing: -0.03em; }
+.el-anext__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid #E4E4E4; }
+.el-anext__rel { display: flex; justify-content: space-between; gap: 16px; padding: 18px 0; border-bottom: 1px solid #E4E4E4; color: inherit; text-decoration: none; font-weight: 700; font-size: 18px; min-height: 44px; }
+.el-anext__rel:hover span:first-child { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 749px) { .el-anext__shop { grid-template-columns: 1fr; padding: 18px; } .el-anext__img { max-width: 200px; } }
+{% endstylesheet %}
+{% schema %}
+{ "name": "Shop the guide + related", "tag": "div", "enabled_on": { "templates": ["article"] }, "presets": [{ "name": "Shop the guide + related" }] }
+{% endschema %}
