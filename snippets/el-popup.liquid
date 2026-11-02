@@ -1,6 +1,9 @@
 {%- comment -%}
   Email sign-up pop-up: "15% off your first order".
-  - Shows once (then hidden for 14 days, or forever after signing up), after 20s or on exit intent (desktop).
+  - Desktop: opens once after 20s or on exit intent (then hidden for 14 days, or forever after signing up).
+  - Phones: never pops up by itself (Google penalises intrusive mobile pop-ups). A small "15% off" tab
+    appears at the bottom after a few seconds and opens the form when tapped. Not shown on product pages,
+    where the sticky Add to basket bar lives.
   - Never on cart, checkout, account, password or 404 pages, or in the theme editor.
   - Accessible dialog: focus moves in, Esc / backdrop / close button close it, focus returns.
   On success Shopify reloads with ?customer_posted=true, and we show the code straight away.
@@ -45,8 +48,18 @@
     {%- endform -%}
   </div>
 </div>
+<div class="el-pop-tab" id="el-pop-tab" hidden>
+  <button type="button" class="el-pop-tab__open" aria-haspopup="dialog" aria-controls="el-pop">Get 15% off your first order</button>
+  <button type="button" class="el-pop-tab__x" aria-label="Hide offer">
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+  </button>
+</div>
 <style>
-  .el-pop[hidden] { display: none; }
+  .el-pop[hidden], .el-pop-tab[hidden] { display: none; }
+  .el-pop-tab { position: fixed; left: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 900; display: flex; align-items: center; background: var(--el-charge); color: #000; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,.18); animation: el-pop-in .3s cubic-bezier(.2,.7,.2,1); }
+  .el-pop-tab__open { background: none; border: 0; font: 700 14px var(--el-sans); color: inherit; padding: 0 6px 0 16px; min-height: 44px; cursor: pointer; }
+  .el-pop-tab__x { background: none; border: 0; color: inherit; width: 40px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .el-pop-tab button:focus-visible { outline: 2px solid #000; outline-offset: 2px; border-radius: 999px; }
   .el-pop { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; }
   .el-pop__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.55); }
   .el-pop__dialog { position: relative; width: 100%; max-width: 440px; background: #fff; color: #000; border-radius: 24px; padding: 40px 28px 24px; box-shadow: 0 30px 80px rgba(0,0,0,.35); animation: el-pop-in .3s cubic-bezier(.2,.7,.2,1); }
@@ -110,6 +123,15 @@
     var s = get();
     if (s.joined) return;
     if (s.dismissed && Date.now() - s.dismissed < 14 * 864e5) return;
+    var phone = window.matchMedia('(max-width: 749px)').matches;
+    if (phone) {
+      var tab = document.getElementById('el-pop-tab');
+      if (!tab || {{ template.name | json }} === 'product') return;
+      setTimeout(function () { tab.hidden = false; }, 6000);
+      tab.querySelector('.el-pop-tab__open').addEventListener('click', function () { tab.hidden = true; open(); });
+      tab.querySelector('.el-pop-tab__x').addEventListener('click', function () { tab.hidden = true; set({ dismissed: Date.now() }); });
+      return;
+    }
     timer = setTimeout(open, 20000);
     if (window.matchMedia('(pointer: fine)').matches) document.addEventListener('mouseout', exitIntent);
   })();
