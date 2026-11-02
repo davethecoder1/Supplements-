@@ -50,12 +50,6 @@
           "type": "quantity_selector",
           "settings": {}
         },
-        "subscribe": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{%- assign fid = 'product-form-' | append: section.id -%}{%- render 'el-subscribe-picker', product: product, form_id: fid -%}"
-          }
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -66,7 +60,7 @@
         "trust": {
           "type": "text",
           "settings": {
-            "text": "Free next-day UK delivery · Secure checkout",
+            "text": "Free next-day UK delivery \u00b7 Secure checkout",
             "text_style": "subtitle"
           }
         },
@@ -97,11 +91,10 @@
         "stats",
         "variant_picker",
         "quantity_selector",
-        "subscribe",
+        "subscriptions_app_block_MKGNfR",
         "buy_buttons",
         "trust",
-        "description",
-        "subscriptions_app_block_MKGNfR"
+        "description"
       ],
       "settings": {
         "enable_sticky_info": true,

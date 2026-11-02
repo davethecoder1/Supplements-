@@ -250,13 +250,13 @@
         "sub_perk-0": {
           "type": "sub_perk",
           "settings": {
-            "text": "Save {discount}% on every box"
+            "text": "Save 20% on every box"
           }
         },
         "sub_perk-1": {
           "type": "sub_perk",
           "settings": {
-            "text": "{plan}"
+            "text": "Choose your delivery schedule at checkout"
           }
         },
         "sub_perk-2": {
