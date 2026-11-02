@@ -243,25 +243,26 @@
     "el-subscribe": {
       "type": "el-subscribe",
       "settings": {
-        "product": "electrolife-hydration"
+        "product": "electrolife-hydration",
+        "discount": 20
       },
       "blocks": {
         "sub_perk-0": {
           "type": "sub_perk",
           "settings": {
-            "text": "Save 25% on every box"
+            "text": "Save {discount}% on every box"
           }
         },
         "sub_perk-1": {
           "type": "sub_perk",
           "settings": {
-            "text": "Free next-day UK delivery"
+            "text": "{plan}"
           }
         },
         "sub_perk-2": {
           "type": "sub_perk",
           "settings": {
-            "text": "Skip, swap flavour or cancel any time"
+            "text": "Pause, skip or cancel any time"
           }
         },
         "once_perk-3": {
@@ -290,8 +291,7 @@
         "once_perk-3",
         "once_perk-4",
         "once_perk-5"
-      ],
-      "disabled": true
+      ]
     },
     "el-reviews": {
       "type": "el-reviews",
@@ -341,6 +341,13 @@
             "question": "How fast is delivery?",
             "answer": "<p>Free next-day delivery across the UK on orders placed before the daily cut-off.</p>"
           }
+        },
+        "q-sub": {
+          "type": "question",
+          "settings": {
+            "question": "Can I skip or cancel my subscription?",
+            "answer": "<p>Yes. Pause, skip or cancel any time from your account. Your plan's delivery frequency and discount are shown before you check out.</p>"
+          }
         }
       },
       "block_order": [
@@ -348,7 +355,8 @@
         "question-1",
         "question-2",
         "question-3",
-        "question-4"
+        "question-4",
+        "q-sub"
       ]
     },
     "el-goals": {

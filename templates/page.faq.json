@@ -106,6 +106,13 @@
             "question": "How do I get in touch?",
             "answer": "<p>Send us a message through our <a href=\"/pages/contact\">contact page</a> and we'll get back to you.</p>"
           }
+        },
+        "q-sub": {
+          "type": "question",
+          "settings": {
+            "question": "Can I skip or cancel my subscription?",
+            "answer": "<p>Yes. Pause, skip or cancel any time from your account. Your plan's delivery frequency and discount are shown before you check out.</p>"
+          }
         }
       },
       "block_order": [
@@ -121,7 +128,8 @@
         "q-9",
         "q-10",
         "q-11",
-        "q-12"
+        "q-12",
+        "q-sub"
       ]
     },
     "quiz": {

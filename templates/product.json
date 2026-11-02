@@ -67,6 +67,12 @@
           "settings": {
             "custom_liquid": "<div class=\"jdgm-widget jdgm-preview-badge\" data-id=\"{{ product.id }}\" data-template=\"product\">{{ product.metafields.judgeme.badge }}</div>"
           }
+        },
+        "subscribe": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- assign fid = 'product-form-' | append: section.id -%}{%- render 'el-subscribe-picker', product: product, form_id: fid -%}"
+          }
         }
       },
       "block_order": [
@@ -77,6 +83,7 @@
         "stats",
         "variant_picker",
         "quantity_selector",
+        "subscribe",
         "buy_buttons",
         "trust",
         "description"
@@ -188,6 +195,13 @@
             "question": "How fast is delivery?",
             "answer": "<p>Free next-day delivery across the UK on orders placed before the daily cut-off.</p>"
           }
+        },
+        "q-sub": {
+          "type": "question",
+          "settings": {
+            "question": "Can I skip or cancel my subscription?",
+            "answer": "<p>Yes. Pause, skip or cancel any time from your account. Your plan's delivery frequency and discount are shown before you check out.</p>"
+          }
         }
       },
       "block_order": [
@@ -195,7 +209,8 @@
         "question-1",
         "question-2",
         "question-3",
-        "question-4"
+        "question-4",
+        "q-sub"
       ],
       "settings": {}
     }
