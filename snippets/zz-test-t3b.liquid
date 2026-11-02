@@ -1,0 +1,36 @@
+{%- comment -%}temporary sync test{%- endcomment -%}
+{%- assign search_target = root | append: routes.search_url | append: '?q={search_term_string}' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "OnlineStore",
+      "@id": {{ org_id | json }},
+      "name": {{ brand | json }},
+      "url": {{ root | append: '/' | json }},
+      {%- if settings.logo %}
+      "logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }},
+      {%- endif %}
+      {%- if settings.social_instagram_link != blank %}
+      "sameAs": [{{ settings.social_instagram_link | json }}],
+      {%- endif %}
+      "contactPoint": { "@type": "ContactPoint", "contactType": "customer service", "url": {{ root | append: '/pages/contact' | json }}, "areaServed": "GB", "availableLanguage": "en-GB" },
+      "hasMerchantReturnPolicy": {{ return_policy }}
+    },
+    {
+      "@type": "WebSite",
+      "@id": {{ site_id | json }},
+      "name": {{ brand | json }},
+      "url": {{ root | append: '/' | json }},
+      "publisher": { "@id": {{ org_id | json }} },
+      "inLanguage": "en-GB",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": {{ search_target | json }} },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
