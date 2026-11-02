@@ -82,3 +82,38 @@
   else scan();
   document.addEventListener('shopify:section:load', function (e) { scan(e.target); });
 })();
+
+/* Equal product cards: give every card's text area in a row the same height as the tallest,
+   so prices, flavour rows and buttons line up (iOS Safari doesn't stretch these reliably with CSS alone). */
+(function () {
+  var raf;
+  function equalise() {
+    document.querySelectorAll('.product-grid').forEach(function (grid) {
+      var infos = grid.querySelectorAll('.card__information');
+      if (infos.length < 2) return;
+      infos.forEach(function (el) { el.style.minHeight = ''; });
+      var max = 0;
+      infos.forEach(function (el) { max = Math.max(max, el.getBoundingClientRect().height); });
+      infos.forEach(function (el) { el.style.minHeight = Math.ceil(max) + 'px'; });
+    });
+  }
+  function queue() { cancelAnimationFrame(raf); raf = requestAnimationFrame(equalise); }
+  function start() {
+    queue();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(queue);
+    window.addEventListener('load', queue);
+    window.addEventListener('resize', queue);
+    // Collection filters and sorting replace the grid without a page load
+    new MutationObserver(function (m) {
+      for (var i = 0; i < m.length; i++) {
+        for (var j = 0; j < m[i].addedNodes.length; j++) {
+          var n = m[i].addedNodes[j];
+          if (n.nodeType === 1 && (n.matches('.product-grid, .grid__item') || n.querySelector('.product-grid'))) { queue(); return; }
+        }
+      }
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+  document.addEventListener('shopify:section:load', queue);
+})();
