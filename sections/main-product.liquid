@@ -194,7 +194,7 @@
                   </p>
                 {%- when 'description' -%}
                   {%- if product.description != blank -%}
-                    <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+                    <div class="product__description rte quick-add-hidden" id="el-pdesc-{{ section.id }}" data-readmore style="--rm-lines: 3;" {{ block.shopify_attributes }}>
                       {{ product.description }}
                     </div>
                   {%- endif -%}

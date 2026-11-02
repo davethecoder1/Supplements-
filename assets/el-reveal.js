@@ -53,3 +53,32 @@
   else scan();
   document.addEventListener('shopify:section:load', function (e) { scan(e.target); }); // theme editor
 })();
+
+/* Read more: clamps [data-readmore] blocks to a few lines and adds a toggle when the text is longer.
+   Without JavaScript the full text shows. Lines are set with the CSS variable --rm-lines. */
+(function () {
+  function setup(el) {
+    if (el.dataset.rmReady) return;
+    el.dataset.rmReady = '1';
+    el.setAttribute('data-rm-state', 'closed');
+    if (el.scrollHeight - el.clientHeight < 4) { el.removeAttribute('data-rm-state'); return; }
+    if (!el.id) el.id = 'rm-' + Math.random().toString(36).slice(2, 8);
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'el-rm__btn';
+    btn.setAttribute('aria-controls', el.id);
+    btn.setAttribute('aria-expanded', 'false');
+    btn.textContent = 'Read more';
+    btn.addEventListener('click', function () {
+      var open = el.getAttribute('data-rm-state') === 'open';
+      el.setAttribute('data-rm-state', open ? 'closed' : 'open');
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      btn.textContent = open ? 'Read more' : 'Read less';
+    });
+    el.insertAdjacentElement('afterend', btn);
+  }
+  function scan(root) { (root || document).querySelectorAll('[data-readmore]').forEach(setup); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { scan(); });
+  else scan();
+  document.addEventListener('shopify:section:load', function (e) { scan(e.target); });
+})();

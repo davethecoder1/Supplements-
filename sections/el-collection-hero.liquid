@@ -25,9 +25,9 @@
 <section class="el el-collection-hero el-ch--{{ tone }}">
   <div class="el-container el-stack el-ch__inner">
     <nav aria-label="Breadcrumb" class="el-ch__crumbs"><a href="{{ routes.root_url }}">Home</a><span aria-hidden="true"> › </span>{% if is_goal %}<span>Shop by goal</span><span aria-hidden="true"> › </span>{% endif %}<span aria-current="page">{{ collection.title }}</span></nav>
-    {%- if is_goal -%}<span class="el-tag el-ch__tag">Shop by goal</span>{%- endif -%}
+    {%- if is_goal -%}<span class="el-tag el-ch__tag el-hide-mobile">Shop by goal</span>{%- endif -%}
     <h1 class="el-h1 el-ch__title">{{ collection.title }}</h1>
-    {%- if collection.description != blank -%}<div class="el-lead el-ch__lead">{{ collection.description }}</div>{%- endif -%}
+    {%- if collection.description != blank -%}<div class="el-lead el-ch__lead" id="el-ch-lead-{{ section.id }}" data-readmore>{{ collection.description }}</div>{%- endif -%}
     {%- if section.blocks.size > 0 -%}
       <ul class="el-chips">
         {%- for block in section.blocks -%}
@@ -48,7 +48,14 @@
 .el-ch__lead p:last-child { margin-bottom: 0; }
 .el-ch__lead a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .el-ch__lead a:hover { text-decoration-thickness: 2px; }
-@media (max-width: 749px) { .el-ch__lead { font-size: 16px; } }
+@media (max-width: 749px) {
+  .el-ch__lead { font-size: 16px; --rm-lines: 2; }
+  .el-ch__inner { gap: 10px; }
+  .el-collection-hero .el-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 4px calc(-1 * var(--el-gutter, 20px)) 0; padding: 0 var(--el-gutter, 20px); }
+  .el-collection-hero .el-chips::-webkit-scrollbar { display: none; }
+  .el-collection-hero .el-chips li { flex: 0 0 auto; padding: 6px 12px; font-size: 13px; }
+  .el-hide-mobile { display: none !important; }
+}
 .el-ch--dark, .el-ch--grey, .el-ch--charge { border-bottom: 0; padding: 72px 0 56px; }
 .el-ch--dark { background: #000; color: #fff; }
 .el-ch--dark .el-h1, .el-ch--dark .el-lead { color: #fff; }
@@ -62,7 +69,7 @@
 .el-ch--charge .el-lead { color: #1f1f1f; }
 .el-ch--charge .el-tag { background: #000; color: #fff; }
 .el-ch--charge .el-chips li { background: rgba(255,255,255,.55); border-color: rgba(0,0,0,.15); }
-@media (max-width: 749px) { .el-ch--dark, .el-ch--grey, .el-ch--charge { padding: 48px 0 40px; } }
+@media (max-width: 749px) { .el-ch--dark, .el-ch--grey, .el-ch--charge { padding: 28px 0 24px; } .el-collection-hero { padding: 24px 0 16px; } }
 
 
 .el-collection-hero { padding: 56px 0 24px; border-bottom: 1px solid var(--el-line); }

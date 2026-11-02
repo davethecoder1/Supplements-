@@ -488,3 +488,10 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 .product-grid > .grid__item { display: flex; flex-direction: column; }
 .product-grid > .grid__item > .card-wrapper { flex: 1 1 auto; height: auto; display: flex; flex-direction: column; }
 .product-grid > .grid__item > .card-wrapper > .card { flex: 1 1 auto; height: auto; }
+
+/* Read more (see el-reveal.js) */
+[data-readmore][data-rm-state="closed"] { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: var(--rm-lines, 3); line-clamp: var(--rm-lines, 3); overflow: hidden; }
+[data-readmore][data-rm-state="closed"] p { display: inline; margin: 0; }
+.el-rm__btn { align-self: flex-start; background: none; border: 0; padding: 4px 0; margin: -4px 0 0; min-height: 32px; font: inherit; font-size: 15px; font-weight: 700; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.el-rm__btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 4px; }
+.product__description + .el-rm__btn { margin: -8px 0 8px; }
