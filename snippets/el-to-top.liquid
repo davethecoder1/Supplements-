@@ -1,0 +1,25 @@
+{%- comment -%} Back-to-top button: appears after scrolling down; smooth scroll unless reduced motion. {%- endcomment -%}
+<button type="button" class="el-top" id="el-top" aria-label="Back to top" hidden>
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+<style>
+  .el-top { position: fixed; right: 16px; bottom: 16px; z-index: 25; width: 48px; height: 48px; border-radius: 50%; border: 0; background: #000; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.25); opacity: 0; transform: translateY(12px); transition: opacity .25s, transform .25s; }
+  .el-top.is-on { opacity: 1; transform: none; }
+  .el-top[hidden] { display: none; }
+  .el-top:focus-visible { outline: 3px solid var(--el-charge, #D7F75B); outline-offset: 3px; }
+  @media (max-width: 749px) { body:has(.el-satc.is-visible) .el-top { bottom: 92px; } }
+  @media (prefers-reduced-motion: reduce) { .el-top { transition: none; } }
+</style>
+<script>
+  (function () {
+    var b = document.getElementById('el-top'); if (!b) return;
+    b.hidden = false; var on = false;
+    function check() { var s = window.scrollY > window.innerHeight * 1.5; if (s !== on) { on = s; b.classList.toggle('is-on', s); b.tabIndex = s ? 0 : -1; } }
+    window.addEventListener('scroll', check, { passive: true }); check();
+    b.addEventListener('click', function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      var t = document.querySelector('main, #MainContent'); if (t) { t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); }
+    });
+  })();
+</script>

@@ -51,7 +51,8 @@
         "item-1",
         "item-2",
         "item-3"
-      ]
+      ],
+      "disabled": true
     },
     "el-nutrition": {
       "type": "el-nutrition",
@@ -607,6 +608,85 @@
     "sweat": {
       "type": "el-sweatometer",
       "settings": {}
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Shop the range",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "shop-all",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": true,
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "sugar": {
+      "type": "el-sugar",
+      "settings": {
+        "grams": 30
+      }
+    },
+    "when": {
+      "type": "el-when",
+      "settings": {
+        "label": "Timing",
+        "heading": "When to drink it."
+      },
+      "blocks": {
+        "m0": {
+          "type": "moment",
+          "settings": {
+            "title": "Before",
+            "time": "30–60 min before",
+            "headline": "Start topped up.",
+            "text": "<p>On hot days or before a long session, a stick in 500 ml of water beforehand means you start with sodium on board rather than playing catch-up.</p>"
+          }
+        },
+        "m1": {
+          "type": "moment",
+          "settings": {
+            "title": "During",
+            "time": "Sessions over an hour",
+            "headline": "Sip as you sweat.",
+            "text": "<p>For long, hot or very sweaty sessions, sip one stick in 500 ml during the session. Small regular sips are easier than gulping it all at once.</p>"
+          }
+        },
+        "m2": {
+          "type": "moment",
+          "settings": {
+            "title": "After",
+            "time": "Within an hour after",
+            "headline": "Top back up.",
+            "text": "<p>Finished soaked? Mix a stick into 500 ml with your post-session meal. Plain water is fine after short, easy sessions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "m0",
+        "m1",
+        "m2"
+      ]
+    },
+    "signup": {
+      "type": "el-signup",
+      "settings": {}
     }
   },
   "order": [
@@ -614,10 +694,13 @@
     "ticker",
     "el-trust-strip",
     "el-goals",
+    "bestsellers",
     "el-scroll-3d",
     "video",
     "flavours",
+    "sugar",
     "sweat",
+    "when",
     "el-nutrition",
     "el-flavours",
     "el-steps",
@@ -626,6 +709,7 @@
     "el-reviews",
     "el-quiz-cta",
     "learn",
-    "el-faq"
+    "el-faq",
+    "signup"
   ]
 }

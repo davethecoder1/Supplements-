@@ -313,3 +313,12 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
 /* ---- Cart drawer reassurance ---- */
 .el-cart-reassure { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 13px; color: #333; }
 .el-cart-reassure .el-icon { width: 20px; height: 20px; stroke: #000; flex: none; }
+
+/* ---- Button micro-interactions: sheen on hover, press on tap ---- */
+.el-btn { position: relative; overflow: hidden; transition: transform .15s ease, background-color .2s, color .2s, border-color .2s; }
+.button { transition: transform .15s ease; }
+.el-btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,255,255,.45), rgba(255,255,255,0)); transform: skewX(-20deg); pointer-events: none; opacity: 0; }
+.el-btn:hover::after { animation: el-sheen .7s ease; }
+.el-btn:active, .button:active { transform: scale(.97); }
+@keyframes el-sheen { 0% { left: -60%; opacity: 1; } 100% { left: 130%; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .el-btn:hover::after { animation: none; } .el-btn:active, .button:active { transform: none; } }

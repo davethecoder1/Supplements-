@@ -1,0 +1,100 @@
+{%- comment -%}
+  Sugar-cube comparison. A slider moves between "typical sports drink" and Electrolife; cubes stack or vanish.
+  Uses typical figures (about 30 g sugar per 500 ml sports drink; a sugar cube is about 4 g).
+{%- endcomment -%}
+<section class="el el-section el-sugar" id="el-sugar-{{ section.id }}">
+  <div class="el-container el-sugar__grid">
+    <div class="el-stack el-sugar__intro">
+      <span class="el-tag">{{ section.settings.label }}</span>
+      <h2 class="el-sugar__title">{{ section.settings.heading | newline_to_br }}</h2>
+      <div class="el-lead">{{ section.settings.text }}</div>
+    </div>
+    <div class="el-sugar__card">
+      <div class="el-sugar__stage" aria-hidden="true">
+        <div class="el-sugar__cubes" data-cubes>
+          {%- for i in (1..8) -%}{%- assign col = forloop.index0 | modulo: 2 -%}{%- assign row = forloop.index0 | divided_by: 2 -%}<i style="left: {{ col | times: 72 | plus: 4 }}px; bottom: {{ row | times: 56 }}px;"></i>{%- endfor -%}
+        </div>
+        <div class="el-sugar__bottle" data-bottle><span data-bottle-label>Sports drink</span></div>
+      </div>
+      <div class="el-sugar__readout" aria-live="polite">
+        <strong data-grams>30 g</strong>
+        <span data-what>sugar in a typical 500 ml sports drink, about 8 sugar cubes</span>
+      </div>
+      <label class="el-sugar__label" for="el-sugar-range-{{ section.id }}">Compare</label>
+      <div class="el-sugar__ends" aria-hidden="true"><span>Typical sports drink</span><span>Electrolife</span></div>
+      <input id="el-sugar-range-{{ section.id }}" type="range" min="0" max="100" value="0" step="1"
+        aria-valuetext="Typical sports drink: about 30 grams of sugar">
+      <p class="el-sugar__small">{{ section.settings.footnote }}</p>
+    </div>
+  </div>
+</section>
+{% stylesheet %}
+.el-sugar__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+.el-sugar__intro .el-tag { align-self: flex-start; }
+.el-sugar__title { margin: 0; font-family: var(--el-display); font-weight: 800; font-size: clamp(44px, 5.6vw, 88px); line-height: .9; letter-spacing: -0.045em; }
+.el-sugar__card { background: #F4F4F4; border-radius: 24px; padding: 32px; display: grid; gap: 16px; }
+.el-sugar__stage { position: relative; height: 260px; display: flex; align-items: flex-end; justify-content: center; gap: 40px; }
+.el-sugar__cubes { position: relative; width: 150px; height: 230px; }
+.el-sugar__cubes i { position: absolute; width: 64px; height: 52px; border-radius: 8px; background: #fff; box-shadow: inset 0 0 0 2px #E4E4E4, 0 6px 10px rgba(0,0,0,.08); transition: transform .35s cubic-bezier(.2,.7,.2,1), opacity .35s ease; }
+.el-sugar__cubes i.is-gone { opacity: 0; transform: translateY(-40px) rotate(-12deg) scale(.6); }
+.el-sugar__bottle { width: 110px; height: 230px; border-radius: 26px 26px 34px 34px; border: 4px solid #000; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; background: linear-gradient(0deg, var(--sugar-liquid, #ff9a76) 0 70%, transparent 70%); transition: background .4s ease; }
+.el-sugar__bottle span { font: 700 12px var(--el-mono); text-transform: uppercase; letter-spacing: .06em; text-align: center; padding: 0 8px; }
+.el-sugar__readout { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.el-sugar__readout strong { font: 800 clamp(44px, 5vw, 64px)/1 var(--el-display); letter-spacing: -0.04em; }
+.el-sugar__readout span { color: #333; max-width: 320px; }
+.el-sugar__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.el-sugar__ends { display: flex; justify-content: space-between; font-weight: 700; font-size: 14px; }
+.el-sugar input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; background: transparent; cursor: grab; }
+.el-sugar input[type=range]::-webkit-slider-runnable-track { height: 10px; border-radius: 10px; background: linear-gradient(90deg, #ff9a76, var(--el-charge)); }
+.el-sugar input[type=range]::-moz-range-track { height: 10px; border-radius: 10px; background: linear-gradient(90deg, #ff9a76, var(--el-charge)); }
+.el-sugar input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 34px; height: 34px; margin-top: -12px; border-radius: 50%; background: #000; border: 4px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+.el-sugar input[type=range]::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: #000; border: 4px solid #fff; }
+.el-sugar input[type=range]:focus-visible { outline: 2px solid #000; outline-offset: 4px; border-radius: 10px; }
+.el-sugar__small { margin: 0; font-size: 12px; color: #555; }
+@media (max-width: 989px) { .el-sugar__grid { grid-template-columns: 1fr; gap: 32px; } }
+@media (max-width: 749px) { .el-sugar__card { padding: 20px; } .el-sugar__stage { height: 220px; gap: 24px; transform: scale(.85); transform-origin: bottom center; } }
+@media (prefers-reduced-motion: reduce) { .el-sugar__cubes i, .el-sugar__bottle { transition: none; } }
+{% endstylesheet %}
+<script>
+  (function () {
+    var root = document.getElementById('el-sugar-{{ section.id }}');
+    if (!root) return;
+    var r = root.querySelector('input[type=range]'), cubes = root.querySelectorAll('[data-cubes] i');
+    var bottle = root.querySelector('[data-bottle]'), lab = root.querySelector('[data-bottle-label]');
+    var MAX = {{ section.settings.grams }}, CUBE = 4;
+    function update() {
+      var k = r.value / 100, g = Math.round(MAX * (1 - k)), n = Math.round(g / CUBE);
+      cubes.forEach(function (c, i) { c.classList.toggle('is-gone', i >= n); });
+      root.querySelector('[data-grams]').textContent = g + ' g';
+      var done = k > 0.97;
+      root.querySelector('[data-what]').textContent = done ? 'sugar in a stick of Electrolife. Zero cubes.' : (k < 0.03 ? 'sugar in a typical 500 ml sports drink, about ' + Math.round(MAX / CUBE) + ' sugar cubes' : 'of sugar, about ' + n + ' sugar cube' + (n === 1 ? '' : 's'));
+      lab.textContent = done ? 'Electrolife' : 'Sports drink';
+      bottle.style.setProperty('--sugar-liquid', done ? 'var(--el-charge)' : '#ff9a76');
+      r.setAttribute('aria-valuetext', done ? 'Electrolife: 0 grams of sugar' : 'About ' + g + ' grams of sugar');
+    }
+    r.addEventListener('input', update);
+    // Gentle hint: animate the slider once when it first comes into view
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (e) {
+        if (!e[0].isIntersecting) return; io.disconnect();
+        var v = 0, t = setInterval(function () { if (document.activeElement === r) { clearInterval(t); return; } v += 2; r.value = v; update(); if (v >= 100) clearInterval(t); }, 18);
+      }, { threshold: 0.6 });
+      io.observe(r);
+    }
+    update();
+  })();
+</script>
+{% schema %}
+{
+  "name": "Sugar comparison",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Zero sugar" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Drag away\nthe sugar." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Many sports drinks pack a lot of sugar into every bottle. Useful fuel for a marathon, less so for a gym session. Electrolife has none.</p>" },
+    { "type": "number", "id": "grams", "label": "Typical sports drink sugar (g per 500 ml)", "default": 30 },
+    { "type": "text", "id": "footnote", "label": "Footnote", "default": "Typical figure for a 500 ml sports drink; brands vary. A sugar cube is about 4 g." }
+  ],
+  "presets": [{ "name": "Sugar comparison" }]
+}
+{% endschema %}
