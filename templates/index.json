@@ -241,7 +241,7 @@
       ]
     },
     "el-subscribe": {
-      "type": "el-subscribe",
+      "type": "el-subscribe-plan",
       "settings": {
         "product": "electrolife-hydration",
         "discount": 20

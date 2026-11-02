@@ -1,18 +1,6 @@
-{%- comment -%} Reads discount and plan details from the product's Shopify Subscriptions plan. {%- endcomment -%}
 {%- liquid
   assign p = section.settings.product
-  assign discount = section.settings.discount
-  assign plan = p.selling_plan_groups.first.selling_plans.first
-  assign plan_name = ''
-  if plan
-    assign plan_name = plan.name
-    assign adj = plan.price_adjustments.first
-    if adj and adj.value_type == 'percentage'
-      assign discount = adj.value
-    endif
-  endif
-  assign keep = 100 | minus: discount
-  assign discount_s = discount | append: ''
+  assign keep = 100 | minus: section.settings.discount
   if p != blank
     assign once_price = p.price
     assign sub_price = p.price | times: keep | divided_by: 100.0 | round
@@ -23,13 +11,13 @@
 <section class="el el-section el-sub">
   <div class="el-container el-split">
     <div class="el-stack">
-      <span class="el-tag">Subscribe &amp; save {{ discount }}%</span>
+      <span class="el-tag">Subscribe &amp; save {{ section.settings.discount }}%</span>
       <h2 class="el-h2">{{ section.settings.heading }}</h2>
       <div class="el-lead">{{ section.settings.text }}</div>
     </div>
     <div class="el-sub__card" data-el-sub data-el-mode="sub">
       <div class="el-toggle" role="group" aria-label="Purchase type">
-        <button type="button" data-el-set="sub" aria-pressed="true">Subscribe · save {{ discount }}%</button>
+        <button type="button" data-el-set="sub" aria-pressed="true">Subscribe · save {{ section.settings.discount }}%</button>
         <button type="button" data-el-set="once" aria-pressed="false">One-off</button>
       </div>
       {%- if p != blank -%}
@@ -41,7 +29,7 @@
         </div>
       {%- endif -%}
       <ul class="el-list" data-el-show="sub">
-        {%- for block in section.blocks -%}{%- if block.type == 'sub_perk' -%}<li class="el-check" {{ block.shopify_attributes }}>{% render 'el-check' %}<span>{{ block.settings.text | replace: '{discount}', discount_s | replace: '{plan}', plan_name }}</span></li>{%- endif -%}{%- endfor -%}
+        {%- for block in section.blocks -%}{%- if block.type == 'sub_perk' -%}<li class="el-check" {{ block.shopify_attributes }}>{% render 'el-check' %}<span>{{ block.settings.text }}</span></li>{%- endif -%}{%- endfor -%}
       </ul>
       <ul class="el-list" data-el-show="once">
         {%- for block in section.blocks -%}{%- if block.type == 'once_perk' -%}<li class="el-check" {{ block.shopify_attributes }}>{% render 'el-check' %}<span>{{ block.settings.text }}</span></li>{%- endif -%}{%- endfor -%}
