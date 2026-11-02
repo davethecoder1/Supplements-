@@ -1,8 +1,33 @@
-<section class="el el-collection-hero">
-  <div class="el-container el-stack" style="gap: 16px;">
-    <nav aria-label="Breadcrumb" class="el-muted" style="font-size: 13px;"><a href="{{ routes.root_url }}" class="el-muted">Home</a> / {{ collection.title }}</nav>
-    <h1 class="el-h1">{{ collection.title }}</h1>
-    {%- if collection.description != blank -%}<div class="el-lead">{{ collection.description }}</div>{%- endif -%}
+{%- comment -%}
+  Banner colour per collection: set a collection metafield custom.hero_tone (dark / grey / charge),
+  otherwise the Shop by goal collections use the same colours as their homepage tiles.
+{%- endcomment -%}
+{%- liquid
+  assign tone = collection.metafields.custom.hero_tone.value
+  if tone == blank
+    case collection.handle
+      when 'elite-athletes'
+        assign tone = 'dark'
+      when 'head-fuzz'
+        assign tone = 'charge'
+      when 'gym-goers', 'everyday'
+        assign tone = 'grey'
+      else
+        assign tone = 'plain'
+    endcase
+  endif
+  assign goal_handles = 'elite-athletes,gym-goers,everyday,head-fuzz' | split: ','
+  assign is_goal = false
+  if goal_handles contains collection.handle
+    assign is_goal = true
+  endif
+-%}
+<section class="el el-collection-hero el-ch--{{ tone }}">
+  <div class="el-container el-stack el-ch__inner">
+    <nav aria-label="Breadcrumb" class="el-ch__crumbs"><a href="{{ routes.root_url }}">Home</a><span aria-hidden="true"> › </span>{% if is_goal %}<span>Shop by goal</span><span aria-hidden="true"> › </span>{% endif %}<span aria-current="page">{{ collection.title }}</span></nav>
+    {%- if is_goal -%}<span class="el-tag el-ch__tag">Shop by goal</span>{%- endif -%}
+    <h1 class="el-h1 el-ch__title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}<div class="el-lead el-ch__lead">{{ collection.description }}</div>{%- endif -%}
     {%- if section.blocks.size > 0 -%}
       <ul class="el-chips">
         {%- for block in section.blocks -%}
@@ -10,10 +35,30 @@
         {%- endfor -%}
       </ul>
     {%- endif -%}
-    <p class="el-label" style="color: var(--el-ink-muted);">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</p>
+    <p class="el-label el-ch__count">{{ collection.products_count }} {% if collection.products_count == 1 %}product{% else %}products{% endif %}</p>
   </div>
 </section>
 {% stylesheet %}
+.el-ch__inner { gap: 16px; }
+.el-ch__crumbs { font-size: 13px; color: inherit; opacity: .7; }
+.el-ch__crumbs a { color: inherit; }
+.el-ch__count { color: inherit; opacity: .7; }
+.el-ch__lead p { margin: 0 0 .6em; }
+.el-ch--dark, .el-ch--grey, .el-ch--charge { border-bottom: 0; padding: 72px 0 56px; }
+.el-ch--dark { background: #000; color: #fff; }
+.el-ch--dark .el-h1, .el-ch--dark .el-lead { color: #fff; }
+.el-ch--dark .el-lead { color: rgba(255,255,255,.78); }
+.el-ch--dark .el-chips li { background: #151515; border-color: #2a2a2a; color: #fff; }
+.el-ch--dark .el-chips .el-icon { stroke: var(--el-charge); }
+.el-ch--dark :focus-visible { outline-color: var(--el-charge); }
+.el-ch--grey { background: #F4F4F4; }
+.el-ch--grey .el-chips li { background: #fff; }
+.el-ch--charge { background: var(--el-charge); color: #000; }
+.el-ch--charge .el-lead { color: #1f1f1f; }
+.el-ch--charge .el-tag { background: #000; color: #fff; }
+.el-ch--charge .el-chips li { background: rgba(255,255,255,.55); border-color: rgba(0,0,0,.15); }
+@media (max-width: 749px) { .el-ch--dark, .el-ch--grey, .el-ch--charge { padding: 48px 0 40px; } }
+
 
 .el-collection-hero { padding: 56px 0 24px; border-bottom: 1px solid var(--el-line); }
 .el-chips { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
