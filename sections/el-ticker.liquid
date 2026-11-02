@@ -1,0 +1,41 @@
+{%- comment -%} Scrolling ticker band. Pauses on hover/focus; static for reduced motion. {%- endcomment -%}
+<section class="el-ticker el-ticker--{{ section.settings.tone }}" aria-label="{{ section.settings.label | escape }}">
+  <div class="el-ticker__track" style="--el-ticker-speed: {{ section.settings.speed }}s;">
+    {%- for i in (1..2) -%}
+      <ul class="el-ticker__list" {% if i == 2 %}aria-hidden="true"{% endif %}>
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endfor -%}
+  </div>
+</section>
+{% stylesheet %}
+.el-ticker { overflow: hidden; padding: 18px 0; }
+.el-ticker--charge { background: var(--el-charge); color: #000; }
+.el-ticker--dark { background: #000; color: #fff; }
+.el-ticker__track { display: flex; width: max-content; animation: el-ticker var(--el-ticker-speed, 30s) linear infinite; }
+.el-ticker:hover .el-ticker__track, .el-ticker:focus-within .el-ticker__track { animation-play-state: paused; }
+.el-ticker__list { display: flex; list-style: none; margin: 0; padding: 0; }
+.el-ticker__list li { display: flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap; font-family: var(--el-display); font-weight: 800; font-size: clamp(20px, 2.4vw, 32px); letter-spacing: -0.02em; text-transform: uppercase; }
+.el-ticker__list li::after { content: "\2726"; font-size: .7em; }
+@keyframes el-ticker { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .el-ticker__track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+  .el-ticker__list[aria-hidden] { display: none; }
+  .el-ticker__list { flex-wrap: wrap; justify-content: center; row-gap: 6px; }
+}
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Ticker band",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Accessible label", "default": "Electrolife highlights" },
+    { "type": "select", "id": "tone", "label": "Colour", "default": "charge", "options": [{ "value": "charge", "label": "Lime" }, { "value": "dark", "label": "Black" }] },
+    { "type": "range", "id": "speed", "label": "Seconds per loop", "min": 10, "max": 60, "step": 5, "default": 30 }
+  ],
+  "blocks": [{ "type": "item", "name": "Item", "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "Zero sugar" }] }],
+  "presets": [{ "name": "Ticker band" }]
+}
+{% endschema %}

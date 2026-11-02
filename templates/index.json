@@ -159,7 +159,8 @@
         "flavour-1",
         "flavour-2",
         "flavour-3"
-      ]
+      ],
+      "disabled": true
     },
     "el-steps": {
       "type": "el-steps",
@@ -240,7 +241,8 @@
         "row-1",
         "row-2",
         "row-3"
-      ]
+      ],
+      "disabled": true
     },
     "el-subscribe": {
       "type": "el-subscribe",
@@ -303,7 +305,8 @@
       "type": "el-quiz-cta",
       "settings": {
         "link": "/pages/hydration-quiz"
-      }
+      },
+      "disabled": true
     },
     "el-faq": {
       "type": "el-faq",
@@ -482,13 +485,139 @@
         "padding_top": 48,
         "padding_bottom": 48
       }
+    },
+    "ticker": {
+      "type": "el-ticker",
+      "settings": {
+        "label": "Electrolife highlights",
+        "tone": "charge",
+        "speed": 30
+      },
+      "blocks": {
+        "t0": {
+          "type": "item",
+          "settings": {
+            "text": "1,000 mg sodium"
+          }
+        },
+        "t1": {
+          "type": "item",
+          "settings": {
+            "text": "Zero sugar"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "text": "Vegan"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "text": "Four flavours"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "text": "Free next-day UK delivery"
+          }
+        },
+        "t5": {
+          "type": "item",
+          "settings": {
+            "text": "Up to 15% off bigger boxes"
+          }
+        }
+      },
+      "block_order": [
+        "t0",
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5"
+      ]
+    },
+    "video": {
+      "type": "el-video-band",
+      "settings": {
+        "heading": "",
+        "button_label": "Shop Hydration",
+        "button_link": "/products/electrolife-hydration"
+      }
+    },
+    "flavours": {
+      "type": "el-flavour-explorer",
+      "settings": {
+        "product": "electrolife-hydration",
+        "label": "Four flavours, one formula",
+        "heading": "Find your flavour."
+      },
+      "blocks": {
+        "f0": {
+          "type": "flavour",
+          "settings": {
+            "name": "Citrus Salt",
+            "note": "Sharp lemon-lime with a salted finish. Our bestseller.",
+            "tasting": "Zesty, Salted, Refreshing",
+            "colour": "#E8CF4A",
+            "ink": "#000000"
+          }
+        },
+        "f1": {
+          "type": "flavour",
+          "settings": {
+            "name": "Watermelon",
+            "note": "Light and fresh. Easy to drink in big volumes on hot days.",
+            "tasting": "Juicy, Light, Summery",
+            "colour": "#E86F6F",
+            "ink": "#000000"
+          }
+        },
+        "f2": {
+          "type": "flavour",
+          "settings": {
+            "name": "Mixed Berry",
+            "note": "Rounder and sweeter, still zero sugar.",
+            "tasting": "Berry, Smooth, Sweet",
+            "colour": "#7E5BA6",
+            "ink": "#FFFFFF"
+          }
+        },
+        "f3": {
+          "type": "flavour",
+          "settings": {
+            "name": "Pure",
+            "note": "Unflavoured. Add it to anything, or drink it straight.",
+            "tasting": "Neutral, Clean, Versatile",
+            "colour": "#D5DBD9",
+            "ink": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "f0",
+        "f1",
+        "f2",
+        "f3"
+      ]
+    },
+    "sweat": {
+      "type": "el-sweatometer",
+      "settings": {}
     }
   },
   "order": [
     "el-hero-banner",
+    "ticker",
     "el-trust-strip",
     "el-goals",
     "el-scroll-3d",
+    "video",
+    "flavours",
+    "sweat",
     "el-nutrition",
     "el-flavours",
     "el-steps",

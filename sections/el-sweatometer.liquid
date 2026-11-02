@@ -1,0 +1,118 @@
+{%- comment -%}
+  Sweat-o-meter: drag three sliders (length, intensity, heat) for a live estimate of sweat and sodium lost,
+  plus a stick suggestion. A rough, general estimate based on typical sweat-rate and sweat-sodium ranges.
+{%- endcomment -%}
+<section class="el el-som" id="el-som-{{ section.id }}">
+  <div class="el-container el-som__grid">
+    <div class="el-stack el-som__intro">
+      <span class="el-tag">{{ section.settings.label }}</span>
+      <h2 class="el-som__title">{{ section.settings.heading | newline_to_br }}</h2>
+      <div class="el-lead">{{ section.settings.text }}</div>
+    </div>
+    <div class="el-som__card">
+      <form class="el-som__form" onsubmit="return false;">
+        <div class="el-som__field">
+          <label for="som-mins-{{ section.id }}">Session length <output data-o="mins">60 min</output></label>
+          <input id="som-mins-{{ section.id }}" type="range" name="mins" min="15" max="180" step="15" value="60">
+        </div>
+        <div class="el-som__field">
+          <label for="som-int-{{ section.id }}">Intensity <output data-o="int">Moderate</output></label>
+          <input id="som-int-{{ section.id }}" type="range" name="int" min="1" max="3" step="1" value="2">
+        </div>
+        <div class="el-som__field">
+          <label for="som-heat-{{ section.id }}">Conditions <output data-o="heat">Mild</output></label>
+          <input id="som-heat-{{ section.id }}" type="range" name="heat" min="1" max="3" step="1" value="2">
+        </div>
+      </form>
+      <div class="el-som__gauge" aria-hidden="true"><i data-gauge></i></div>
+      <div class="el-som__out" aria-live="polite">
+        <div><span>Sweat lost</span><strong data-r="sweat">0.8 L</strong></div>
+        <div><span>Sodium lost</span><strong data-r="na">400–1,500 mg</strong></div>
+        <div class="is-pick"><span>Our suggestion</span><strong data-r="pick">Water is fine</strong></div>
+      </div>
+      <p class="el-som__note" data-r="note"></p>
+      <div class="el-btns">
+        <a class="el-btn el-btn--charge" href="/products/electrolife-hydration">Shop Hydration</a>
+        <a class="el-btn el-btn--ghost" href="/pages/science">Measure it properly</a>
+      </div>
+      <p class="el-som__small">{{ section.settings.disclaimer }}</p>
+    </div>
+  </div>
+</section>
+{% stylesheet %}
+.el-som { background: #000; color: #fff; }
+.el-som__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
+.el-som__intro .el-tag { align-self: flex-start; }
+.el-som__intro .el-lead { color: rgba(255,255,255,.75); }
+.el-som__title { margin: 0; font-family: var(--el-display); font-weight: 800; font-size: clamp(44px, 5.6vw, 88px); line-height: .9; letter-spacing: -0.045em; color: #fff; }
+.el-som__card { background: #111; border-radius: 24px; padding: 32px; display: grid; gap: 24px; }
+.el-som__form { display: grid; gap: 20px; }
+.el-som__field label { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 10px; }
+.el-som__field output { font-family: var(--el-mono); color: var(--el-charge); font-size: 14px; }
+.el-som input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; background: transparent; cursor: pointer; }
+.el-som input[type=range]::-webkit-slider-runnable-track { height: 8px; border-radius: 8px; background: #2a2a2a; }
+.el-som input[type=range]::-moz-range-track { height: 8px; border-radius: 8px; background: #2a2a2a; }
+.el-som input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -10px; border-radius: 50%; background: var(--el-charge); border: 3px solid #000; box-shadow: 0 0 0 2px var(--el-charge); }
+.el-som input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--el-charge); border: 3px solid #000; }
+.el-som input[type=range]:focus-visible { outline: 2px solid var(--el-charge); outline-offset: 2px; border-radius: 8px; }
+.el-som__gauge { height: 14px; border-radius: 14px; background: linear-gradient(90deg, #2a2a2a, #2a2a2a); overflow: hidden; }
+.el-som__gauge i { display: block; height: 100%; width: 30%; border-radius: 14px; background: linear-gradient(90deg, #8fd14f, var(--el-charge), #ffb347, #ff6b5b); background-size: 300% 100%; transition: width .4s cubic-bezier(.2,.7,.2,1); }
+.el-som__out { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.el-som__out div { background: #1a1a1a; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.el-som__out .is-pick { background: var(--el-charge); color: #000; }
+.el-som__out span { font-family: var(--el-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.el-som__out strong { font-family: var(--el-display); font-weight: 800; font-size: clamp(20px, 2vw, 28px); letter-spacing: -0.02em; line-height: 1.05; }
+.el-som__note { margin: 0; color: rgba(255,255,255,.8); }
+.el-som .el-btn--ghost { color: #fff; border-color: rgba(255,255,255,.6); }
+.el-som .el-btn--ghost:hover { background: #fff; color: #000; }
+.el-som__small { margin: 0; font-size: 12px; color: rgba(255,255,255,.55); }
+.el-som :focus-visible { outline-color: var(--el-charge); }
+@media (max-width: 989px) { .el-som__grid { grid-template-columns: 1fr; gap: 32px; } }
+@media (max-width: 749px) { .el-som__card { padding: 20px; } .el-som__out { grid-template-columns: 1fr; } .el-som .el-btns { flex-direction: column; } .el-som .el-btn { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .el-som__gauge i { transition: none; } }
+{% endstylesheet %}
+<script>
+  (function () {
+    var root = document.getElementById('el-som-{{ section.id }}');
+    if (!root) return;
+    var f = root.querySelector('form');
+    var INT = ['', 'Easy', 'Moderate', 'Hard'], HEAT = ['', 'Cool', 'Mild', 'Hot'];
+    // Typical sweat rates (litres/hour) by intensity, scaled for conditions. Rough, general figures.
+    var RATE = [0, 0.5, 0.9, 1.3], HEATX = [0, 0.8, 1, 1.35];
+    var LOW = 460, HIGH = 1840; // mg sodium per litre of sweat, typical range
+    function fmt(n) { return Math.round(n / 10) * 10 >= 1000 ? (Math.round(n / 50) * 50).toLocaleString('en-GB') : Math.round(n / 10) * 10; }
+    function update() {
+      var mins = +f.mins.value, i = +f.int.value, h = +f.heat.value;
+      var litres = RATE[i] * HEATX[h] * mins / 60;
+      var lo = litres * LOW, hi = litres * HIGH, mid = (lo + hi) / 2;
+      root.querySelector('[data-o="mins"]').textContent = mins + ' min';
+      root.querySelector('[data-o="int"]').textContent = INT[i];
+      root.querySelector('[data-o="heat"]').textContent = HEAT[h];
+      root.querySelector('[data-r="sweat"]').textContent = litres.toFixed(1) + ' L';
+      root.querySelector('[data-r="na"]').textContent = fmt(lo) + '–' + fmt(hi) + ' mg';
+      var pick, note;
+      if (litres < 0.75 && mins <= 60) { pick = 'Water is fine'; note = 'A short or easy session. Plain water and your normal meals should cover it.'; }
+      else if (litres < 1.8) { pick = '1 stick'; note = 'One stick in 500 ml before or during your session is a sensible starting point.'; }
+      else { pick = '1–2 sticks'; note = 'A long, hot or very sweaty session. One stick per 500 ml, up to two, and keep sipping water too.'; }
+      root.querySelector('[data-r="pick"]').textContent = pick;
+      root.querySelector('[data-r="note"]').textContent = note;
+      root.querySelector('[data-gauge]').style.width = Math.max(8, Math.min(100, litres / 3.5 * 100)) + '%';
+      root.querySelector('[data-gauge]').style.backgroundPosition = Math.min(100, litres / 3.5 * 100) + '% 0';
+    }
+    f.addEventListener('input', update);
+    update();
+  })();
+</script>
+{% schema %}
+{
+  "name": "Sweat-o-meter",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Sweat-o-meter" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "How much\ndo you lose?" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Drag the sliders to see a rough estimate of how much sweat and salt a session costs you, and whether you need anything more than water.</p>" },
+    { "type": "text", "id": "disclaimer", "label": "Disclaimer", "default": "A rough estimate based on typical sweat rates and sweat sodium. Everyone is different, and it isn't medical advice." }
+  ],
+  "presets": [{ "name": "Sweat-o-meter" }]
+}
+{% endschema %}

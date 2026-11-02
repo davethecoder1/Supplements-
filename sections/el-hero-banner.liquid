@@ -75,7 +75,34 @@
   .el-hb .el-btns { flex-direction: column; width: 100%; }
   .el-hb .el-btn { width: 100%; }
 }
+
+/* Living hero: slow zoom + gentle 3D tilt that follows the pointer (desktop) */
+.el-hb__media picture { transform: perspective(1400px) rotateX(var(--hb-rx, 0deg)) rotateY(var(--hb-ry, 0deg)) scale(1.02); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.el-hb__img { animation: el-hb-kb 16s ease-in-out infinite alternate; transform-origin: 70% 50%; }
+@keyframes el-hb-kb { from { transform: scale(1); } to { transform: scale(1.06); } }
+.el-hb__content > * { animation: el-hb-up .8s cubic-bezier(.2,.7,.2,1) both; }
+.el-hb__content > *:nth-child(2) { animation-delay: .08s; } .el-hb__content > *:nth-child(3) { animation-delay: .16s; }
+.el-hb__content > *:nth-child(4) { animation-delay: .24s; } .el-hb__content > *:nth-child(5) { animation-delay: .32s; }
+@keyframes el-hb-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .el-hb__img, .el-hb__content > * { animation: none; } .el-hb__media picture { transform: none; transition: none; } }
 {% endstylesheet %}
+<script>
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !window.matchMedia('(pointer: fine)').matches) return;
+    document.querySelectorAll('.el-hb').forEach(function (hb) {
+      var raf = null;
+      hb.addEventListener('pointermove', function (e) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          raf = null;
+          var r = hb.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+          hb.style.setProperty('--hb-ry', (x * 6).toFixed(2) + 'deg'); hb.style.setProperty('--hb-rx', (-y * 4).toFixed(2) + 'deg');
+        });
+      });
+      hb.addEventListener('pointerleave', function () { hb.style.setProperty('--hb-ry', '0deg'); hb.style.setProperty('--hb-rx', '0deg'); });
+    });
+  })();
+</script>
 
 {% schema %}
 {
