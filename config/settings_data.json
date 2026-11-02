@@ -12,45 +12,45 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#F5F6F3",
-          "text": "#0D1B1E",
-          "button": "#0D1B1E",
+          "background": "#FFFFFF",
+          "text": "#000000",
+          "button": "#000000",
           "button_label": "#FFFFFF",
-          "secondary_button_label": "#0D1B1E",
-          "shadow": "#0D1B1E",
+          "secondary_button_label": "#000000",
+          "shadow": "#000000",
           "background_gradient": ""
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#FFFFFF",
-          "text": "#0D1B1E",
-          "button": "#0D1B1E",
+          "background": "#F4F4F4",
+          "text": "#000000",
+          "button": "#000000",
           "button_label": "#FFFFFF",
-          "secondary_button_label": "#0D1B1E",
-          "shadow": "#0D1B1E",
+          "secondary_button_label": "#000000",
+          "shadow": "#000000",
           "background_gradient": ""
         }
       },
       "scheme-3": {
         "settings": {
-          "background": "#0D1B1E",
-          "text": "#F5F6F3",
+          "background": "#000000",
+          "text": "#FFFFFF",
           "button": "#D7F75B",
-          "button_label": "#0D1B1E",
-          "secondary_button_label": "#F5F6F3",
-          "shadow": "#0D1B1E",
+          "button_label": "#000000",
+          "secondary_button_label": "#FFFFFF",
+          "shadow": "#000000",
           "background_gradient": ""
         }
       },
       "scheme-4": {
         "settings": {
           "background": "#D7F75B",
-          "text": "#0D1B1E",
-          "button": "#0D1B1E",
+          "text": "#000000",
+          "button": "#000000",
           "button_label": "#FFFFFF",
           "secondary_button_label": "#0D1B1E",
-          "shadow": "#0D1B1E",
+          "shadow": "#000000",
           "background_gradient": ""
         }
       },
@@ -66,21 +66,21 @@
         }
       }
     },
-    "page_width": 1300,
-    "buttons_radius": 12,
-    "inputs_radius": 12,
+    "page_width": 1400,
+    "buttons_radius": 40,
+    "inputs_radius": 40,
     "inputs_border_opacity": 100,
     "variant_pills_radius": 40,
     "variant_pills_border_opacity": 100,
-    "card_corner_radius": 12,
+    "card_corner_radius": 16,
     "card_color_scheme": "scheme-2",
     "card_border_thickness": 1,
-    "card_border_opacity": 15,
-    "collection_card_corner_radius": 12,
-    "media_radius": 12,
+    "card_border_opacity": 0,
+    "collection_card_corner_radius": 16,
+    "media_radius": 16,
     "media_border_opacity": 0,
-    "text_boxes_radius": 12,
-    "popup_corner_radius": 12,
+    "text_boxes_radius": 16,
+    "popup_corner_radius": 16,
     "badge_corner_radius": 40,
     "sale_badge_color_scheme": "scheme-4",
     "sold_out_badge_color_scheme": "scheme-3",

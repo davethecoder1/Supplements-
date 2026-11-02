@@ -187,3 +187,47 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4 { font-family: var(--el-display); font-w
   .el-stats div:nth-child(-n+2) { border-bottom: 1px solid var(--el-line); }
 }
 @media (prefers-reduced-motion: reduce) { .el-progress__bar { transition: none; } }
+
+/* ------------------------------------------------------------------
+   Bold monochrome refresh: black & white, heavy type, pill buttons,
+   grey tiles. Lime "charge" stays as the single brand accent.
+   ------------------------------------------------------------------ */
+:root {
+  --el-ground: #FFFFFF;
+  --el-surface: #F4F4F4;
+  --el-ink: #000000;
+  --el-ink-muted: #555555;
+  --el-line: #E4E4E4;
+  --el-saline: #000000;
+  --el-mist: #F4F4F4;
+  --el-radius-md: 16px;
+  --font-heading-weight: 800;
+}
+body { background: #FFFFFF; }
+h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
+.el-h1, .el-h2, .el-h3, .el-box__name { font-weight: 800; letter-spacing: -0.035em; }
+.el-h1 { font-size: clamp(48px, 7vw, 96px); line-height: 0.92; }
+.el-h2 { font-size: clamp(34px, 4.6vw, 60px); line-height: 1; }
+.el-lead { font-size: 19px; }
+.el-label { color: var(--el-ink); font-weight: 600; }
+.el-section { padding: 112px 0; }
+
+/* Pill buttons */
+.el-btn { border-radius: var(--el-radius-pill); min-height: 56px; padding: 0 34px; font-weight: 700; letter-spacing: 0.01em; }
+.el-btn:hover { background: #222; border-color: #222; }
+.el-btn--ghost:hover { background: var(--el-ink); color: #fff; }
+.el-btn--charge:hover { background: #fff; border-color: #fff; color: var(--el-ink); }
+
+/* Borderless grey tiles */
+.el-card { background: var(--el-surface); border: 0; border-radius: var(--el-radius-md); }
+.el-hero__media { background: var(--el-surface); border-radius: 24px; }
+.el-trust { background: #FFFFFF; border-color: var(--el-line); }
+.el-tag { font-weight: 600; }
+
+/* Dawn product cards: grey tile behind product shots */
+.card--card, .card--standard .card__inner { background: #F4F4F4; }
+.card__heading { font-weight: 700; letter-spacing: -0.01em; }
+
+/* Header: crisp white with a hairline */
+.header-wrapper { border-bottom: 1px solid #E4E4E4; }
+.header__menu-item { font-weight: 600; }
