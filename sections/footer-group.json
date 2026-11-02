@@ -41,11 +41,19 @@
             "heading": "Help & info",
             "menu": "footer"
           }
+        },
+        "policies": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Policies",
+            "menu": "policies"
+          }
         }
       },
       "block_order": [
         "shop",
-        "help"
+        "help",
+        "policies"
       ]
     }
   },

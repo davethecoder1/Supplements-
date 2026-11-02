@@ -73,7 +73,7 @@
           "settings": {
             "widget_style": "card",
             "widget_style_card_selector": "radio_button",
-            "subscription_policy_url": "",
+            "subscription_policy_url": "/pages/subscription-policy",
             "color_text_body": "#6D7175",
             "dividers_color": "#8F8D8D",
             "background_color": "#FFFFFF",
