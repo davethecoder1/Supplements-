@@ -16,6 +16,30 @@
         "label": "Brand name",
         "default": "Electrolife",
         "info": "Shown in page titles, the footer and link previews. Your Shopify store name is still used at checkout and in emails."
+      },
+      {
+        "type": "header",
+        "content": "Homepage SEO"
+      },
+      {
+        "type": "text",
+        "id": "home_seo_title",
+        "label": "Homepage title (Google)",
+        "default": "Electrolife | High-Sodium, Zero-Sugar Electrolyte Drink Mix UK",
+        "info": "Aim for 50 to 60 characters."
+      },
+      {
+        "type": "textarea",
+        "id": "home_seo_description",
+        "label": "Homepage description (Google)",
+        "default": "Electrolyte sticks with 1,000 mg sodium, potassium and magnesium, and zero sugar. Four flavours, vegan, free next-day UK delivery. Subscribe and save 20%.",
+        "info": "Aim for 140 to 160 characters. Your store description in Settings, Preferences overrides this."
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Default social share image",
+        "info": "Used when a page has no image of its own. 1200 x 630 px works best."
       }
     ]
   },

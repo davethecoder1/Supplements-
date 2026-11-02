@@ -15,18 +15,30 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    {%- liquid
+      assign el_title = page_title
+      assign el_desc = page_description | default: shop.description
+      if request.page_type == 'index'
+        if settings.home_seo_title != blank
+          assign el_title = settings.home_seo_title
+        endif
+        if el_desc == blank
+          assign el_desc = settings.home_seo_description
+        endif
+      endif
+    -%}
     <title>
-      {{ page_title }}
+      {{ el_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
       {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- assign brand = settings.brand_name | default: shop.name -%}{%- unless page_title contains brand %} &ndash; {{ brand }}{% endunless -%}
+      {%- assign brand = settings.brand_name | default: shop.name -%}{%- unless el_title contains brand %} &ndash; {{ brand }}{% endunless -%}
     </title>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+    {% if el_desc != blank %}
+      <meta name="description" content="{{ el_desc | strip_html | escape }}">
     {% endif %}
 
-    {% render 'meta-tags' %}
+    {% render 'meta-tags', el_title: el_title, el_desc: el_desc %}
 
     <script type="module">
       import * as StandardEvents from 'https://cdn.shopify.com/storefront/standard-events.js';
